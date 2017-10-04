@@ -1,0 +1,6 @@
+export(itheta_vcov)
+export(mp_vcov)
+export(theta_vcov)
+import(gtools)
+import(matrixcalc)
+import(sandwich)

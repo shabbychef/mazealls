@@ -1,0 +1,20 @@
+
+citHeader("To cite the 'mazealls' package in publications use:")
+
+year = sub('.*(2[[:digit:]]{3})-.*', '\\1', meta$Date, perl = TRUE)
+vers = paste('R package version', meta$Version)
+fix.title = gsub("Markowitz","{M}arkowitz",meta$Title)
+
+citEntry(
+  entry = "manual",
+	key = paste0(meta$Package,"-Manual"),
+  title = paste0("{", meta$Package, "}: ", fix.title),
+  author = as.person(meta$Author),
+  year = year,
+  note = vers,
+  url = meta$URL,
+  textVersion = paste0("Steven E. Pav (", year, "). ", meta$Package, ": ", meta$Title, ". ", vers, ".")
+)
+
+#for vim modeline: (do not edit)
+# vim:fdm=marker:fmr=FOLDUP,UNFOLD:cms=#%s:syn=r:ft=r

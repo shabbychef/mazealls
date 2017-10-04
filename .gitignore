@@ -1,0 +1,34 @@
+# for testing, ignore these
+
+# dev stuff
+.tags
+.R_tags
+.*.swp
+.*.swo
+
+# local build check and whatnot
+*.tar.gz
+.local/
+.staging/
+*.Rcheck
+
+# unit testing
+unit_test.log
+
+# build static/dynamic
+convoluted_build.sh
+
+# automagically generated?
+# ah, but these are needed for install_github:
+#NAMESPACE
+#DESCRIPTION
+#man/
+
+# generated as part of the 'local' vignette build
+mazealls.tex
+mazealls.log
+./mazealls.pdf
+*.aux
+*.bbl
+*.blg
+cache/

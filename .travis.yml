@@ -1,0 +1,6 @@
+language: r
+
+r_packages :
+  - ggplot2
+  - MASS
+
