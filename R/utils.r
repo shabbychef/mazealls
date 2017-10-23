@@ -38,20 +38,31 @@ draw_line <- function(dist) {
 #' chosen, will be a hole.
 #' @param seg_len the length of one segment.
 #' @param go_back whether to go back when done.
-holey_line <- function(seg_len,num_segs,go_back=FALSE) {
+#' @param hole_color the color to plot the \sQuote{hole}. A 
+#' \code{NULL} value corresponds to no drawn hole. See the
+#' \link{\code{grDevices::colors}} function for
+#' more options
+holey_line <- function(seg_len,num_segs,go_back=FALSE,hole_color=NULL) {
 	if (num_segs > 1) {
 		whichn <- sample.int(n=num_segs,size=1)
 		draw_line(dist=(whichn-1) * seg_len)
-		turtle_forward(seg_len)
+		if (!is.null(hole_color)) {
+			old_color <- turtle_status()$DisplayOptions$col
+			turtle_col(hole_color)
+			draw_line(dist=seg_len)
+			turtle_col(old_color)
+		} else {
+			turtle_forward(seg_len)
+		}
 		draw_line(dist=(num_segs-whichn) * seg_len)
 		if (go_back) {
 			turtle_backward(dist=seg_len * num_segs)
 		}
 	}
 }
-maybe_holey_line <- function(seg_len,num_segs,has_hole=TRUE,go_back=FALSE) {
+maybe_holey_line <- function(seg_len,num_segs,has_hole=TRUE,go_back=FALSE,hole_color=NULL) {
 	if (has_hole) {
-		holey_line(seg_len=seg_len,num_segs=num_segs,go_back=go_back) 
+		holey_line(seg_len=seg_len,num_segs=num_segs,go_back=go_back,hole_color=hole_color) 
 	} else {
 		draw_line(dist=(seg_len*num_segs))
 		if (go_back) {
@@ -101,6 +112,10 @@ holey_bone <- function(seg_len,num_segs) {
 	}
 }
 
+# 2FIX: this should have options for which boundaries to have
+# holes or no lines at all.
+#
+#
 #' recursively draw a isosceles trapezoid, with three sides of length
 #' 2^depth * seg_len and one of length 2^(depth+1) * seg_len, starting
 #' from the middle of the longer side. will draw either 
@@ -108,7 +123,7 @@ holey_bone <- function(seg_len,num_segs) {
 #' @param seg_len the length of one segment
 #' @param clockwise whether to draw clockwise.
 #' @param draw_boundary whether to draw a boundary
-trapezoid <- function(depth,seg_len,clockwise=TRUE,draw_boundary=FALSE,boundary_holes=2) {
+trapezoid_maze <- function(depth,seg_len,clockwise=TRUE,draw_boundary=FALSE,boundary_holes=2,boundary_hole_color=NULL) {
 	num_segs <- 2^depth
 	multiplier <- ifelse(clockwise,1,-1)
 	if (depth > 0) {
@@ -125,12 +140,12 @@ trapezoid <- function(depth,seg_len,clockwise=TRUE,draw_boundary=FALSE,boundary_
 		turtle_right(multiplier * 90)
 
 		if (depth > 1) {
-			trapezoid(depth-1,seg_len,clockwise=clockwise,draw_boundary=FALSE)
+			trapezoid_maze(depth-1,seg_len,clockwise=clockwise,draw_boundary=FALSE)
 			turtle_forward(num_segs * seg_len)
 			turtle_right(multiplier * 120)
 			for (iii in c(1:3)) {
 				turtle_forward(num_segs * seg_len/2)
-				trapezoid(depth-1,seg_len,clockwise=clockwise,draw_boundary=FALSE)
+				trapezoid_maze(depth-1,seg_len,clockwise=clockwise,draw_boundary=FALSE)
 				turtle_forward(num_segs * seg_len/2)
 				turtle_right(multiplier * 60)
 			}
@@ -142,10 +157,10 @@ trapezoid <- function(depth,seg_len,clockwise=TRUE,draw_boundary=FALSE,boundary_
 		# do this
 		holes <- sample.int(n=4,size=4) <= boundary_holes
 		turtle_backward(dist=seg_len * num_segs)
-		maybe_holey_line(seg_len,num_segs*2,has_hole=holes[1])
+		maybe_holey_line(seg_len,num_segs*2,has_hole=holes[1],hole_color=boundary_hole_color)
 		turtle_right(multiplier * 120)
 		for (iii in c(1:3)) {
-			maybe_holey_line(seg_len,num_segs,has_hole=holes[1+iii])
+			maybe_holey_line(seg_len,num_segs,has_hole=holes[1+iii],hole_color=boundary_hole_color)
 			turtle_right(multiplier * 60)
 		}
 		turtle_forward(dist=seg_len * num_segs)
@@ -161,7 +176,7 @@ trapezoid <- function(depth,seg_len,clockwise=TRUE,draw_boundary=FALSE,boundary_
 #' @param type there are many ways to recursive draw a triangle, either by
 #'        recursively drawing 4 triangles, or by stacking trapezoids, and so
 #'        on.
-triangle <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapezoids','triangles'),
+triangle_maze <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapezoids','triangles'),
 										 draw_boundary=FALSE,boundary_holes=2) {
 	
 	method <- match.arg(method)
@@ -171,7 +186,7 @@ triangle <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapezoids','t
 	if (depth > 1) {
 		switch(method,
 					 stack_trapezoids={
-						 trapezoid(depth-1,seg_len,clockwise=clockwise,draw_boundary=FALSE)
+						 trapezoid_maze(depth-1,seg_len,clockwise=clockwise,draw_boundary=FALSE)
 						 # now move over
 						 magic_ratio <- sqrt(3) / 4
 
@@ -179,7 +194,7 @@ triangle <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapezoids','t
 						 turtle_right(multiplier * 90)
 						 turtle_forward(num_segs * seg_len * magic_ratio)
 						 turtle_left(multiplier * 90)
-						 triangle(depth-1,seg_len,clockwise=clockwise,method=method,draw_boundary=FALSE)
+						 triangle_maze(depth-1,seg_len,clockwise=clockwise,method=method,draw_boundary=FALSE)
 						 turtle_left(multiplier * 90)
 						 turtle_forward(num_segs * seg_len * magic_ratio)
 						 turtle_right(multiplier * 90)
@@ -189,14 +204,14 @@ triangle <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapezoids','t
 						 turtle_backward(dist=seg_len * num_segs/2)
 						 for (iii in c(1:3)) {
 							 turtle_forward(dist=seg_len * num_segs/4)
-							 triangle(depth-1,seg_len,clockwise=clockwise,method='stack_trapezoids',draw_boundary=FALSE)
+							 triangle_maze(depth-1,seg_len,clockwise=clockwise,method='stack_trapezoids',draw_boundary=FALSE)
 							 turtle_forward(dist=seg_len * 3 * num_segs/4)
 							 turtle_right(multiplier * 120)
 						 }
 						 turtle_forward(dist=seg_len * num_segs/2)
 						 turtle_right(multiplier * 60)
 						 turtle_forward(dist=seg_len * num_segs/4)
-						 triangle(depth-1,seg_len,clockwise=clockwise,method='stack_trapezoids',draw_boundary=TRUE,boundary_holes=3)
+						 triangle_maze(depth-1,seg_len,clockwise=clockwise,method='stack_trapezoids',draw_boundary=TRUE,boundary_holes=3)
 						 turtle_backward(dist=seg_len * num_segs/4)
 						 turtle_left(multiplier * 60)
 					 })
@@ -237,8 +252,8 @@ hexagon <- function(depth,seg_len,clockwise=TRUE,method=c('two_trapezoids','six_
 						 turtle_right(multiplier * 90)
 						 turtle_forward(2*num_segs * seg_len * magic_ratio)
 						 turtle_left(multiplier * 90)
-						 trapezoid(depth,seg_len,clockwise=clockwise,draw_boundary=FALSE)
-						 trapezoid(depth,seg_len,clockwise=!clockwise,draw_boundary=FALSE)
+						 trapezoid_maze(depth,seg_len,clockwise=clockwise,draw_boundary=FALSE)
+						 trapezoid_maze(depth,seg_len,clockwise=!clockwise,draw_boundary=FALSE)
 
 						 turtle_backward(dist=seg_len * num_segs)
 						 holey_line(seg_len,num_segs*2)
@@ -248,8 +263,10 @@ hexagon <- function(depth,seg_len,clockwise=TRUE,method=c('two_trapezoids','six_
 						 turtle_forward(2*num_segs * seg_len * magic_ratio)
 						 turtle_right(multiplier * 90)
 					 },
-					 two_triangles={
+					 six_triangles={
+						 # 2FIX: write this
 						 turtle_up()
+						 #...
 					 })
 	}
 	if (draw_boundary) {
@@ -271,17 +288,17 @@ hexagon <- function(depth,seg_len,clockwise=TRUE,method=c('two_trapezoids','six_
 #library(TurtleGraphics)
 turtle_init(1000,1000)
 turtle_hide()
-#turtle_do({
-	#trapezoid(depth=3,20,clockwise=TRUE)
-	#trapezoid(depth=3,20,clockwise=FALSE)
-#})
+turtle_do({
+	#trapezoid_maze(depth=3,20,clockwise=TRUE,)
+	trapezoid_maze(depth=3,20,clockwise=FALSE,draw_boundary=TRUE,boundary_hole_color='green')
+})
 
 turtle_init(1000,1000)
 turtle_hide()
 turtle_do({
-	#trapezoid(depth=4,20,clockwise=FALSE,draw_boundary=TRUE)
-	#triangle(depth=5,15,clockwise=FALSE,draw_boundary=TRUE)
-	#triangle(depth=5,15,clockwise=FALSE,method='triangles',draw_boundary=TRUE)
+	#trapezoid_maze(depth=4,20,clockwise=FALSE,draw_boundary=TRUE)
+	#triangle_maze(depth=5,15,clockwise=FALSE,draw_boundary=TRUE)
+	#triangle_maze(depth=5,15,clockwise=FALSE,method='triangles',draw_boundary=TRUE)
 	hexagon(depth=4,15,clockwise=FALSE,method='two_trapezoids',draw_boundary=TRUE,boundary_holes=c(1,4))
 	hexagon(depth=4,15,clockwise=TRUE,method='two_trapezoids',draw_boundary=FALSE,boundary_holes=c(1,4))
 })
@@ -293,9 +310,9 @@ turtle_do({
 turtle_init(1000,1000)
 turtle_hide()
 turtle_do({
-	#trapezoid(depth=4,20,clockwise=FALSE,draw_boundary=TRUE)
-	#triangle(depth=5,15,clockwise=FALSE,draw_boundary=TRUE)
-	#triangle(depth=5,15,clockwise=FALSE,method='triangles',draw_boundary=TRUE)
+	#trapezoid_maze(depth=4,20,clockwise=FALSE,draw_boundary=TRUE)
+	#triangle_maze(depth=5,15,clockwise=FALSE,draw_boundary=TRUE)
+	#triangle_maze(depth=5,15,clockwise=FALSE,method='triangles',draw_boundary=TRUE)
 	depth <- 4
 	num_segs <- 2^depth
 	seg_len <- 8
