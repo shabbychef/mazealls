@@ -109,11 +109,17 @@ holey_line <- function(seg_len,num_segs,go_back=FALSE,hole_color=NULL) {
 #' \link{\code{grDevices::colors}} function for
 #' more options
 holey_path <- function(unit_len,lengths,angles,draw_line=TRUE,has_hole=FALSE,hole_color=NULL) {
-	mapply(function(len,ang,drawl,hol) {
+# do something here about recycling hole color too?
+	if (is.null(hole_color)) { hole_color <- c('clear') }
+	mapply(function(len,ang,drawl,hol,holc) {
 					 if (len > 0) {
 						 if (drawl) {
 							 if (hol) {
-								 holey_line(unit_len,len,go_back=FALSE,hole_color=hole_color)
+								 if (holc == 'clear') {
+									 holey_line(unit_len,len,go_back=FALSE,hole_color=NULL)
+								 } else {
+									 holey_line(unit_len,len,go_back=FALSE,hole_color=holc)
+								 }
 							 } else {
 								 draw_line(dist=unit_len*len)
 							 }
@@ -122,7 +128,7 @@ holey_path <- function(unit_len,lengths,angles,draw_line=TRUE,has_hole=FALSE,hol
 						 }
 					 }
 					 turtle_right(ang)
-	},lengths,angles,draw_line,has_hole)
+	},lengths,angles,draw_line,has_hole,hole_color)
 }
 
 
@@ -365,6 +371,8 @@ turtle_do({
 	triangle_maze(depth=6,12,clockwise=TRUE,method='two_ears',draw_boundary=TRUE,boundary_holes=c(1,3))
 	triangle_maze(depth=6,12,clockwise=FALSE,method='grid',draw_boundary=TRUE,boundary_lines=c(2,3),boundary_holes=c(2))
 })
+dev.copy(png,'mazetops.png')
+dev.off()
 
 
 #' recursively draw a regular hexagon, with sides all of length
