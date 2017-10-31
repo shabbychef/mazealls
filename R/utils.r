@@ -35,7 +35,7 @@ draw_line <- function(dist) {
 draw_colored_line <- function(dist,color) {
 	old_color <- turtle_status()$DisplayOptions$col
 	turtle_col(color)
-	draw_line(dist=seg_len)
+	draw_line(dist=dist)
 	turtle_col(old_color)
 }
 
@@ -190,16 +190,22 @@ holey_bone <- function(seg_len,num_segs) {
 #
 #' recursively draw a isosceles trapezoid, with three sides of length
 #' 2^depth * seg_len and one of length 2^(depth+1) * seg_len, starting
-#' from the middle of the longer side. will draw either 
+#' from the middle of the long side. will draw either 
 #' @param depth the depth of recursion
 #' @param seg_len the length of one segment
 #' @param clockwise whether to draw clockwise.
 #' @param draw_boundary whether to draw a boundary
 trapezoid_maze <- function(depth,seg_len,clockwise=TRUE,
+													 start_from=c('midpoint','corner'),
 													 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,boundary_hole_color=NULL,
 													 end_side=1) {
+	start_from <- match.arg(start_from)
+
 	num_segs <- 2^depth
 	multiplier <- ifelse(clockwise,1,-1)
+
+	if (start_from=='corner') { turtle_backward(dist=seg_len * num_segs) }
+
 	if (depth > 0) {
 		# recurse.
 		magic_ratio <- sqrt(3) / 4
@@ -258,6 +264,7 @@ trapezoid_maze <- function(depth,seg_len,clockwise=TRUE,
 
 		turtle_forward(dist=seg_len * num_segs)
 	}
+	if (start_from=='corner') { turtle_forward(dist=seg_len * num_segs) }
 }
 
 #' recursively draw an equilateral triangle, with sides all of length
@@ -269,7 +276,7 @@ trapezoid_maze <- function(depth,seg_len,clockwise=TRUE,
 #' @param type there are many ways to recursive draw a triangle, either by
 #'        recursively drawing 4 triangles, or by stacking trapezoids, and so
 #'        on.
-triangle_maze <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapezoids','triangles','grid','two_ears','random'),
+triangle_maze <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapezoids','triangles','uniform','two_ears','random'),
 													start_from=c('midpoint','corner'),
 													draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,boundary_hole_color=NULL,
 													end_side=1) {
@@ -283,7 +290,7 @@ triangle_maze <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapezoid
 
 	if (depth > 0) {
 		my_method <- switch(method,
-												grid={ 'triangles' },
+												uniform={ 'triangles' },
 												random={
 													sample(c('stack_trapezoids','triangles','two_ears'),1)
 												},
@@ -321,7 +328,7 @@ triangle_maze <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapezoid
 					 },
 					 triangles={
 						 sub_method <- method
-						 if (! (sub_method %in% c('random','grid'))) { sub_method <- sample(c('stack_trapezoids','two_ears'),1) }
+						 if (! (sub_method %in% c('random','uniform'))) { sub_method <- sample(c('stack_trapezoids','two_ears'),1) }
 
 						 turtle_up()
 						 turtle_backward(dist=seg_len * num_segs/2)
@@ -368,8 +375,8 @@ turtle_up()
 turtle_do({
 	#triangle_maze(depth=6,12,clockwise=FALSE,method='two_ears',draw_boundary=TRUE)
 	#triangle_maze(depth=6,12,clockwise=FALSE,method='random',draw_boundary=TRUE)
-	triangle_maze(depth=6,12,clockwise=TRUE,method='two_ears',draw_boundary=TRUE,boundary_holes=c(1,3))
-	triangle_maze(depth=6,12,clockwise=FALSE,method='grid',draw_boundary=TRUE,boundary_lines=c(2,3),boundary_holes=c(2))
+	triangle_maze(depth=6,12,clockwise=TRUE,method='two_ears',draw_boundary=TRUE,boundary_holes=c(1,3),boundary_hole_color=c('clear','clear','green'))
+	triangle_maze(depth=6,12,clockwise=FALSE,method='uniform',draw_boundary=TRUE,boundary_lines=c(2,3),boundary_holes=c(2),boundary_hole_color='green')
 })
 dev.copy(png,'mazetops.png')
 dev.off()
@@ -490,7 +497,7 @@ dev.off()
 #' @param draw_boundary whether to draw a boundary
 #' @param type there are many ways to recursive draw a triangle, either by
 #'        splitting into 2 parallelograms, or 4 parallelograms.
-parallelogram_maze <- function(seg_len,height,width,angle=90,clockwise=TRUE,method=c('two_parallelograms','four_parallelograms','grid','random'),
+parallelogram_maze <- function(seg_len,height,width,angle=90,clockwise=TRUE,method=c('two_parallelograms','four_parallelograms','uniform','random'),
 															 start_from=c('midpoint','corner'),
 															 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,boundary_hole_color=NULL,
 															 end_side=1) {
@@ -506,7 +513,7 @@ parallelogram_maze <- function(seg_len,height,width,angle=90,clockwise=TRUE,meth
 												 random={
 													 sample(c('two_parallelograms','four_parallelograms'),1)
 												 },
-												 grid={ 'four_parallelograms' },
+												 uniform={ 'four_parallelograms' },
 												 method)
 		
 		switch(my_method,
@@ -540,7 +547,7 @@ parallelogram_maze <- function(seg_len,height,width,angle=90,clockwise=TRUE,meth
 					 four_parallelograms={
 						 bholes <- sample.int(n=4,size=3)
 
-						 if (method == 'grid') {
+						 if (method == 'uniform') {
 							 mid_height <- round((height/2))
 							 mid_width <- round((width/2))
 						 } else {
@@ -606,7 +613,7 @@ turtle_do({
 	#parallelogram_maze(angle=90,seg_len=10,width=25,height=25,method='four_parallelograms',draw_boundary=TRUE)
 
 	#parallelogram_maze(angle=90,seg_len=10,width=35,height=55,method='random',draw_boundary=TRUE)
-	parallelogram_maze(angle=90,seg_len=12,width=75,height=55,method='grid',draw_boundary=TRUE)
+	parallelogram_maze(angle=90,seg_len=12,width=75,height=55,method='uniform',draw_boundary=TRUE)
 })
 
 #library(TurtleGraphics)
