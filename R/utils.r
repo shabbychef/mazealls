@@ -25,6 +25,21 @@
 
 library(TurtleGraphics)
 
+.turn_right <- function(angl) {
+	if (angl > 0) {
+		turtle_right(angl)
+	} else {
+		turtle_left(-angl)
+	}
+}
+.turn_left <- function(angl) {
+	if (angl > 0) {
+		turtle_left(angl)
+	} else {
+		turtle_right(-angl)
+	}
+}
+
 draw_line <- function(dist) {
 	if (dist > 0) {
 		turtle_down()
@@ -38,6 +53,7 @@ draw_colored_line <- function(dist,color) {
 	draw_line(dist=dist)
 	turtle_col(old_color)
 }
+
 
 .interpret_boundary_holes <- function(boundary_holes,num_boundary_holes,nsides=3) {
 	if (is.null(boundary_holes)) {
@@ -83,6 +99,7 @@ holey_line <- function(seg_len,num_segs,go_back=FALSE,hole_color=NULL) {
 			turtle_backward(dist=seg_len * num_segs)
 		}
 	} else if (num_segs == 1) {
+		whichn <- 1
 		if (!is.null(hole_color)) {
 			draw_colored_line(seg_len,hole_color)
 			if (go_back) {
@@ -91,7 +108,10 @@ holey_line <- function(seg_len,num_segs,go_back=FALSE,hole_color=NULL) {
 		} else if (!go_back) {
 			turtle_forward(seg_len)
 		}
+	} else {
+		whichn <- 0
 	}
+	whichn
 }
 #'
 #' @param unit_len the length of one unit, drawn or moved.
@@ -127,7 +147,7 @@ holey_path <- function(unit_len,lengths,angles,draw_line=TRUE,has_hole=FALSE,hol
 							 turtle_forward(dist=unit_len * len)
 						 }
 					 }
-					 turtle_right(ang)
+					 .turn_right(ang)
 	},lengths,angles,draw_line,has_hole,hole_color)
 }
 
@@ -144,11 +164,11 @@ maybe_holey_line <- function(seg_len,num_segs,has_hole=TRUE,go_back=FALSE,hole_c
 }
 holey_y <- function(seg_len,num_segs) {
 	coinflip <- sample.int(n=2,size=1)
-	turtle_left(60)
+	.turn_left(60)
 	maybe_holey_line(seg_len,num_segs,has_hole=coinflip==1,go_back=TRUE)
-	turtle_right(120)
+	.turn_right(120)
 	maybe_holey_line(seg_len,num_segs,has_hole=coinflip==2,go_back=TRUE)
-	turtle_left(60)
+	.turn_left(60)
 }
 #' draw a \sQuote{bone} shape with holes in it, centered
 #' on the turtle in the given direction.
@@ -160,12 +180,12 @@ holey_bone <- function(seg_len,num_segs) {
 			# no hole in the center
 			for (jjj in c(0,1)) {
 				draw_line(dist=seg_len * num_segs/2)
-				turtle_left(60)
+				.turn_left(60)
 				maybe_holey_line(seg_len,num_segs,has_hole=no_hole_seg != 2*jjj+1,go_back=TRUE)
-				turtle_right(120)
+				.turn_right(120)
 				maybe_holey_line(seg_len,num_segs,has_hole=no_hole_seg != 2*jjj+2,go_back=TRUE)
-				turtle_left(60)
-				turtle_left(180)
+				.turn_left(60)
+				.turn_left(180)
 				turtle_forward(dist=seg_len * num_segs/2)
 			}
 		} else {
@@ -173,13 +193,13 @@ holey_bone <- function(seg_len,num_segs) {
 			turtle_forward(dist=seg_len * num_segs/2)
 			for (jjj in c(0,1)) {
 				holey_y(seg_len,num_segs)
-				turtle_right(180)
+				.turn_right(180)
 				turtle_forward(dist=seg_len * num_segs)
 			}
-			turtle_right(180)
+			.turn_right(180)
 			holey_line(seg_len,num_segs,go_back=TRUE)
 			turtle_forward(dist=seg_len * num_segs/2)
-			turtle_right(180)
+			.turn_right(180)
 		}
 	}
 }
@@ -211,25 +231,25 @@ trapezoid_maze <- function(depth,seg_len,clockwise=TRUE,
 		magic_ratio <- sqrt(3) / 4
 
 		turtle_up()
-		turtle_right(multiplier * 90)
+		.turn_right(multiplier * 90)
 		turtle_forward(num_segs * seg_len * magic_ratio)
-		turtle_left(multiplier * 90)
+		.turn_left(multiplier * 90)
 		holey_bone(seg_len,num_segs/2)
-		turtle_left(multiplier * 90)
+		.turn_left(multiplier * 90)
 		turtle_forward(num_segs * seg_len * magic_ratio)
-		turtle_right(multiplier * 90)
+		.turn_right(multiplier * 90)
 
 		if (depth > 1) {
 			trapezoid_maze(depth-1,seg_len,clockwise=clockwise,draw_boundary=FALSE)
 			turtle_forward(num_segs * seg_len)
-			turtle_right(multiplier * 120)
+			.turn_right(multiplier * 120)
 			for (iii in c(1:3)) {
 				turtle_forward(num_segs * seg_len/2)
 				trapezoid_maze(depth-1,seg_len,clockwise=clockwise,draw_boundary=FALSE)
 				turtle_forward(num_segs * seg_len/2)
-				turtle_right(multiplier * 60)
+				.turn_right(multiplier * 60)
 			}
-			turtle_right(multiplier * 60)
+			.turn_right(multiplier * 60)
 			turtle_forward(num_segs * seg_len)
 		}
 	}
@@ -276,14 +296,27 @@ trapezoid_maze <- function(depth,seg_len,clockwise=TRUE,
 #' @param type there are many ways to recursive draw a triangle, either by
 #'        recursively drawing 4 triangles, or by stacking trapezoids, and so
 #'        on.
-triangle_maze <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapezoids','triangles','uniform','two_ears','random'),
-													start_from=c('midpoint','corner'),
-													draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,boundary_hole_color=NULL,
-													end_side=1) {
+eq_triangle_maze <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapezoids','triangles','uniform','two_ears','hex_and_three','random'),
+														 start_from=c('midpoint','corner'),
+														 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,boundary_hole_color=NULL,
+														 end_side=1) {
 	
 	method <- match.arg(method)
 	start_from <- match.arg(start_from)
-	num_segs <- 2^depth
+
+# check for hex and three ... 
+	# check for off powers of two
+	non_two <- (abs(round(depth) - depth) > 1e-7)
+	num_segs <- round(2^depth)
+	by_three <- num_segs / 3
+	if (non_two) {
+		stopifnot(abs(by_three - round(by_three)) < 1e-7)
+		if (method != 'hex_and_three') {
+			warning('for side length not a power of two, will switch to hex_and_three')
+		}
+		method <- 'hex_and_three'
+	}
+
 	multiplier <- ifelse(clockwise,1,-1)
 
 	if (start_from=='corner') { turtle_forward(dist=seg_len * num_segs/2) }
@@ -302,13 +335,26 @@ triangle_maze <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapezoid
 						 magic_ratio <- sqrt(3) / 4
 
 						 turtle_up()
-						 turtle_right(multiplier * 90)
+						 .turn_right(multiplier * 90)
 						 turtle_forward(num_segs * seg_len * magic_ratio)
-						 turtle_left(multiplier * 90)
-						 triangle_maze(depth-1,seg_len,clockwise=clockwise,method=method,draw_boundary=FALSE)
-						 turtle_left(multiplier * 90)
+						 .turn_left(multiplier * 90)
+						 eq_triangle_maze(depth-1,seg_len,clockwise=clockwise,method=method,draw_boundary=TRUE,
+															boundary_lines=c(1),boundary_holes=c(1))
+						 .turn_left(multiplier * 90)
 						 turtle_forward(num_segs * seg_len * magic_ratio)
-						 turtle_right(multiplier * 90)
+						 .turn_right(multiplier * 90)
+					 },
+					 hex_and_three={
+						 hexagon_maze(depth=log2(by_three),seg_len,clockwise=clockwise,method='random',
+													start_from='midpoint',draw_boundary=TRUE,num_boundary_holes=0,
+													boundary_lines=c(2,4,6),boundary_holes=c(2,4,6))
+						 for (iii in c(1:3)) {
+							 turtle_forward(dist=num_segs * seg_len/2)
+							 .turn_right(multiplier*120)
+							 eq_triangle_maze(depth=log2(by_three),seg_len,clockwise=clockwise,
+																start_from='corner',method='random',draw_boundary=FALSE)
+							 turtle_forward(dist=num_segs * seg_len/2)
+						 }
 					 },
 					 two_ears={
 						 # parallelogram and two triangles
@@ -319,11 +365,11 @@ triangle_maze <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapezoid
 						 # now the other two triangles.
 						 for (iii in c(1,2)) {
 							 turtle_forward(seg_len*num_segs)
-							 turtle_right(multiplier * 120)
-							 triangle_maze(depth-1,seg_len,clockwise=clockwise,method=method,start_from='corner',draw_boundary=FALSE)
+							 .turn_right(multiplier * 120)
+							 eq_triangle_maze(depth-1,seg_len,clockwise=clockwise,method=method,start_from='corner',draw_boundary=FALSE)
 						 }
 						 turtle_forward(seg_len*num_segs)
-						 turtle_right(multiplier * 120)
+						 .turn_right(multiplier * 120)
 						 turtle_forward(seg_len*num_segs/2)
 					 },
 					 triangles={
@@ -333,16 +379,16 @@ triangle_maze <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapezoid
 						 turtle_up()
 						 turtle_backward(dist=seg_len * num_segs/2)
 						 for (iii in c(1:3)) {
-							 triangle_maze(depth-1,seg_len,clockwise=clockwise,start_from='corner',
+							 eq_triangle_maze(depth-1,seg_len,clockwise=clockwise,start_from='corner',
 														 method=sub_method,draw_boundary=FALSE)
 							 turtle_forward(dist=seg_len * num_segs)
-							 turtle_right(multiplier * 120)
+							 .turn_right(multiplier * 120)
 						 }
 						 turtle_forward(dist=seg_len * num_segs/2)
-						 turtle_right(multiplier * 60)
-						 triangle_maze(depth-1,seg_len,clockwise=clockwise,start_from='corner',
+						 .turn_right(multiplier * 60)
+						 eq_triangle_maze(depth-1,seg_len,clockwise=clockwise,start_from='corner',
 													 method=sub_method,draw_boundary=TRUE,num_boundary_holes=3)
-						 turtle_left(multiplier * 60)
+						 .turn_left(multiplier * 60)
 					 })
 	}
 	if (draw_boundary) {
@@ -362,7 +408,7 @@ triangle_maze <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapezoid
 	if ((end_side != 1) && (!is.null(end_side))) {
 		for (iii in 1:(end_side-1)) {
 			turtle_forward(dist=seg_len * num_segs/2)
-			turtle_right(multiplier * 120)
+			.turn_right(multiplier * 120)
 			turtle_forward(dist=seg_len * num_segs/2)
 		}
 	}
@@ -373,11 +419,18 @@ turtle_init(1500,1500)
 turtle_hide()
 turtle_up()
 turtle_do({
-	#triangle_maze(depth=6,12,clockwise=FALSE,method='two_ears',draw_boundary=TRUE)
-	#triangle_maze(depth=6,12,clockwise=FALSE,method='random',draw_boundary=TRUE)
-	triangle_maze(depth=6,12,clockwise=TRUE,method='two_ears',draw_boundary=TRUE,boundary_holes=c(1,3),boundary_hole_color=c('clear','clear','green'))
-	triangle_maze(depth=6,12,clockwise=FALSE,method='uniform',draw_boundary=TRUE,boundary_lines=c(2,3),boundary_holes=c(2),boundary_hole_color='green')
+	turtle_left(90)
+	turtle_forward(400)
+	turtle_right(90)
+	#eq_triangle_maze(depth=6,12,clockwise=FALSE,method='two_ears',draw_boundary=TRUE)
+	#eq_triangle_maze(depth=6,12,clockwise=FALSE,method='random',draw_boundary=TRUE)
+	#eq_triangle_maze(depth=6,12,clockwise=TRUE,method='two_ears',draw_boundary=TRUE,boundary_holes=c(1,3),boundary_hole_color=c('clear','clear','green'))
+	#eq_triangle_maze(depth=6,12,clockwise=FALSE,method='uniform',draw_boundary=TRUE,boundary_lines=c(2,3),boundary_holes=c(2),boundary_hole_color='green')
+#	eq_triangle_maze(depth=6,12,clockwise=TRUE,method='triangles',draw_boundary=TRUE,boundary_holes=c(1,3),boundary_hole_color=c('clear','clear','green'))
+	#eq_triangle_maze(depth=6,12,clockwise=FALSE,method='stack_trapezoids',draw_boundary=TRUE,boundary_lines=c(2,3),boundary_holes=c(2),boundary_hole_color='green')
+	eq_triangle_maze(depth=log2(9*9),12,clockwise=TRUE,method='hex_and_three',draw_boundary=TRUE,boundary_holes=c(1,3),boundary_hole_color=c('clear','clear','green'))
 })
+
 dev.copy(png,'mazetops.png')
 dev.off()
 
@@ -390,7 +443,7 @@ dev.off()
 #' @param draw_boundary whether to draw a boundary
 #' @param type there are many ways to recursive draw a triangle, either by
 #'        drawing 6 triangles, or stacking two trapezoids, and so on.
-hexagon_maze <- function(depth,seg_len,clockwise=TRUE,method=c('two_trapezoids','six_triangles','three_parallelograms'),
+hexagon_maze <- function(depth,seg_len,clockwise=TRUE,method=c('two_trapezoids','six_triangles','three_parallelograms','random'),
 												 start_from=c('midpoint','corner'),
 												 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,boundary_hole_color=NULL,
 												 end_side=1) {
@@ -399,18 +452,29 @@ hexagon_maze <- function(depth,seg_len,clockwise=TRUE,method=c('two_trapezoids',
 	start_from <- match.arg(start_from)
 
 	if (start_from=='corner') { turtle_forward(dist=seg_len * num_segs/2) }
-	num_segs <- 2^depth
+	# check for off powers of two
+	non_two <- (abs(round(depth) - depth) > 1e-7)
+	if (non_two && !(method %in% c('three_parallelograms'))) {
+		warning('for side length not a power of two, will switch to three parallelograms')
+		method <- 'three_parallelograms'
+	}
+	num_segs <- round(2^depth)
 	multiplier <- ifelse(clockwise,1,-1)
 
 	if (depth > 1) {
-		switch(method,
+		turtle_up()
+		my_method <- switch(method,
+												 random={
+													 sample(c('two_trapezoids','six_triangles','three_parallelograms'),1)
+												 },
+												 method)
+		switch(my_method,
 					 two_trapezoids={
 						 magic_ratio <- sqrt(3) / 4
 
-						 turtle_up()
-						 turtle_right(multiplier * 90)
+						 .turn_right(multiplier * 90)
 						 turtle_forward(2*num_segs * seg_len * magic_ratio)
-						 turtle_left(multiplier * 90)
+						 .turn_left(multiplier * 90)
 						 trapezoid_maze(depth,seg_len,clockwise=clockwise,draw_boundary=FALSE)
 						 trapezoid_maze(depth,seg_len,clockwise=!clockwise,draw_boundary=FALSE)
 
@@ -418,14 +482,21 @@ hexagon_maze <- function(depth,seg_len,clockwise=TRUE,method=c('two_trapezoids',
 						 holey_line(seg_len,num_segs*2)
 						 turtle_backward(dist=seg_len * num_segs)
 						 
-						 turtle_left(multiplier * 90)
+						 .turn_left(multiplier * 90)
 						 turtle_forward(2*num_segs * seg_len * magic_ratio)
-						 turtle_right(multiplier * 90)
+						 .turn_right(multiplier * 90)
 					 },
 					 six_triangles={
-						 # 2FIX: write this
-						 turtle_up()
-						 #...
+						 turtle_backward(dist=seg_len * num_segs/2) 
+						 bholes <- sample.int(n=6,size=5)
+						 for (iii in c(1:6)) {
+							 eq_triangle_maze(depth,seg_len,clockwise=clockwise,method='random',draw_boundary=TRUE,
+																start_from='corner',
+																boundary_lines=2,boundary_holes=iii %in% bholes)
+							 turtle_forward(dist=seg_len * num_segs) 
+							 .turn_right(multiplier*60)
+						 }
+						 turtle_forward(dist=seg_len * num_segs/2) 
 					 },
 					 three_parallelograms={
 						 bholes <- sample.int(n=3,size=2)
@@ -433,9 +504,9 @@ hexagon_maze <- function(depth,seg_len,clockwise=TRUE,method=c('two_trapezoids',
 							 parallelogram_maze(seg_len,num_segs,num_segs,angle=60,clockwise=clockwise,
 																	draw_boundary=TRUE,boundary_lines=3,num_boundary_holes=0,boundary_holes=iii %in% bholes)
 							 turtle_forward(num_segs * seg_len / 2)
-							 turtle_right(multiplier * 60)
+							 .turn_right(multiplier * 60)
 							 turtle_forward(num_segs * seg_len)
-							 turtle_right(multiplier * 60)
+							 .turn_right(multiplier * 60)
 							 turtle_forward(num_segs * seg_len / 2)
 						 }
 					 })
@@ -457,26 +528,54 @@ hexagon_maze <- function(depth,seg_len,clockwise=TRUE,method=c('two_trapezoids',
 	if ((end_side != 1) && (!is.null(end_side))) {
 		for (iii in 1:(end_side-1)) {
 			turtle_forward(dist=seg_len * num_segs/2)
-			turtle_right(multiplier * 60)
+			.turn_right(multiplier * 60)
 			turtle_forward(dist=seg_len * num_segs/2)
 		}
 	}
 	if (start_from=='corner') { turtle_backward(dist=seg_len * num_segs/2) }
 }
 
+turtle_init(2000,2000)
+turtle_hide()
+turtle_do({
+	turtle_up()
+	turtle_backward(250)
+	.turn_right(90)
+	turtle_forward(150)
+	.turn_left(90)
+
+	.turn_right(60)
+	hexagon_maze(depth=5,12,clockwise=FALSE,method='six_triangles',draw_boundary=TRUE,boundary_holes=c(1,4),boundary_hole_color='green')
+})
+
+
+turtle_init(2000,2000)
+turtle_hide()
+turtle_do({
+	turtle_up()
+	turtle_backward(250)
+	.turn_right(90)
+	turtle_forward(150)
+	.turn_left(90)
+
+	.turn_right(60)
+	hexagon_maze(depth=log2(20),12,clockwise=FALSE,method='six_triangles',draw_boundary=TRUE,boundary_holes=c(1,4),boundary_hole_color='green')
+})
+
+
 turtle_init(1000,1000)
 turtle_hide()
 turtle_do({
 	turtle_up()
 	#trapezoid_maze(depth=4,20,clockwise=FALSE,draw_boundary=TRUE)
-	#triangle_maze(depth=5,15,clockwise=FALSE,draw_boundary=TRUE)
-	#triangle_maze(depth=5,15,clockwise=FALSE,method='triangles',draw_boundary=TRUE)
+	#eq_triangle_maze(depth=5,15,clockwise=FALSE,draw_boundary=TRUE)
+	#eq_triangle_maze(depth=5,15,clockwise=FALSE,method='triangles',draw_boundary=TRUE)
 	turtle_backward(250)
-	turtle_right(90)
+	.turn_right(90)
 	turtle_forward(150)
-	turtle_left(90)
+	.turn_left(90)
 
-	turtle_right(60)
+	.turn_right(60)
 	hexagon_maze(depth=5,12,clockwise=FALSE,method='three_parallelograms',draw_boundary=TRUE,boundary_holes=c(1,4),boundary_hole_color='green')
 })
 dev.copy(png,'mazecubes.png')
@@ -534,14 +633,14 @@ parallelogram_maze <- function(seg_len,height,width,angle=90,clockwise=TRUE,meth
 											parallelogram_maze(seg_len,height=height,width=midp,angle=angle,clockwise=clockwise,method=method,start_from='corner',
 																				 draw_boundary=TRUE,num_boundary_holes=0,boundary_lines=3,boundary_holes=3)
 
-											turtle_right(angle*multiplier)
+											.turn_right(angle*multiplier)
 											turtle_forward(midp*seg_len)
-											turtle_left(angle*multiplier)
+											.turn_left(angle*multiplier)
 											parallelogram_maze(seg_len,height=height,width=width-midp,angle=angle,clockwise=clockwise,method=method,start_from='corner',
 																				 draw_boundary=FALSE)
-											turtle_right(angle*multiplier)
+											.turn_right(angle*multiplier)
 											turtle_backward(midp*seg_len)
-											turtle_left(angle*multiplier)
+											.turn_left(angle*multiplier)
 										})
 					 },
 					 four_parallelograms={
@@ -561,9 +660,9 @@ parallelogram_maze <- function(seg_len,height,width,angle=90,clockwise=TRUE,meth
 						 parallelogram_maze(seg_len,height=height-mid_height,width=mid_width,angle=angle,clockwise=clockwise,method=method,start_from='corner',
 																draw_boundary=TRUE,boundary_lines=3,boundary_holes=2 %in% bholes)
 
-						 turtle_right(angle*multiplier)
+						 .turn_right(angle*multiplier)
 						 turtle_forward(mid_width*seg_len)
-						 turtle_left(angle*multiplier)
+						 .turn_left(angle*multiplier)
 
 						 parallelogram_maze(seg_len,height=height-mid_height,width=width-mid_width,angle=angle,clockwise=clockwise,method=method,start_from='corner',
 																draw_boundary=TRUE,boundary_lines=4,boundary_holes=4 %in% bholes)
@@ -571,9 +670,9 @@ parallelogram_maze <- function(seg_len,height,width,angle=90,clockwise=TRUE,meth
 						 parallelogram_maze(seg_len,height=mid_height,width=width-mid_width,angle=angle,clockwise=clockwise,method=method,start_from='corner',
 																draw_boundary=TRUE,boundary_lines=1,boundary_holes=3 %in% bholes)
 
-						 turtle_right(angle*multiplier)
+						 .turn_right(angle*multiplier)
 						 turtle_backward(mid_width*seg_len)
-						 turtle_left(angle*multiplier)
+						 .turn_left(angle*multiplier)
 					 })
 	}
 
@@ -628,30 +727,30 @@ turtle_init(1000,1000)
 turtle_hide()
 turtle_do({
 	#trapezoid_maze(depth=4,20,clockwise=FALSE,draw_boundary=TRUE)
-	triangle_maze(depth=5,15,clockwise=FALSE,draw_boundary=TRUE)
+	eq_triangle_maze(depth=5,15,clockwise=FALSE,draw_boundary=TRUE)
 })
 
 turtle_init(1000,1000)
 turtle_hide()
 turtle_do({
 	#trapezoid_maze(depth=4,20,clockwise=FALSE,draw_boundary=TRUE)
-	#triangle_maze(depth=5,15,clockwise=FALSE,draw_boundary=TRUE)
-	#triangle_maze(depth=5,15,clockwise=FALSE,method='triangles',draw_boundary=TRUE)
+	#eq_triangle_maze(depth=5,15,clockwise=FALSE,draw_boundary=TRUE)
+	#eq_triangle_maze(depth=5,15,clockwise=FALSE,method='triangles',draw_boundary=TRUE)
 	hexagon_maze(depth=4,15,clockwise=FALSE,method='two_trapezoids',draw_boundary=TRUE,boundary_holes=c(1,4))
 	hexagon_maze(depth=4,15,clockwise=TRUE,method='two_trapezoids',draw_boundary=TRUE,boundary_lines=c(2,3,4,5,6),boundary_holes=c(1,4))
 })
 	#turtle_down()
 	#turtle_forward(20)
 	#turtle_up()
-	#turtle_right(20*runif(1))
+	#.turn_right(20*runif(1))
 
 # test# FOLDUP
 turtle_init(1000,1000)
 turtle_hide()
 turtle_do({
 	#trapezoid_maze(depth=4,20,clockwise=FALSE,draw_boundary=TRUE)
-	#triangle_maze(depth=5,15,clockwise=FALSE,draw_boundary=TRUE)
-	#triangle_maze(depth=5,15,clockwise=FALSE,method='triangles',draw_boundary=TRUE)
+	#eq_triangle_maze(depth=5,15,clockwise=FALSE,draw_boundary=TRUE)
+	#eq_triangle_maze(depth=5,15,clockwise=FALSE,method='triangles',draw_boundary=TRUE)
 	depth <- 4
 	num_segs <- 2^depth
 	seg_len <- 8
@@ -665,7 +764,7 @@ turtle_do({
 		}
 		hexagon_maze(depth=depth,seg_len,clockwise=TRUE,method='two_trapezoids',draw_boundary=TRUE,boundary_holes=holes)
 		turtle_forward(dist=seg_len * num_segs/2)
-		turtle_right(multiplier * 60)
+		.turn_right(multiplier * 60)
 		turtle_forward(dist=seg_len * num_segs/2)
 	}
 })
