@@ -25,6 +25,16 @@
 
 library(TurtleGraphics)
 
+.near_integer <- function(x,toler=1e-7) {
+	abs(x - round(x)) < toler
+}
+.is_power_of_two <- function(x,toler=1e-7) {
+	.near_integer(log2(x),toler)
+}
+.is_divisible_by_three <- function(x,toler=1e-7) {
+	.near_integer(x/3,toler)
+}
+
 .turn_right <- function(angl) {
 	if (angl > 0) {
 		turtle_right(angl)
@@ -296,7 +306,8 @@ trapezoid_maze <- function(depth,seg_len,clockwise=TRUE,
 #' @param type there are many ways to recursive draw a triangle, either by
 #'        recursively drawing 4 triangles, or by stacking trapezoids, and so
 #'        on.
-eq_triangle_maze <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapezoids','triangles','uniform','two_ears','hex_and_three','random'),
+eq_triangle_maze <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapezoids','triangles','uniform','two_ears','random',
+																																	 'hex_and_three','shave_all','shave'),
 														 start_from=c('midpoint','corner'),
 														 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,boundary_hole_color=NULL,
 														 end_side=1) {
@@ -306,15 +317,15 @@ eq_triangle_maze <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapez
 
 # check for hex and three ... 
 	# check for off powers of two
-	non_two <- (abs(round(depth) - depth) > 1e-7)
+	non_two <- ! .near_integer(depth)
 	num_segs <- round(2^depth)
 	by_three <- num_segs / 3
 	if (non_two) {
-		stopifnot(abs(by_three - round(by_three)) < 1e-7)
-		if (method != 'hex_and_three') {
-			warning('for side length not a power of two, will switch to hex_and_three')
+		stopifnot((method != 'hex_and_three') || .near_integer(by_three))
+		if (! method %in% c('shave','shave_all','hex_and_three')) {
+			warning('for side length not a power of two, will switch to shave')
+			method <- 'shave'
 		}
-		method <- 'hex_and_three'
 	}
 
 	multiplier <- ifelse(clockwise,1,-1)
@@ -323,6 +334,7 @@ eq_triangle_maze <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapez
 
 	if (depth > 0) {
 		my_method <- switch(method,
+												shave_all={ 'shave' },
 												uniform={ 'triangles' },
 												random={
 													sample(c('stack_trapezoids','triangles','two_ears'),1)
@@ -370,6 +382,27 @@ eq_triangle_maze <- function(depth,seg_len,clockwise=TRUE,method=c('stack_trapez
 						 }
 						 turtle_forward(seg_len*num_segs)
 						 .turn_right(multiplier * 120)
+						 turtle_forward(seg_len*num_segs/2)
+					 },
+					 shave={
+						 sub_num <- num_segs - 1
+						 sub_method <- switch(method,
+																	shave_all={ 'shave_all' },
+																	shave={  ifelse(.is_divisible_by_three(sub_num),'hex_and_three',
+																									ifelse(.is_power_of_two(sub_num),'random','shave')) })
+
+						 shave_side <- sample.int(n=3,size=1)
+						 turtle_backward(seg_len*num_segs/2)
+						 for (iii in seq_len(shave_side-1)) {
+							 turtle_forward(seg_len*num_segs)
+							 .turn_right(multiplier*120)
+						 }
+						 eq_triangle_maze(log2(sub_num),seg_len,clockwise=clockwise,method=sub_method,start_from='corner',
+															draw_boundary=TRUE,boundary_lines=c(2),boundary_holes=c(2))
+						 for (iii in seq_len(shave_side-1)) {
+							 .turn_left(multiplier*120)
+							 turtle_backward(seg_len*num_segs)
+						 }
 						 turtle_forward(seg_len*num_segs/2)
 					 },
 					 triangles={
@@ -420,7 +453,7 @@ turtle_hide()
 turtle_up()
 turtle_do({
 	turtle_left(90)
-	turtle_forward(400)
+	turtle_forward(40)
 	turtle_right(90)
 	#eq_triangle_maze(depth=6,12,clockwise=FALSE,method='two_ears',draw_boundary=TRUE)
 	#eq_triangle_maze(depth=6,12,clockwise=FALSE,method='random',draw_boundary=TRUE)
@@ -428,10 +461,14 @@ turtle_do({
 	#eq_triangle_maze(depth=6,12,clockwise=FALSE,method='uniform',draw_boundary=TRUE,boundary_lines=c(2,3),boundary_holes=c(2),boundary_hole_color='green')
 #	eq_triangle_maze(depth=6,12,clockwise=TRUE,method='triangles',draw_boundary=TRUE,boundary_holes=c(1,3),boundary_hole_color=c('clear','clear','green'))
 	#eq_triangle_maze(depth=6,12,clockwise=FALSE,method='stack_trapezoids',draw_boundary=TRUE,boundary_lines=c(2,3),boundary_holes=c(2),boundary_hole_color='green')
-	eq_triangle_maze(depth=log2(9*9),12,clockwise=TRUE,method='hex_and_three',draw_boundary=TRUE,boundary_holes=c(1,3),boundary_hole_color=c('clear','clear','green'))
+	#eq_triangle_maze(depth=log2(9*9),12,clockwise=TRUE,method='hex_and_three',draw_boundary=TRUE,boundary_holes=c(1,3),boundary_hole_color=c('clear','clear','green'))
+	#eq_triangle_maze(depth=log2(72),10,clockwise=FALSE,method='shave',draw_boundary=TRUE,boundary_lines=c(2,3),boundary_holes=c(2),boundary_hole_color='green')
+	#eq_triangle_maze(depth=log2(72),10,clockwise=TRUE,method='shave_all',draw_boundary=TRUE,boundary_holes=c(1,3),boundary_hole_color=c('clear','clear','green'))
+
+	eq_triangle_maze(depth=log2(3),15,start_from='corner',method='random',draw_boundary=TRUE,num_boundary_holes=0)
 })
 
-dev.copy(png,'mazetops.png')
+dev.copy(png,'mazefu.png')
 dev.off()
 
 
@@ -453,7 +490,7 @@ hexagon_maze <- function(depth,seg_len,clockwise=TRUE,method=c('two_trapezoids',
 
 	if (start_from=='corner') { turtle_forward(dist=seg_len * num_segs/2) }
 	# check for off powers of two
-	non_two <- (abs(round(depth) - depth) > 1e-7)
+	non_two <- ! .near_integer(depth)
 	if (non_two && !(method %in% c('three_parallelograms'))) {
 		warning('for side length not a power of two, will switch to three parallelograms')
 		method <- 'three_parallelograms'
