@@ -55,8 +55,10 @@
 #' drawn hole, the latter being useful for mixing drawn colored
 #' holes with no hole drawn at all (for which \code{'white'}
 #' would be an acceptable choice if the background were white).
+#' Filled holes are often useful for indicating the entry and
+#' exit points of a maze.
 #' See the \link{\code{grDevices::colors}} function for
-#' more options.
+#' acceptable values.
 #' @template return-none
 #' @examples 
 #' \dontrun{
