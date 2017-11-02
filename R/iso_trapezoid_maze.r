@@ -25,19 +25,12 @@
 #'
 #' @description 
 #' 
-#' Recursively draw a isosceles trapezoid, with three sides of length
-#' 2^depth * unit_len and one of length 2^(depth+1) * unit_len, starting
-#' from the long side. 
+#' Recursively draw a isosceles trapezoid, with three sides consisting
+#' of \eqn{2^depth} pieces of length \code{unit_len}, and one long
+#' side of length \eqn{2^(depth+1)} pieces, starting from the
+#' long side.
 #'
 #' @details
-#'
-#' Causes the turtle to move through a path of connected line segments,
-#' possibly drawing lines, possibly drawing holes in those lines.
-#' All arguments are recycled to the length of the longest
-#' argument via \code{mapply}, which simplifies
-#' the path description.
-#'
-#' @seealso \code{\link{holey_line}}.
 #'
 #' @keywords plotting
 #' @template etc
@@ -49,7 +42,6 @@
 #' @template return-none
 #' @param depth the depth of recursion. Should be integer. This controls the
 #' side length.
-#'
 #'
 #' @note currently there is only one method for drawing an equilateral
 #' trapezoid, though there may be more than one method in the future.
