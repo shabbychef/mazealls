@@ -445,7 +445,6 @@ turtle_init(1000,1000)
 turtle_hide()
 turtle_do({
 	turtle_up()
-	#iso_trapezoid_maze(depth=4,20,clockwise=FALSE,draw_boundary=TRUE)
 	#eq_triangle_maze(depth=5,15,clockwise=FALSE,draw_boundary=TRUE)
 	#eq_triangle_maze(depth=5,15,clockwise=FALSE,method='triangles',draw_boundary=TRUE)
 	turtle_backward(250)
@@ -591,21 +590,6 @@ turtle_do({
 
 	#parallelogram_maze(angle=90,unit_len=10,width=35,height=55,method='random',draw_boundary=TRUE)
 	parallelogram_maze(angle=90,unit_len=12,width=75,height=55,method='uniform',draw_boundary=TRUE)
-})
-
-#library(TurtleGraphics)
-turtle_init(1000,1000)
-turtle_hide()
-turtle_do({
-	#iso_trapezoid_maze(depth=3,20,clockwise=TRUE,)
-	iso_trapezoid_maze(depth=3,20,clockwise=FALSE,draw_boundary=TRUE,boundary_hole_color='green')
-})
-
-turtle_init(1000,1000)
-turtle_hide()
-turtle_do({
-	#iso_trapezoid_maze(depth=4,20,clockwise=FALSE,draw_boundary=TRUE)
-	eq_triangle_maze(depth=5,15,clockwise=FALSE,draw_boundary=TRUE)
 })
 
 turtle_init(1000,1000)

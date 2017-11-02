@@ -57,13 +57,17 @@
 #' @examples 
 #' \dontrun{
 #' turtle_init(1000,1000)
-#' turtle_hide()
+#' turtle_hide() 
+#' iso_trapezoid_maze(depth=4,20,clockwise=FALSE,draw_boundary=TRUE)
 #'
+#' turtle_init(1000,1000)
+#' turtle_hide() 
+#' turtle_do({
+#' iso_trapezoid_maze(depth=3,20,clockwise=TRUE,draw_boundary=TRUE,boundar_holes=3,boundary_hole_color=c('red','clear','green')
+#' })
 #' }
 #' @export
-#'
-iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,
-															start_from=c('midpoint','corner'),
+iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('midpoint','corner'),
 															draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,boundary_hole_color=NULL,
 															end_side=1) {
 	start_from <- match.arg(start_from)
