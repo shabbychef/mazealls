@@ -83,43 +83,6 @@ draw_colored_line <- function(dist,color) {
 	turtle_col(old_color)
 }
 
-#'
-#' @param unit_len the length of one unit, drawn or moved.
-#' @param lengths an array of the number of units
-#' each part of the path. An array of length \code{n}.
-#' @param angles after each part of the path is
-#' drawn, the turtle turns right by the given angle.
-#' @param draw_line a boolean array telling whether
-#' each part of the path is drawn or simply moved.
-#' @param has_hole a boolean array telling whether,
-#' conditional on the path being drawn, it has a one unit
-#' hole.
-#' @param hole_color the color to plot the \sQuote{hole}. A 
-#' \code{NULL} value corresponds to no drawn hole. See the
-#' \link{\code{grDevices::colors}} function for
-#' more options
-holey_path <- function(unit_len,lengths,angles,draw_line=TRUE,has_hole=FALSE,hole_color=NULL) {
-# do something here about recycling hole color too?
-	if (is.null(hole_color)) { hole_color <- c('clear') }
-	mapply(function(len,ang,drawl,hol,holc) {
-					 if (len > 0) {
-						 if (drawl) {
-							 if (hol) {
-								 if (holc == 'clear') {
-									 holey_line(unit_len,len,go_back=FALSE,hole_color=NULL)
-								 } else {
-									 holey_line(unit_len,len,go_back=FALSE,hole_color=holc)
-								 }
-							 } else {
-								 draw_line(dist=unit_len*len)
-							 }
-						 } else {
-							 turtle_forward(dist=unit_len * len)
-						 }
-					 }
-					 .turn_right(ang)
-	},lengths,angles,draw_line,has_hole,hole_color)
-}
 
 
 .maybe_holey_line <- function(unit_len,num_segs,has_hole=TRUE,go_back=FALSE,hole_color=NULL) {
