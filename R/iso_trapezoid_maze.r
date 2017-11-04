@@ -91,7 +91,7 @@ iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('mi
 
 	multiplier <- ifelse(clockwise,1,-1)
 
-	if (start_from=='corner') { turtle_backward(dist=unit_len * num_segs) }
+	if (start_from=='corner') { turtle_forward(dist=unit_len * num_segs) }
 
 	if (depth > 0) {
 		my_method <- method
@@ -125,26 +125,25 @@ iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('mi
 			},
 			one_ear={
 				coinflip <- sample.int(n=2,size=1)
+				coinflip <- 2
 				if (coinflip==1) {
 					parallelogram_maze(unit_len,height=num_segs,width=num_segs,angle=120,clockwise=clockwise,
 														 method='random',start_from='corner',
 														 draw_boundary=TRUE,num_boundary_holes=NULL,boundary_lines=c(4),boundary_holes=4,
 														 end_side=4)
 					eq_triangle_maze(unit_len,depth=log2(num_segs),clockwise=!clockwise,
-														 method='random',start_from='corner',
-														 draw_boundary=FALSE,end_side=2)
+													 method='random',start_from='corner',
+													 draw_boundary=FALSE,end_side=2)
 					turtle_right(180)
 				} else {
-					turtle_forward(num_segs * unit_len/2)
 					eq_triangle_maze(unit_len,depth=log2(num_segs),clockwise=clockwise,
-														 method='random',start_from='midpoint',
-														 draw_boundary=FALSE,end_side=3)
+													 method='random',start_from='corner',
+													 draw_boundary=FALSE,end_side=3)
 					parallelogram_maze(unit_len,height=num_segs,width=num_segs,angle=60,clockwise=!clockwise,
-														 method='random',start_from='midpoint',
+														 method='random',start_from='corner',
 														 draw_boundary=TRUE,num_boundary_holes=NULL,boundary_lines=c(1),boundary_holes=1,
 														 end_side=2)
 					turtle_right(180)
-					turtle_forward(num_segs * unit_len/2)
 				}
 			})
 
@@ -180,14 +179,16 @@ iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('mi
 
 		turtle_forward(dist=unit_len * num_segs)
 	}
-	if (start_from=='corner') { turtle_forward(dist=unit_len * num_segs) }
+	if (start_from=='corner') { turtle_backward(dist=unit_len * num_segs) }
 }
 
 turtle_init(2000,2000)
 turtle_hide() 
 turtle_up()
 turtle_do({
-	iso_trapezoid_maze(depth=log2(15),20,clockwise=TRUE,draw_boundary=TRUE,boundary_holes=c(1,2,3),method='one_ear',boundary_hole_color=c('red','clear','green'))
+	len <- 31
+	iso_trapezoid_maze(depth=log2(len),15,clockwise=TRUE,draw_boundary=TRUE,boundary_holes=c(1,2,3),method='one_ear',boundary_hole_color=c('red','clear','green'))
+	iso_trapezoid_maze(depth=log2(len),15,clockwise=!TRUE,draw_boundary=TRUE,boundary_lines=c(2,3,4),boundary_holes=c(2),method='one_ear',boundary_hole_color=c('red','clear','green'))
 })
 
 #for vim modeline: (do not edit)
