@@ -132,9 +132,9 @@ eq_triangle_maze <- function(depth,unit_len,clockwise=TRUE,
 	by_three <- num_segs / 3
 	if (non_two) {
 		stopifnot((method != 'hex_and_three') || .near_integer(by_three))
-		if (! method %in% c('shave','shave_all','hex_and_three')) {
-			warning('for side length not a power of two, will switch to shave')
-			method <- 'shave'
+		if (! method %in% c('random','shave','shave_all','hex_and_three')) {
+			warning('for side length not a power of two, will switch to random')
+			method <- 'random'
 		}
 	}
 
@@ -147,7 +147,11 @@ eq_triangle_maze <- function(depth,unit_len,clockwise=TRUE,
 												shave_all={ 'shave' },
 												uniform={ 'triangles' },
 												random={
-													sample(c('stack_trapezoids','triangles','two_ears'),1)
+													ifelse(non_two,
+																 ifelse(.near_integer(by_three),
+																				sample(c('hex_and_three','stack_trapezoids','shave','shave_all'),1),
+																				sample(c('stack_trapezoids','shave','shave_all'),1)),
+																 sample(c('stack_trapezoids','triangles','two_ears'),1))
 												},
 												method)
 		switch(my_method,
