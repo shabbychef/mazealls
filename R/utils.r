@@ -393,7 +393,7 @@ parallelogram_maze <- function(unit_len,height,width,angle=90,clockwise=TRUE,met
 	# move to ending side
 	if ((end_side != 1) && (!is.null(end_side))) {
 		molens <-  c(height,width,height,width)
-		angls <-  multiplier * c(angle,180-angle,180-angle)
+		angls <-  multiplier * c(angle,180-angle,angle,180-angle)
 
 		holey_path(unit_len=unit_len,
 							 lengths=molens[1:(end_side-1)],
@@ -403,7 +403,9 @@ parallelogram_maze <- function(unit_len,height,width,angle=90,clockwise=TRUE,met
 							 hole_color=NULL)
 	}
 
-	if (start_from=='midpoint') { turtle_forward(dist=unit_len * height/2) }
+# this needs to depend on the end_side !!!
+	if (start_from=='midpoint') { 
+		turtle_forward(dist=unit_len * ifelse(.is_even(end_side),width,height)/2) }
 }
 
 turtle_init(2000,2000)

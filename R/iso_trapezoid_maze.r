@@ -127,14 +127,13 @@ iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('mi
 				coinflip <- sample.int(n=2,size=1)
 				if (coinflip==1) {
 					parallelogram_maze(unit_len,height=num_segs,width=num_segs,angle=120,clockwise=clockwise,
-														 method='random',start_from='midpoint',
+														 method='random',start_from='corner',
 														 draw_boundary=TRUE,num_boundary_holes=NULL,boundary_lines=c(4),boundary_holes=4,
 														 end_side=4)
 					eq_triangle_maze(unit_len,depth=log2(num_segs),clockwise=!clockwise,
-														 method='random',start_from='midpoint',
+														 method='random',start_from='corner',
 														 draw_boundary=FALSE,end_side=2)
 					turtle_right(180)
-					turtle_forward(num_segs * unit_len/2)
 				} else {
 					turtle_forward(num_segs * unit_len/2)
 					eq_triangle_maze(unit_len,depth=log2(num_segs),clockwise=clockwise,
@@ -183,6 +182,13 @@ iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('mi
 	}
 	if (start_from=='corner') { turtle_forward(dist=unit_len * num_segs) }
 }
+
+turtle_init(2000,2000)
+turtle_hide() 
+turtle_up()
+turtle_do({
+	iso_trapezoid_maze(depth=log2(15),20,clockwise=TRUE,draw_boundary=TRUE,boundary_holes=c(1,2,3),method='one_ear',boundary_hole_color=c('red','clear','green'))
+})
 
 #for vim modeline: (do not edit)
 # vim:fdm=marker:fmr=FOLDUP,UNFOLD:cms=#%s:syn=r:ft=r
