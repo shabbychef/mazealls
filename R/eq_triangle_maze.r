@@ -130,13 +130,20 @@ eq_triangle_maze <- function(depth,unit_len,clockwise=TRUE,
 	non_two <- ! .near_integer(depth)
 	num_segs <- round(2^depth)
 	by_three <- num_segs / 3
-	if (non_two) {
-		stopifnot((method != 'hex_and_three') || .near_integer(by_three))
-		if (! method %in% c('random','shave','shave_all','hex_and_three')) {
-			warning('for side length not a power of two, will switch to random')
-			method <- 'random'
+
+	if (method != 'random') {
+		if (non_two) {
+			if ( (.near_integer(by_three) && !(method %in% c('hex_and_three','shave','shave_all'))) ||
+					 (.is_even(num_segs) && !(method %in% c('shave','shave_all','stack_trapezoids'))) ||
+					 !(method %in% c('shave','shave_all','stack_trapezoids')) ) {
+				method <- 'random'
+			}
+		} else {
+			if (method %in% c('hex_and_three')) {
+				method <- 'random'
+			}
 		}
-	}
+	} 
 
 	multiplier <- ifelse(clockwise,1,-1)
 
@@ -151,7 +158,7 @@ eq_triangle_maze <- function(depth,unit_len,clockwise=TRUE,
 																 ifelse(.near_integer(by_three),
 																				sample(c('hex_and_three','stack_trapezoids','shave','shave_all'),1),
 																				sample(c('stack_trapezoids','shave','shave_all'),1)),
-																 sample(c('stack_trapezoids','triangles','two_ears'),1))
+																 sample(c('stack_trapezoids','triangles','two_ears','uniform'),1))
 												},
 												method)
 		switch(my_method,

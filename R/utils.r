@@ -31,6 +31,9 @@ library(TurtleGraphics)
 .is_power_of_two <- function(x,toler=1e-7) {
 	.near_integer(log2(x),toler)
 }
+.is_even <- function(x,toler=1e-7) {
+	.near_integer(x/2,toler)
+}
 .is_divisible_by_three <- function(x,toler=1e-7) {
 	.near_integer(x/3,toler)
 }
