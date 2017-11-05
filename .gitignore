@@ -32,3 +32,4 @@ mazealls.log
 *.bbl
 *.blg
 cache/
+.docker_img

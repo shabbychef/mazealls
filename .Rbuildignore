@@ -20,3 +20,4 @@ out$
 ^github_extra$
 ^unit_test.log$
 ^LICENSE$
+rpkg_make
