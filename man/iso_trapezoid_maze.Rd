@@ -96,8 +96,10 @@ turtle_hide()
 turtle_up()
 turtle_do({
 	len <- 44
-	iso_trapezoid_maze(depth=log2(len),15,clockwise=TRUE,draw_boundary=TRUE,boundary_holes=c(1,3),method='one_ear',boundary_hole_color=c('clear','clear','green'))
-	iso_trapezoid_maze(depth=log2(len),15,clockwise=FALSE,draw_boundary=TRUE,boundary_lines=c(2,3,4),boundary_holes=c(2),method='one_ear',boundary_hole_color=c('red'))
+	iso_trapezoid_maze(depth=log2(len),15,clockwise=TRUE,draw_boundary=TRUE,
+	  boundary_holes=c(1,3),method='one_ear',boundary_hole_color=c('clear','clear','green'))
+	iso_trapezoid_maze(depth=log2(len),15,clockwise=FALSE,draw_boundary=TRUE,
+	  boundary_lines=c(2,3,4),boundary_holes=c(2),method='one_ear',boundary_hole_color=c('red'))
 })
 }
 }

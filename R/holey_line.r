@@ -45,7 +45,7 @@
 #' at random.
 #' @param hole_color the color to plot the \sQuote{hole}. A 
 #' \code{NULL} value corresponds to no drawn hole. 
-#' See the \link{grDevices::colors} function for
+#' See the \code{\link[grDevices]{colors}} function for
 #' acceptable values.
 #' @return Returns the \code{which_seg} variable, the location of the hole, though typically
 #' the function is called for side effects only.

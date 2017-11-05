@@ -73,9 +73,9 @@ library(TurtleGraphics)
 }
 
 draw_line <- function(distance) {
-	if (dist > 0) {
+	if (distance > 0) {
 		turtle_down()
-		turtle_forward(dist=dist)
+		turtle_forward(distance=distance)
 		turtle_up()
 	}
 }

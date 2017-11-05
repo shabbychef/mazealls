@@ -33,7 +33,8 @@
 library(testthat)
 library(mazealls)
 
-test_check("mazealls")
+# once you have a directory of tests, uncomment this.
+#test_check("mazealls")
 
 #for vim modeline: (do not edit)
 # vim:fdm=marker:fmr=FOLDUP,UNFOLD:cms=#%s:syn=r:ft=r

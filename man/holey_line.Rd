@@ -26,7 +26,7 @@ when the line has been drawn.}
 
 \item{hole_color}{the color to plot the \sQuote{hole}. A 
 \code{NULL} value corresponds to no drawn hole. 
-See the \link{grDevices::colors} function for
+See the \code{\link[grDevices]{colors}} function for
 acceptable values.}
 }
 \value{

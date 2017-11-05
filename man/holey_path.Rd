@@ -33,7 +33,7 @@ holes with no hole drawn at all (for which \code{'white'}
 would be an acceptable choice if the background were white).
 Filled holes are often useful for indicating the entry and
 exit points of a maze.
-See the \link{grDevices::colors} function for
+See the \code{\link[grDevices]{colors}} function for
 acceptable values.}
 }
 \value{

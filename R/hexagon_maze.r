@@ -115,7 +115,8 @@
 #' 	num_segs <- 2^depth
 #' 	unit_len <- 8
 #' 	multiplier <- -1
-#' 	hexagon_maze(depth=depth,unit_len,clockwise=FALSE,method='two_trapezoids',draw_boundary=FALSE)
+#' 	hexagon_maze(depth=depth,unit_len,clockwise=FALSE,method='two_trapezoids',
+#' 	  draw_boundary=FALSE)
 #' 	for (iii in c(1:6)) {
 #' 		if (iii %in% c(1,4)) {
 #' 			holes <- c(1,4) 
