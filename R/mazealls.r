@@ -21,11 +21,7 @@
 # Author: Steven E. Pav
 # Comments: Steven E. Pav
 
-#' Inference on the Markowitz portfolio.
-#' 
-#' @section Markowitz Portfolio:
-#'
-#' foo.
+#' Generate recursive mazes.
 #'
 #' @section Legal Mumbo Jumbo:
 #'
@@ -36,22 +32,16 @@
 #'
 #' @template etc
 #'
-#' @references
-#'
-#' Brandt, Michael W. "Portfolio Choice Problems." Handbook of Financial
-#' Econometrics 1 (2009): 269--336. 
-#' \url{http://shr.receptidocs.ru/docs/5/4748/conv_1/file1.pdf#page=298}
-#'
-#' @import matrixcalc sandwich gtools
+#' @import TurtleGraphics
 #'
 #' @name mazealls
 #' @rdname mazealls
 #' @docType package
-#' @title statistics concerning the Markowitz portfolio
+#' @title generate recursive mazes
 #' @keywords package
 #' @note
 #' 
-#' This package is maintained as a hobby. 
+#' This package is dedicated to my friend, Abie Flaxman.
 #'
 NULL
 
@@ -64,7 +54,7 @@ NULL
 #' \newcommand{\CRANpkg}{\href{http://cran.r-project.org/package=#1}{\pkg{#1}}}
 #' \newcommand{\mazealls}{\CRANpkg{mazealls}}
 #'
-#' @section \mazealls{} Initial Version 0.1.0 (2017-10-03) :
+#' @section \mazealls{} Initial Version 0.1.0 (2017-11-10) :
 #' \itemize{
 #' \item first CRAN release.
 #' }
