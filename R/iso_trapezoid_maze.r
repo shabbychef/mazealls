@@ -26,9 +26,9 @@
 	if (has_hole) {
 		holey_line(unit_len=unit_len,num_segs=num_segs,go_back=go_back,hole_color=hole_color) 
 	} else {
-		draw_line(dist=(unit_len*num_segs))
+		draw_line(distance=(unit_len*num_segs))
 		if (go_back) {
-			turtle_backward(dist=unit_len * num_segs)
+			turtle_backward(distance=unit_len * num_segs)
 		}
 	}
 }
@@ -41,8 +41,8 @@
 	.turn_left(60)
 }
 
-#' draw a \sQuote{bone} shape with holes in it, centered
-#' on the turtle in the given direction.
+# draw a \sQuote{bone} shape with holes in it, centered
+# on the turtle in the given direction.
 holey_bone <- function(unit_len,num_segs) {
 	if (num_segs > 0) {
 		coinflip <- sample.int(n=2,size=1)
@@ -50,26 +50,26 @@ holey_bone <- function(unit_len,num_segs) {
 			no_hole_seg <- sample.int(n=4,size=1)
 			# no hole in the center
 			for (jjj in c(0,1)) {
-				draw_line(dist=unit_len * num_segs/2)
+				draw_line(distance=unit_len * num_segs/2)
 				.turn_left(60)
 				.maybe_holey_line(unit_len,num_segs,has_hole=no_hole_seg != 2*jjj+1,go_back=TRUE)
 				.turn_right(120)
 				.maybe_holey_line(unit_len,num_segs,has_hole=no_hole_seg != 2*jjj+2,go_back=TRUE)
 				.turn_left(60)
 				.turn_left(180)
-				turtle_forward(dist=unit_len * num_segs/2)
+				turtle_forward(distance=unit_len * num_segs/2)
 			}
 		} else {
 			# hole in the center
-			turtle_forward(dist=unit_len * num_segs/2)
+			turtle_forward(distance=unit_len * num_segs/2)
 			for (jjj in c(0,1)) {
 				.holey_y(unit_len,num_segs)
 				.turn_right(180)
-				turtle_forward(dist=unit_len * num_segs)
+				turtle_forward(distance=unit_len * num_segs)
 			}
 			.turn_right(180)
 			holey_line(unit_len,num_segs,go_back=TRUE)
-			turtle_forward(dist=unit_len * num_segs/2)
+			turtle_forward(distance=unit_len * num_segs/2)
 			.turn_right(180)
 		}
 	}
@@ -148,7 +148,7 @@ iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('mi
 
 	multiplier <- ifelse(clockwise,1,-1)
 
-	if (start_from=='corner') { turtle_forward(dist=unit_len * num_segs) }
+	if (start_from=='corner') { turtle_forward(distance=unit_len * num_segs) }
 
 	if (depth > 0) {
 		my_method <- method
@@ -208,7 +208,7 @@ iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('mi
 		holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=4)
 		boundary_lines <- .interpret_boundary_lines(boundary_lines,nsides=4)
 
-		turtle_backward(dist=unit_len * num_segs)
+		turtle_backward(distance=unit_len * num_segs)
 
 		holey_path(unit_len=unit_len,
 							lengths=num_segs * c(2,1,1,1),
@@ -217,12 +217,12 @@ iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('mi
 							has_hole=holes,
 							hole_color=boundary_hole_color)
 
-		turtle_forward(dist=unit_len * num_segs)
+		turtle_forward(distance=unit_len * num_segs)
 	}
 
 	# move to ending side
 	if ((end_side != 1) && (!is.null(end_side))) {
-		turtle_backward(dist=unit_len * num_segs)
+		turtle_backward(distance=unit_len * num_segs)
 		molens <-  num_segs * c(2,1,1,1)
 		angls <-   multiplier * 60 * c(2,1,1,2)
 
@@ -233,9 +233,9 @@ iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('mi
 							 has_hole=FALSE,
 							 hole_color=NULL)
 
-		turtle_forward(dist=unit_len * num_segs)
+		turtle_forward(distance=unit_len * num_segs)
 	}
-	if (start_from=='corner') { turtle_backward(dist=unit_len * num_segs) }
+	if (start_from=='corner') { turtle_backward(distance=unit_len * num_segs) }
 }
 
 

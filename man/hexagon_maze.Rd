@@ -92,7 +92,8 @@ turtle_do({
 	.turn_left(90)
 
 	.turn_right(60)
-	hexagon_maze(depth=5,12,clockwise=FALSE,method='six_triangles',draw_boundary=TRUE,boundary_holes=c(1,4),boundary_hole_color='green')
+	hexagon_maze(depth=5,12,clockwise=FALSE,method='six_triangles',
+	  draw_boundary=TRUE,boundary_holes=c(1,4),boundary_hole_color='green')
 })
 
 
@@ -106,7 +107,8 @@ turtle_do({
 	.turn_left(90)
 
 	.turn_right(60)
-	hexagon_maze(depth=log2(20),12,clockwise=FALSE,method='six_triangles',draw_boundary=TRUE,boundary_holes=c(1,4),boundary_hole_color='green')
+	hexagon_maze(depth=log2(20),12,clockwise=FALSE,method='six_triangles',
+	  draw_boundary=TRUE,boundary_holes=c(1,4),boundary_hole_color='green')
 })
 
 
@@ -120,14 +122,17 @@ turtle_do({
 	.turn_left(90)
 
 	.turn_right(60)
-	hexagon_maze(depth=5,12,clockwise=FALSE,method='three_parallelograms',draw_boundary=TRUE,boundary_holes=c(1,4),boundary_hole_color='green')
+	hexagon_maze(depth=5,12,clockwise=FALSE,method='three_parallelograms',
+	  draw_boundary=TRUE,boundary_holes=c(1,4),boundary_hole_color='green')
 })
 
 turtle_init(1000,1000)
 turtle_hide()
 turtle_do({
-	hexagon_maze(depth=4,15,clockwise=TRUE,method='two_trapezoids',draw_boundary=TRUE,boundary_holes=c(1,4))
-	hexagon_maze(depth=4,15,clockwise=FALSE,method='two_trapezoids',draw_boundary=TRUE,boundary_lines=c(2,3,4,5,6),boundary_holes=c(1,4))
+	hexagon_maze(depth=4,15,clockwise=TRUE,method='two_trapezoids',
+	  draw_boundary=TRUE,boundary_holes=c(1,4))
+	hexagon_maze(depth=4,15,clockwise=FALSE,method='two_trapezoids',
+	  draw_boundary=TRUE,boundary_lines=c(2,3,4,5,6),boundary_holes=c(1,4))
 })
 
 turtle_init(1000,1000)
@@ -144,10 +149,11 @@ turtle_do({
 		} else {
 			holes <- c(1)
 		}
-		hexagon_maze(depth=depth,unit_len,clockwise=TRUE,method='two_trapezoids',draw_boundary=TRUE,boundary_holes=holes)
-		turtle_forward(dist=unit_len * num_segs/2)
+		hexagon_maze(depth=depth,unit_len,clockwise=TRUE,method='two_trapezoids',
+		  draw_boundary=TRUE,boundary_holes=holes)
+		turtle_forward(distance=unit_len * num_segs/2)
 		.turn_right(multiplier * 60)
-		turtle_forward(dist=unit_len * num_segs/2)
+		turtle_forward(distance=unit_len * num_segs/2)
 	}
 })
 

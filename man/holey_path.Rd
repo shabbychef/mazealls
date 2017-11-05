@@ -8,6 +8,10 @@ holey_path(unit_len, lengths, angles, draw_line = TRUE, has_hole = FALSE,
   hole_color = NULL)
 }
 \arguments{
+\item{unit_len}{the unit length in graph coordinates. This controls
+the width of the \sQuote{holes} in the boundary lines and
+generally controls the spacing of mazes.}
+
 \item{lengths}{an array of the number of units
 each part of the path. An array of length \code{n}.}
 
@@ -29,7 +33,7 @@ holes with no hole drawn at all (for which \code{'white'}
 would be an acceptable choice if the background were white).
 Filled holes are often useful for indicating the entry and
 exit points of a maze.
-See the \link{\code{grDevices::colors}} function for
+See the \link{grDevices::colors} function for
 acceptable values.}
 }
 \value{
@@ -57,12 +61,14 @@ holey_path(unit_len=20, lengths=rep(10,3), angles=c(120), draw_line=TRUE, has_ho
 # draw a square with holes on the boundaries
 turtle_init(1000,1000)
 turtle_hide()
-holey_path(unit_len=20, lengths=rep(10,4), angles=c(90), draw_line=TRUE, has_hole=TRUE, hole_color=c('red','green'))
+holey_path(unit_len=20, lengths=rep(10,4), angles=c(90), draw_line=TRUE, has_hole=TRUE, 
+  hole_color=c('red','green'))
 
 # draw a square spiral
 turtle_init(1000,1000)
 turtle_hide()
-holey_path(unit_len=20, lengths=sort(rep(1:10,2),decreasing=TRUE), angles=c(90), draw_line=TRUE, has_hole=FALSE)
+holey_path(unit_len=20, lengths=sort(rep(1:10,2),decreasing=TRUE), angles=c(90), 
+  draw_line=TRUE, has_hole=FALSE)
 
 }
 }

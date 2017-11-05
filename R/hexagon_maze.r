@@ -65,7 +65,8 @@
 #' 	.turn_left(90)
 #' 
 #' 	.turn_right(60)
-#' 	hexagon_maze(depth=5,12,clockwise=FALSE,method='six_triangles',draw_boundary=TRUE,boundary_holes=c(1,4),boundary_hole_color='green')
+#' 	hexagon_maze(depth=5,12,clockwise=FALSE,method='six_triangles',
+#' 	  draw_boundary=TRUE,boundary_holes=c(1,4),boundary_hole_color='green')
 #' })
 #' 
 #' 
@@ -79,7 +80,8 @@
 #' 	.turn_left(90)
 #' 
 #' 	.turn_right(60)
-#' 	hexagon_maze(depth=log2(20),12,clockwise=FALSE,method='six_triangles',draw_boundary=TRUE,boundary_holes=c(1,4),boundary_hole_color='green')
+#' 	hexagon_maze(depth=log2(20),12,clockwise=FALSE,method='six_triangles',
+#' 	  draw_boundary=TRUE,boundary_holes=c(1,4),boundary_hole_color='green')
 #' })
 #' 
 #' 
@@ -93,14 +95,17 @@
 #' 	.turn_left(90)
 #' 
 #' 	.turn_right(60)
-#' 	hexagon_maze(depth=5,12,clockwise=FALSE,method='three_parallelograms',draw_boundary=TRUE,boundary_holes=c(1,4),boundary_hole_color='green')
+#' 	hexagon_maze(depth=5,12,clockwise=FALSE,method='three_parallelograms',
+#' 	  draw_boundary=TRUE,boundary_holes=c(1,4),boundary_hole_color='green')
 #' })
 #'
 #' turtle_init(1000,1000)
 #' turtle_hide()
 #' turtle_do({
-#' 	hexagon_maze(depth=4,15,clockwise=TRUE,method='two_trapezoids',draw_boundary=TRUE,boundary_holes=c(1,4))
-#' 	hexagon_maze(depth=4,15,clockwise=FALSE,method='two_trapezoids',draw_boundary=TRUE,boundary_lines=c(2,3,4,5,6),boundary_holes=c(1,4))
+#' 	hexagon_maze(depth=4,15,clockwise=TRUE,method='two_trapezoids',
+#' 	  draw_boundary=TRUE,boundary_holes=c(1,4))
+#' 	hexagon_maze(depth=4,15,clockwise=FALSE,method='two_trapezoids',
+#' 	  draw_boundary=TRUE,boundary_lines=c(2,3,4,5,6),boundary_holes=c(1,4))
 #' })
 #'
 #' turtle_init(1000,1000)
@@ -117,10 +122,11 @@
 #' 		} else {
 #' 			holes <- c(1)
 #' 		}
-#' 		hexagon_maze(depth=depth,unit_len,clockwise=TRUE,method='two_trapezoids',draw_boundary=TRUE,boundary_holes=holes)
-#' 		turtle_forward(dist=unit_len * num_segs/2)
+#' 		hexagon_maze(depth=depth,unit_len,clockwise=TRUE,method='two_trapezoids',
+#' 		  draw_boundary=TRUE,boundary_holes=holes)
+#' 		turtle_forward(distance=unit_len * num_segs/2)
 #' 		.turn_right(multiplier * 60)
-#' 		turtle_forward(dist=unit_len * num_segs/2)
+#' 		turtle_forward(distance=unit_len * num_segs/2)
 #' 	}
 #' })
 #'
@@ -134,7 +140,7 @@ hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids'
 	method <- match.arg(method)
 	start_from <- match.arg(start_from)
 
-	if (start_from=='corner') { turtle_forward(dist=unit_len * num_segs/2) }
+	if (start_from=='corner') { turtle_forward(distance=unit_len * num_segs/2) }
 
 	# check for off powers of two
 	num_segs <- round(2^depth)
@@ -164,16 +170,16 @@ hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids'
 						 .turn_right(multiplier * 90)
 					 },
 					 six_triangles={
-						 turtle_backward(dist=unit_len * num_segs/2) 
+						 turtle_backward(distance=unit_len * num_segs/2) 
 						 bholes <- sample.int(n=6,size=5)
 						 for (iii in c(1:6)) {
 							 eq_triangle_maze(depth,unit_len,clockwise=clockwise,method='random',draw_boundary=TRUE,
 																start_from='corner',
 																boundary_lines=2,boundary_holes=iii %in% bholes)
-							 turtle_forward(dist=unit_len * num_segs) 
+							 turtle_forward(distance=unit_len * num_segs) 
 							 .turn_right(multiplier*60)
 						 }
-						 turtle_forward(dist=unit_len * num_segs/2) 
+						 turtle_forward(distance=unit_len * num_segs/2) 
 					 },
 					 three_parallelograms={
 						 bholes <- sample.int(n=3,size=2)
@@ -192,7 +198,7 @@ hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids'
 		holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=6)
 		boundary_lines <- .interpret_boundary_lines(boundary_lines,nsides=6)
 
-		turtle_backward(dist=unit_len * num_segs/2)
+		turtle_backward(distance=unit_len * num_segs/2)
 
 		holey_path(unit_len=unit_len,
 							 lengths=rep(num_segs,6),
@@ -200,16 +206,16 @@ hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids'
 							 draw_line=boundary_lines,
 							 has_hole=holes,
 							 hole_color=boundary_hole_color)
-		turtle_forward(dist=unit_len * num_segs/2)
+		turtle_forward(distance=unit_len * num_segs/2)
 	}
 	if ((end_side != 1) && (!is.null(end_side))) {
 		for (iii in 1:(end_side-1)) {
-			turtle_forward(dist=unit_len * num_segs/2)
+			turtle_forward(distance=unit_len * num_segs/2)
 			.turn_right(multiplier * 60)
-			turtle_forward(dist=unit_len * num_segs/2)
+			turtle_forward(distance=unit_len * num_segs/2)
 		}
 	}
-	if (start_from=='corner') { turtle_backward(dist=unit_len * num_segs/2) }
+	if (start_from=='corner') { turtle_backward(distance=unit_len * num_segs/2) }
 }
 
 #for vim modeline: (do not edit)

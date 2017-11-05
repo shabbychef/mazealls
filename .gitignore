@@ -33,3 +33,4 @@ mazealls.log
 *.blg
 cache/
 .docker_img
+*.crancheck

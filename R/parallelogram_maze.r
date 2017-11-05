@@ -44,6 +44,7 @@
 #' segments.
 #' @param width the length of the second side in numbers of \code{unit_len}
 #' segments.
+#' @param angle the angle (in degrees) between the first and second sides.
 #' @param method there are many ways to recursive draw an isosceles
 #' trapezoid.  The following values are acceptable:
 #' \describe{
@@ -63,7 +64,8 @@
 #' turtle_hide()
 #' turtle_up()
 #' turtle_do({
-#' 	parallelogram_maze(angle=90,unit_len=12,width=75,height=55,method='uniform',draw_boundary=TRUE)
+#' 	parallelogram_maze(angle=90,unit_len=12,width=75,height=55,method='uniform',
+#' 	 draw_boundary=TRUE)
 #' })
 #'
 #' }
@@ -77,7 +79,7 @@ parallelogram_maze <- function(unit_len,height,width=height,angle=90,clockwise=T
 	method <- match.arg(method)
 	start_from <- match.arg(start_from)
 
-	if (start_from=='midpoint') { turtle_backward(dist=unit_len * height/2) }
+	if (start_from=='midpoint') { turtle_backward(distance=unit_len * height/2) }
 
 	multiplier <- ifelse(clockwise,1,-1)
 	if ((height > 1) && (width > 1)) {
@@ -175,7 +177,7 @@ parallelogram_maze <- function(unit_len,height,width=height,angle=90,clockwise=T
 
 # this needs to depend on the end_side !!!
 	if (start_from=='midpoint') { 
-		turtle_forward(dist=unit_len * ifelse(.is_even(end_side),width,height)/2) }
+		turtle_forward(distance=unit_len * ifelse(.is_even(end_side),width,height)/2) }
 }
 
 

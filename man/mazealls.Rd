@@ -9,7 +9,7 @@
 Generate recursive mazes.
 }
 \note{
-This package is dedicated to my friend, Abie Flaxman.
+This package is dedicated to my friend, Abie Flaxman, who gave me the idea.
 }
 \section{Legal Mumbo Jumbo}{
 

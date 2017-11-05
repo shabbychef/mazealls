@@ -21,6 +21,8 @@ segments.}
 \item{width}{the length of the second side in numbers of \code{unit_len}
 segments.}
 
+\item{angle}{the angle (in degrees) between the first and second sides.}
+
 \item{clockwise}{whether to draw clockwise.}
 
 \item{method}{there are many ways to recursive draw an isosceles
@@ -91,7 +93,8 @@ turtle_init(2000,2000)
 turtle_hide()
 turtle_up()
 turtle_do({
-	parallelogram_maze(angle=90,unit_len=12,width=75,height=55,method='uniform',draw_boundary=TRUE)
+	parallelogram_maze(angle=90,unit_len=12,width=75,height=55,method='uniform',
+	 draw_boundary=TRUE)
 })
 
 }

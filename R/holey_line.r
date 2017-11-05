@@ -44,9 +44,9 @@
 #' have the hole. If \code{NULL}, the hole segment is chosen uniformly
 #' at random.
 #' @param hole_color the color to plot the \sQuote{hole}. A 
-#' \code{NULL} value corresponds to no drawn hole. See the
-#' \link{\code{grDevices::colors}} function for
-#' more options.
+#' \code{NULL} value corresponds to no drawn hole. 
+#' See the \link{grDevices::colors} function for
+#' acceptable values.
 #' @return Returns the \code{which_seg} variable, the location of the hole, though typically
 #' the function is called for side effects only.
 #' @template etc
@@ -63,22 +63,22 @@ holey_line <- function(unit_len,num_segs,which_seg=NULL,go_back=FALSE,hole_color
 		} else {
 			which_seg <- min(num_segs,max(1,which_seg))
 		}
-		draw_line(dist=(which_seg-1) * unit_len)
+		draw_line(distance=(which_seg-1) * unit_len)
 		if (!is.null(hole_color)) {
 			draw_colored_line(unit_len,hole_color)
 		} else {
 			turtle_forward(unit_len)
 		}
-		draw_line(dist=(num_segs-which_seg) * unit_len)
+		draw_line(distance=(num_segs-which_seg) * unit_len)
 		if (go_back) {
-			turtle_backward(dist=unit_len * num_segs)
+			turtle_backward(distance=unit_len * num_segs)
 		}
 	} else if (num_segs == 1) {
 		which_seg <- 1
 		if (!is.null(hole_color)) {
 			draw_colored_line(unit_len,hole_color)
 			if (go_back) {
-				turtle_backward(dist=unit_len * num_segs)
+				turtle_backward(distance=unit_len * num_segs)
 			}
 		} else if (!go_back) {
 			turtle_forward(unit_len)

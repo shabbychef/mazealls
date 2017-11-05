@@ -25,9 +25,9 @@ at random.}
 when the line has been drawn.}
 
 \item{hole_color}{the color to plot the \sQuote{hole}. A 
-\code{NULL} value corresponds to no drawn hole. See the
-\link{\code{grDevices::colors}} function for
-more options.}
+\code{NULL} value corresponds to no drawn hole. 
+See the \link{grDevices::colors} function for
+acceptable values.}
 }
 \value{
 Returns the \code{which_seg} variable, the location of the hole, though typically

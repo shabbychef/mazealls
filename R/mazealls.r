@@ -41,7 +41,7 @@
 #' @keywords package
 #' @note
 #' 
-#' This package is dedicated to my friend, Abie Flaxman.
+#' This package is dedicated to my friend, Abie Flaxman, who gave me the idea.
 #'
 NULL
 

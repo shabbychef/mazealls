@@ -72,17 +72,17 @@ library(TurtleGraphics)
 	boundary_lines
 }
 
-draw_line <- function(dist) {
+draw_line <- function(distance) {
 	if (dist > 0) {
 		turtle_down()
 		turtle_forward(dist=dist)
 		turtle_up()
 	}
 }
-draw_colored_line <- function(dist,color) {
+draw_colored_line <- function(distance,color) {
 	old_color <- turtle_status()$DisplayOptions$col
 	turtle_col(color)
-	draw_line(dist=dist)
+	draw_line(distance=distance)
 	turtle_col(old_color)
 }
 

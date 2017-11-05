@@ -40,6 +40,7 @@
 #'
 #' @keywords plotting
 #' @template etc
+#' @template param-unitlen
 #' @param lengths an array of the number of units
 #' each part of the path. An array of length \code{n}.
 #' @param angles after each part of the path is
@@ -57,7 +58,7 @@
 #' would be an acceptable choice if the background were white).
 #' Filled holes are often useful for indicating the entry and
 #' exit points of a maze.
-#' See the \link{\code{grDevices::colors}} function for
+#' See the \link{grDevices::colors} function for
 #' acceptable values.
 #' @template return-none
 #' @examples 
@@ -69,12 +70,14 @@
 #' # draw a square with holes on the boundaries
 #' turtle_init(1000,1000)
 #' turtle_hide()
-#' holey_path(unit_len=20, lengths=rep(10,4), angles=c(90), draw_line=TRUE, has_hole=TRUE, hole_color=c('red','green'))
+#' holey_path(unit_len=20, lengths=rep(10,4), angles=c(90), draw_line=TRUE, has_hole=TRUE, 
+#'   hole_color=c('red','green'))
 #'
 #' # draw a square spiral
 #' turtle_init(1000,1000)
 #' turtle_hide()
-#' holey_path(unit_len=20, lengths=sort(rep(1:10,2),decreasing=TRUE), angles=c(90), draw_line=TRUE, has_hole=FALSE)
+#' holey_path(unit_len=20, lengths=sort(rep(1:10,2),decreasing=TRUE), angles=c(90), 
+#'   draw_line=TRUE, has_hole=FALSE)
 #'
 #' }
 #' @export
@@ -91,10 +94,10 @@ holey_path <- function(unit_len,lengths,angles,draw_line=TRUE,has_hole=FALSE,hol
 									 holey_line(unit_len,len,go_back=FALSE,hole_color=holc)
 								 }
 							 } else {
-								 draw_line(dist=unit_len*len)
+								 draw_line(distance=unit_len*len)
 							 }
 						 } else {
-							 turtle_forward(dist=unit_len * len)
+							 turtle_forward(distance=unit_len * len)
 						 }
 					 }
 					 .turn_right(ang)
