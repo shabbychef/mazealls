@@ -69,7 +69,9 @@
 #' turtle_hide() 
 #' turtle_up()
 #' turtle_do({
-#' 	iso_trapezoid_maze(depth=log2(15),20,clockwise=!TRUE,draw_boundary=TRUE,boundary_holes=c(1,2,3),method='one_ear',boundary_hole_color=c('red','clear','green'))
+#' 	len <- 44
+#' 	iso_trapezoid_maze(depth=log2(len),15,clockwise=TRUE,draw_boundary=TRUE,boundary_holes=c(1,3),method='one_ear',boundary_hole_color=c('clear','clear','green'))
+#' 	iso_trapezoid_maze(depth=log2(len),15,clockwise=FALSE,draw_boundary=TRUE,boundary_lines=c(2,3,4),boundary_holes=c(2),method='one_ear',boundary_hole_color=c('red'))
 #' })
 #' }
 #' @export
@@ -125,7 +127,6 @@ iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('mi
 			},
 			one_ear={
 				coinflip <- sample.int(n=2,size=1)
-				coinflip <- 2
 				if (coinflip==1) {
 					parallelogram_maze(unit_len,height=num_segs,width=num_segs,angle=120,clockwise=clockwise,
 														 method='random',start_from='corner',
@@ -156,7 +157,7 @@ iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('mi
 
 		holey_path(unit_len=unit_len,
 							lengths=num_segs * c(2,1,1,1),
-							angles=multiplier * c(120,60,60,60),
+							angles=multiplier * 60 * c(2,1,1,2),
 							draw_line=boundary_lines,
 							has_hole=holes,
 							hole_color=boundary_hole_color)
@@ -168,7 +169,7 @@ iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('mi
 	if ((end_side != 1) && (!is.null(end_side))) {
 		turtle_backward(dist=unit_len * num_segs)
 		molens <-  num_segs * c(2,1,1,1)
-		angls <-  multiplier * 60 * c(2,1,1,1)
+		angls <-   multiplier * 60 * c(2,1,1,2)
 
 		holey_path(unit_len=unit_len,
 							 lengths=molens[1:(end_side-1)],
@@ -182,14 +183,6 @@ iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('mi
 	if (start_from=='corner') { turtle_backward(dist=unit_len * num_segs) }
 }
 
-turtle_init(2000,2000)
-turtle_hide() 
-turtle_up()
-turtle_do({
-	len <- 31
-	iso_trapezoid_maze(depth=log2(len),15,clockwise=TRUE,draw_boundary=TRUE,boundary_holes=c(1,2,3),method='one_ear',boundary_hole_color=c('red','clear','green'))
-	iso_trapezoid_maze(depth=log2(len),15,clockwise=!TRUE,draw_boundary=TRUE,boundary_lines=c(2,3,4),boundary_holes=c(2),method='one_ear',boundary_hole_color=c('red','clear','green'))
-})
 
 #for vim modeline: (do not edit)
 # vim:fdm=marker:fmr=FOLDUP,UNFOLD:cms=#%s:syn=r:ft=r
