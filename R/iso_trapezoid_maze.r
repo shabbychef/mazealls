@@ -21,6 +21,60 @@
 # Author: Steven E. Pav <shabbychef@gmail.com>
 # Comments: Steven E. Pav
 
+# utilities:
+.maybe_holey_line <- function(unit_len,num_segs,has_hole=TRUE,go_back=FALSE,hole_color=NULL) {
+	if (has_hole) {
+		holey_line(unit_len=unit_len,num_segs=num_segs,go_back=go_back,hole_color=hole_color) 
+	} else {
+		draw_line(dist=(unit_len*num_segs))
+		if (go_back) {
+			turtle_backward(dist=unit_len * num_segs)
+		}
+	}
+}
+.holey_y <- function(unit_len,num_segs) {
+	coinflip <- sample.int(n=2,size=1)
+	.turn_left(60)
+	.maybe_holey_line(unit_len,num_segs,has_hole=coinflip==1,go_back=TRUE)
+	.turn_right(120)
+	.maybe_holey_line(unit_len,num_segs,has_hole=coinflip==2,go_back=TRUE)
+	.turn_left(60)
+}
+
+#' draw a \sQuote{bone} shape with holes in it, centered
+#' on the turtle in the given direction.
+holey_bone <- function(unit_len,num_segs) {
+	if (num_segs > 0) {
+		coinflip <- sample.int(n=2,size=1)
+		if (coinflip==1) {
+			no_hole_seg <- sample.int(n=4,size=1)
+			# no hole in the center
+			for (jjj in c(0,1)) {
+				draw_line(dist=unit_len * num_segs/2)
+				.turn_left(60)
+				.maybe_holey_line(unit_len,num_segs,has_hole=no_hole_seg != 2*jjj+1,go_back=TRUE)
+				.turn_right(120)
+				.maybe_holey_line(unit_len,num_segs,has_hole=no_hole_seg != 2*jjj+2,go_back=TRUE)
+				.turn_left(60)
+				.turn_left(180)
+				turtle_forward(dist=unit_len * num_segs/2)
+			}
+		} else {
+			# hole in the center
+			turtle_forward(dist=unit_len * num_segs/2)
+			for (jjj in c(0,1)) {
+				.holey_y(unit_len,num_segs)
+				.turn_right(180)
+				turtle_forward(dist=unit_len * num_segs)
+			}
+			.turn_right(180)
+			holey_line(unit_len,num_segs,go_back=TRUE)
+			turtle_forward(dist=unit_len * num_segs/2)
+			.turn_right(180)
+		}
+	}
+}
+
 #' @title iso_trapezoid_maze .
 #'
 #' @description 
@@ -79,6 +133,7 @@ iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('mi
 															 method=c('four_trapezoids','one_ear','random'),
 															 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,boundary_hole_color=NULL,
 															 end_side=1) {
+	method <- match.arg(method)
 	start_from <- match.arg(start_from)
 
 	# check for off powers of two

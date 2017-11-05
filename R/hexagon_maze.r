@@ -95,6 +95,35 @@
 #' 	.turn_right(60)
 #' 	hexagon_maze(depth=5,12,clockwise=FALSE,method='three_parallelograms',draw_boundary=TRUE,boundary_holes=c(1,4),boundary_hole_color='green')
 #' })
+#'
+#' turtle_init(1000,1000)
+#' turtle_hide()
+#' turtle_do({
+#' 	hexagon_maze(depth=4,15,clockwise=TRUE,method='two_trapezoids',draw_boundary=TRUE,boundary_holes=c(1,4))
+#' 	hexagon_maze(depth=4,15,clockwise=FALSE,method='two_trapezoids',draw_boundary=TRUE,boundary_lines=c(2,3,4,5,6),boundary_holes=c(1,4))
+#' })
+#'
+#' turtle_init(1000,1000)
+#' turtle_hide()
+#' turtle_do({
+#' 	depth <- 4
+#' 	num_segs <- 2^depth
+#' 	unit_len <- 8
+#' 	multiplier <- -1
+#' 	hexagon_maze(depth=depth,unit_len,clockwise=FALSE,method='two_trapezoids',draw_boundary=FALSE)
+#' 	for (iii in c(1:6)) {
+#' 		if (iii %in% c(1,4)) {
+#' 			holes <- c(1,4) 
+#' 		} else {
+#' 			holes <- c(1)
+#' 		}
+#' 		hexagon_maze(depth=depth,unit_len,clockwise=TRUE,method='two_trapezoids',draw_boundary=TRUE,boundary_holes=holes)
+#' 		turtle_forward(dist=unit_len * num_segs/2)
+#' 		.turn_right(multiplier * 60)
+#' 		turtle_forward(dist=unit_len * num_segs/2)
+#' 	}
+#' })
+#'
 #' }
 #' @export
 hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids','six_triangles','three_parallelograms','random'),
@@ -114,10 +143,10 @@ hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids'
 	if (depth > 1) {
 		turtle_up()
 		my_method <- switch(method,
-												 random={
-													 sample(c('two_trapezoids','six_triangles','three_parallelograms'),1)
-												 },
-												 method)
+												random={
+													sample(c('two_trapezoids','six_triangles','three_parallelograms'),1)
+												},
+												method)
 		switch(my_method,
 					 two_trapezoids={
 						 magic_ratio <- sqrt(3) / 4
@@ -166,7 +195,7 @@ hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids'
 		turtle_backward(dist=unit_len * num_segs/2)
 
 		holey_path(unit_len=unit_len,
-							 lengths=num_segs,
+							 lengths=rep(num_segs,6),
 							 angles=multiplier*60,
 							 draw_line=boundary_lines,
 							 has_hole=holes,
