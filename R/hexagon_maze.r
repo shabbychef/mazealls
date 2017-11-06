@@ -161,10 +161,10 @@ hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids'
 						 .turn_right(multiplier * 90)
 						 turtle_forward(2*num_segs * unit_len * magic_ratio)
 						 .turn_left(multiplier * 90)
-						 iso_trapezoid_maze(depth,unit_len,clockwise=clockwise,
+						 iso_trapezoid_maze(depth=depth,unit_len=unit_len,clockwise=clockwise,
 																start_from='midpoint',
 																draw_boundary=TRUE,boundary_lines=c(1),boundary_holes=c(1))
-						 iso_trapezoid_maze(depth,unit_len,clockwise=!clockwise,draw_boundary=FALSE)
+						 iso_trapezoid_maze(depth=depth,unit_len=unit_len,clockwise=!clockwise,draw_boundary=FALSE)
 						 
 						 .turn_left(multiplier * 90)
 						 turtle_forward(2*num_segs * unit_len * magic_ratio)
@@ -174,7 +174,7 @@ hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids'
 						 turtle_backward(distance=unit_len * num_segs/2) 
 						 bholes <- sample.int(n=6,size=5)
 						 for (iii in c(1:6)) {
-							 eq_triangle_maze(depth,unit_len,clockwise=clockwise,method='random',draw_boundary=TRUE,
+							 eq_triangle_maze(depth=depth,unit_len=unit_len,clockwise=clockwise,method='random',draw_boundary=TRUE,
 																start_from='corner',
 																boundary_lines=2,boundary_holes=iii %in% bholes)
 							 turtle_forward(distance=unit_len * num_segs) 
@@ -185,7 +185,7 @@ hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids'
 					 three_parallelograms={
 						 bholes <- sample.int(n=3,size=2)
 						 for (iii in 1:3) {
-							 parallelogram_maze(unit_len,num_segs,num_segs,angle=60,clockwise=clockwise,
+							 parallelogram_maze(unit_len=unit_len,height=num_segs,width=num_segs,angle=60,clockwise=clockwise,
 																	draw_boundary=TRUE,boundary_lines=3,num_boundary_holes=0,boundary_holes=iii %in% bholes)
 							 turtle_forward(num_segs * unit_len / 2)
 							 .turn_right(multiplier * 60)

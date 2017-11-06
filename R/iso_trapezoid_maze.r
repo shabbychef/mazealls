@@ -185,19 +185,19 @@ iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('mi
 			one_ear={
 				coinflip <- sample.int(n=2,size=1)
 				if (coinflip==1) {
-					parallelogram_maze(unit_len,height=num_segs,width=num_segs,angle=120,clockwise=clockwise,
+					parallelogram_maze(unit_len=unit_len,height=num_segs,width=num_segs,angle=120,clockwise=clockwise,
 														 method='random',start_from='corner',
 														 draw_boundary=TRUE,num_boundary_holes=NULL,boundary_lines=c(4),boundary_holes=4,
 														 end_side=4)
-					eq_triangle_maze(unit_len,depth=log2(num_segs),clockwise=!clockwise,
+					eq_triangle_maze(depth=log2(num_segs),unit_len=unit_len,clockwise=!clockwise,
 													 method='random',start_from='corner',
 													 draw_boundary=FALSE,end_side=2)
 					turtle_right(180)
 				} else {
-					eq_triangle_maze(unit_len,depth=log2(num_segs),clockwise=clockwise,
+					eq_triangle_maze(depth=log2(num_segs),unit_len=unit_len,clockwise=clockwise,
 													 method='random',start_from='corner',
 													 draw_boundary=FALSE,end_side=3)
-					parallelogram_maze(unit_len,height=num_segs,width=num_segs,angle=60,clockwise=!clockwise,
+					parallelogram_maze(unit_len=unit_len,height=num_segs,width=num_segs,angle=60,clockwise=!clockwise,
 														 method='random',start_from='corner',
 														 draw_boundary=TRUE,num_boundary_holes=NULL,boundary_lines=c(1),boundary_holes=1,
 														 end_side=2)
