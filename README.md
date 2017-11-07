@@ -61,7 +61,7 @@ turtle_do({
 
 # triangle maze
 
-An equilateral triangle maze can be computed in a number of different ways:
+An equilateral triangle maze can be constructed in a number of different ways:
 
 1. Create four equilateral mazes with lines with holes between them. This
 only works if the side length of the original is a power of two.
@@ -210,4 +210,124 @@ turtle_do({
 ```
 
 <img src="man/figures/eq_tri_shave_all-1.png" title="plot of chunk eq_tri_shave_all" alt="plot of chunk eq_tri_shave_all" width="700px" height="700px" />
+
+# hexagon maze
+
+
+An regular hexagonal maze can be constructed in a number of different ways:
+
+1. Decompose the hexagon as 6 equilateral triangle mazes, with one solid line
+	 and five lines with holes dividing them.
+1. Create two isosceles trapezoid mazes with long sides joined by a line with a
+	 hole.
+1. Create three parallelogram mazes with one solid line and two lines with
+	 holes dividing them.
+
+
+
+```r
+library(TurtleGraphics)
+library(mazealls)
+# two trapezoids
+turtle_init(1000, 1000)
+turtle_up()
+turtle_hide()
+turtle_do({
+    turtle_left(90)
+    turtle_forward(distance = 300)
+    turtle_right(90)
+    hexagon_maze(depth = 5, unit_len = 12, method = "two_trapezoids", 
+        draw_boundary = TRUE)
+})
+```
+
+<img src="man/figures/hex_trapezoids-1.png" title="plot of chunk hex_trapezoids" alt="plot of chunk hex_trapezoids" width="700px" height="700px" />
+
+
+```r
+library(TurtleGraphics)
+library(mazealls)
+# six triangles
+turtle_init(1000, 1000)
+turtle_up()
+turtle_hide()
+turtle_do({
+    turtle_left(90)
+    turtle_forward(distance = 300)
+    turtle_right(90)
+    hexagon_maze(depth = 5, unit_len = 12, method = "six_triangles", 
+        draw_boundary = TRUE)
+})
+```
+
+<img src="man/figures/hex_triangles-1.png" title="plot of chunk hex_triangles" alt="plot of chunk hex_triangles" width="700px" height="700px" />
+
+
+```r
+library(TurtleGraphics)
+library(mazealls)
+# six triangles
+turtle_init(1000, 1000)
+turtle_up()
+turtle_hide()
+turtle_do({
+    turtle_left(90)
+    turtle_forward(distance = 300)
+    turtle_right(90)
+    hexagon_maze(depth = 5, unit_len = 12, method = "three_parallelograms", 
+        draw_boundary = TRUE)
+})
+```
+
+<img src="man/figures/hex_parallelo-1.png" title="plot of chunk hex_parallelo" alt="plot of chunk hex_parallelo" width="700px" height="700px" />
+
+
+# trapezoid maze
+
+
+An isosceles trapezoid maze can be constructed in a number of different ways:
+
+1. Decompose as four trapezoidal mazes with a 'bone' shape between them
+	 consisting of two solid lines and three lines with holes.
+1. Decompose as a parallelogram and an equilateral triangle with a line
+	 with holes between them
+
+
+
+```r
+library(TurtleGraphics)
+library(mazealls)
+# four trapezoids
+turtle_init(1000, 1000)
+turtle_up()
+turtle_hide()
+turtle_do({
+    turtle_left(90)
+    turtle_forward(distance = 300)
+    turtle_right(90)
+    iso_trapezoid_maze(depth = 5, unit_len = 12, method = "four_trapezoids", 
+        draw_boundary = TRUE)
+})
+```
+
+<img src="man/figures/trap_four-1.png" title="plot of chunk trap_four" alt="plot of chunk trap_four" width="700px" height="700px" />
+
+
+```r
+library(TurtleGraphics)
+library(mazealls)
+# one ear
+turtle_init(1000, 1000)
+turtle_up()
+turtle_hide()
+turtle_do({
+    turtle_left(90)
+    turtle_forward(distance = 300)
+    turtle_right(90)
+    iso_trapezoid_maze(depth = 5, unit_len = 12, method = "one_ear", 
+        draw_boundary = TRUE)
+})
+```
+
+<img src="man/figures/trap_ear-1.png" title="plot of chunk trap_ear" alt="plot of chunk trap_ear" width="700px" height="700px" />
 
