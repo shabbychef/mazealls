@@ -10,7 +10,7 @@ opts_chunk$set(warning=FALSE,message=FALSE)
 opts_chunk$set(cache=TRUE,cache.path="cache/")
 
 #opts_chunk$set(fig.path="figure/",dev=c("pdf","cairo_ps"))
-opts_chunk$set(fig.path="tools/figure/",dev=c("png"))
+opts_chunk$set(fig.path="man/figures/",dev=c("png"))
 opts_chunk$set(fig.width=7,fig.height=6,dpi=100,out.width='700px',out.height='600px')
 
 # doing this means that png files are made of figures;
@@ -74,3 +74,20 @@ if (require(devtools)) {
 }
 ```
 
+# parallelogram maze
+
+```{r para_maze,cache=TRUE,eval=TRUE,echo=TRUE,dpi=200,out.width='600px',out.height='500px',fig.keep='last'}
+library(TurtleGraphics)
+library(mazealls)
+turtle_init(1000,1000)
+turtle_up()
+turtle_hide()
+turtle_do({
+	turtle_left(90)
+	turtle_forward(distance=400)
+	turtle_right(90)
+	parallelogram_maze(angle=90,unit_len=10,width=75,height=55,method='uniform',
+	 draw_boundary=TRUE)
+})
+
+```

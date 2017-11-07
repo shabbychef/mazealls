@@ -24,9 +24,11 @@ convoluted_build.sh
 #DESCRIPTION
 #man/
 
+.mazealls*installed
 # generated as part of the 'local' vignette build
 mazealls.tex
 mazealls.log
+mazealls/
 ./mazealls.pdf
 *.aux
 *.bbl
