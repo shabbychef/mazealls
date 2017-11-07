@@ -206,7 +206,7 @@ eq_triangle_maze <- function(depth,unit_len,clockwise=TRUE,
 					 },
 					 shave={
 						 sub_num <- num_segs - 1
-						 sub_method <- switch(my_method,
+						 sub_method <- switch(method,
 																	shave_all={ 'shave_all' },
 																	shave={  ifelse(.is_divisible_by_three(sub_num),'hex_and_three',
 																									ifelse(.is_power_of_two(sub_num),'random','shave')) })
