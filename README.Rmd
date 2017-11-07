@@ -103,17 +103,17 @@ turtle_do({
 
 An equilateral triangle maze can be computed in a number of different ways:
 
-  # Create four equilateral mazes with lines with holes between them. This
-	only works if the side length of the original is a power of two.
-	# Cut out a parallelogram and attach two equilateral triangles.
-	Again only if the side length is a power of two.
-	# Create an isosceles trapezoid maze, then stack an equilateral triangle
-	on top of it. This only works if the side length is even.
-	# Create a regular hexagonal maze and three equilateral mazes in the corners.
-	This only works if the side length of the original triangle is divisible by
-	three.
-	# Shave off a single hallway and create an equilateral triangular maze
-	of side length one less than the original.
+1. Create four equilateral mazes with lines with holes between them. This
+only works if the side length of the original is a power of two.
+1. Cut out a parallelogram and attach two equilateral triangles.
+Again only if the side length is a power of two.
+1. Create an isosceles trapezoid maze, then stack an equilateral triangle
+on top of it. This only works if the side length is even.
+1. Create a regular hexagonal maze and three equilateral mazes in the corners.
+This only works if the side length of the original triangle is divisible by
+three.
+1. Shave off a single hallway and create an equilateral triangular maze
+of side length one less than the original.
 
 
 I illustrate them here:
