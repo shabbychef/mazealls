@@ -25,10 +25,10 @@
 	multiplier <- ifelse(clockwise,1,-1)
 	num_segs <- round(3^depth)
 	if (has_hole) { bholes <- sample.int(4,1) } else { bholes = 0 }
-	if (depth > 0) {
+	if (depth > 1) {
 		.koch_side(unit_len,depth-1,clockwise=clockwise,has_hole=bholes==1,hole_color=hole_color)
 
-		eq_triangle_maze(unit_len,depth=log2(num_segs),clockwise=!clockwise,start_from='corner',
+		eq_triangle_maze(unit_len,depth=log2(num_segs/3),clockwise=!clockwise,start_from='corner',
 										 draw_boundary=TRUE,num_boundary_holes=NULL,boundary_lines=c(1),
 										 boundary_holes=1)
 
@@ -38,34 +38,84 @@
 		.koch_side(unit_len,depth-1,clockwise=clockwise,has_hole=bholes==3,hole_color=hole_color)
 		.turn_left(multiplier * 60)
 		.koch_side(unit_len,depth-1,clockwise=clockwise,has_hole=bholes==4,hole_color=hole_color)
-	} else {
+	} else if (depth==1) {
 		holey_path(unit_len=unit_len,
 							 lengths=rep(1,4),
 							 angles=multiplier * c(-60,120,-60,0),
 							 draw_line=TRUE,
 							 has_hole=c(1:4) %in% bholes,
 							 hole_color=hole_color)
+	} else if (depth==0) {
+		holey_path(unit_len=unit_len,
+							 lengths=1,
+							 angles=0,
+							 draw_line=TRUE,
+							 has_hole=has_hole,
+							 hole_color=hole_color)
+	} else {
+		warning('should give non-negative depth')
 	}
 }
 
-turtle_init(2000,2000)
-turtle_hide() 
-turtle_up()
-set.seed(1234)
-turtle_do({
-	turtle_backward(distance=400)
-	turtle_left(90)
-	turtle_forward(650)
-	turtle_right(90)
-	turtle_right(30)
-	for (iii in c(1:3)) {
-		.koch_side(unit_len=15,3,has_hole=(iii != 3),hole_color='green')
-		turtle_right(120)
+
+#' @title koch_maze .
+#'
+#' @description 
+#'
+#' Recursively draw an Koch snowflake maze. The inner part of the snowflake
+#' maze consists of an equilateral triangle of side length \eqn{3^depth}
+#' pieces of length \code{unit_len}.
+#'
+#' @details
+#'
+#' @keywords plotting
+#' @template etc
+#' @template param-unitlen
+#' @template param-clockwise
+#' @template param-boundary-stuff
+#' @template return-none
+#' @param depth the depth of recursion. This controls the side length.
+#' Should be an integer.
+#'
+#'
+#' @examples 
+#' \dontrun{
+#' turtle_init(2000,2000)
+#' turtle_hide() 
+#' turtle_up()
+#' set.seed(1234)
+#' turtle_do({
+#' 	turtle_backward(distance=400)
+#' 	turtle_left(90)
+#' 	turtle_forward(650)
+#' 	turtle_right(90)
+#' 	turtle_right(30)
+#' 	koch_maze(depth=4,unit_len=15)
+#' })
+#'
+#' }
+#' @export
+koch_maze <- function(depth,unit_len,clockwise=TRUE,
+											draw_boundary=TRUE,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,boundary_hole_color=NULL) {
+	
+	# stupid arguments and templates stupid.
+	stopifnot(boundary_lines)
+
+	depth <- round(depth)
+	multiplier <- ifelse(clockwise,1,-1)
+	holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=3)
+	if (is.null(boundary_hole_color)) {
+		boundary_hole_color <- rep(c('clear'),3)
+	} else if (length(boundary_hole_color) < 3) {
+		boundary_hole_color <- rep(boundary_hole_color,3)
 	}
-	eq_triangle_maze(unit_len=15,depth=log2(3^4),start_from='corner',clockwise=TRUE)
-})
-#dev.copy(png,'koch.png')
-#dev.off()
+
+	for (iii in c(1:3)) {
+		.koch_side(unit_len=unit_len,depth=depth,clockwise=clockwise,has_hole=holes[iii],hole_color=boundary_hole_color[iii])
+		.turn_right(120 * multiplier)
+	}
+	eq_triangle_maze(unit_len=unit_len,depth=log2(3^depth),start_from='corner',clockwise=clockwise,draw_boundary=FALSE)
+}
 
 #for vim modeline: (do not edit)
 # vim:fdm=marker:fmr=FOLDUP,UNFOLD:cms=#%s:syn=r:ft=r

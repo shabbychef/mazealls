@@ -99,8 +99,10 @@
 #'   turtle_left(90)
 #'   turtle_forward(40)
 #'   turtle_right(90)
-#'   eq_triangle_maze(depth=5,12,clockwise=TRUE,method='two_ears',draw_boundary=TRUE,boundary_holes=c(1,3),boundary_hole_color=c('clear','clear','green'))
-#'   eq_triangle_maze(depth=5,12,clockwise=FALSE,method='uniform',draw_boundary=TRUE,boundary_lines=c(2,3),boundary_holes=c(2),boundary_hole_color='green')
+#'   eq_triangle_maze(depth=5,12,clockwise=TRUE,method='two_ears',draw_boundary=TRUE,
+#'     boundary_holes=c(1,3),boundary_hole_color=c('clear','clear','green'))
+#'   eq_triangle_maze(depth=5,12,clockwise=FALSE,method='uniform',draw_boundary=TRUE,
+#'     boundary_lines=c(2,3),boundary_holes=c(2),boundary_hole_color='green')
 #' })
 #'
 #' # non integral depths also possible:
@@ -111,8 +113,10 @@
 #'   turtle_left(90)
 #'   turtle_forward(40)
 #'   turtle_right(90)
-#'   eq_triangle_maze(depth=log2(81),12,clockwise=TRUE,method='hex_and_three',draw_boundary=TRUE,boundary_holes=c(1,3),boundary_hole_color=c('clear','clear','green'))
-#'   eq_triangle_maze(depth=log2(81),12,clockwise=FALSE,method='shave',draw_boundary=TRUE,boundary_lines=c(2,3),boundary_holes=c(2),boundary_hole_color='green')
+#'   eq_triangle_maze(depth=log2(81),12,clockwise=TRUE,method='hex_and_three',draw_boundary=TRUE,
+#'     boundary_holes=c(1,3),boundary_hole_color=c('clear','clear','green'))
+#'   eq_triangle_maze(depth=log2(81),12,clockwise=FALSE,method='shave',draw_boundary=TRUE,
+#'     boundary_lines=c(2,3),boundary_holes=c(2),boundary_hole_color='green')
 #' })
 #' }
 #' @export
@@ -144,7 +148,7 @@ eq_triangle_maze <- function(depth,unit_len,clockwise=TRUE,
 		
 	multiplier <- ifelse(clockwise,1,-1)
 
-	if (start_from=='corner') { turtle_forward(dist=unit_len * num_segs/2) }
+	if (start_from=='corner') { turtle_forward(distance=unit_len * num_segs/2) }
 
 	if (num_segs > 1) {
 		my_method <- switch(method,
@@ -177,11 +181,11 @@ eq_triangle_maze <- function(depth,unit_len,clockwise=TRUE,
 													start_from='midpoint',draw_boundary=TRUE,num_boundary_holes=0,
 													boundary_lines=c(2,4,6),boundary_holes=c(2,4,6))
 						 for (iii in c(1:3)) {
-							 turtle_forward(dist=num_segs * unit_len/2)
+							 turtle_forward(distance=num_segs * unit_len/2)
 							 .turn_right(multiplier*120)
 							 eq_triangle_maze(depth=log2(by_three),unit_len=unit_len,clockwise=clockwise,
 																start_from='corner',method='random',draw_boundary=FALSE)
-							 turtle_forward(dist=num_segs * unit_len/2)
+							 turtle_forward(distance=num_segs * unit_len/2)
 						 }
 					 },
 					 two_ears={
@@ -226,14 +230,14 @@ eq_triangle_maze <- function(depth,unit_len,clockwise=TRUE,
 						 if (! (sub_method %in% c('random','uniform'))) { sub_method <- sample(c('stack_trapezoids','two_ears'),1) }
 
 						 turtle_up()
-						 turtle_backward(dist=unit_len * num_segs/2)
+						 turtle_backward(distance=unit_len * num_segs/2)
 						 for (iii in c(1:3)) {
 							 eq_triangle_maze(depth=depth-1,unit_len=unit_len,clockwise=clockwise,start_from='corner',
 														 method=sub_method,draw_boundary=FALSE)
-							 turtle_forward(dist=unit_len * num_segs)
+							 turtle_forward(distance=unit_len * num_segs)
 							 .turn_right(multiplier * 120)
 						 }
-						 turtle_forward(dist=unit_len * num_segs/2)
+						 turtle_forward(distance=unit_len * num_segs/2)
 						 .turn_right(multiplier * 60)
 						 eq_triangle_maze(depth=depth-1,unit_len=unit_len,clockwise=clockwise,start_from='corner',
 													 method=sub_method,draw_boundary=TRUE,num_boundary_holes=3)
@@ -243,7 +247,7 @@ eq_triangle_maze <- function(depth,unit_len,clockwise=TRUE,
 	if (draw_boundary) {
 		holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=3)
 		boundary_lines <- .interpret_boundary_lines(boundary_lines,nsides=3)
-		turtle_backward(dist=unit_len * num_segs/2)
+		turtle_backward(distance=unit_len * num_segs/2)
 
 		holey_path(unit_len=unit_len,
 							 lengths=rep(num_segs,3),
@@ -251,17 +255,17 @@ eq_triangle_maze <- function(depth,unit_len,clockwise=TRUE,
 							 draw_line=boundary_lines,
 							 has_hole=holes,
 							 hole_color=boundary_hole_color)
-		turtle_forward(dist=unit_len * num_segs/2)
+		turtle_forward(distance=unit_len * num_segs/2)
 	}
 	# move to ending side
 	if ((end_side != 1) && (!is.null(end_side))) {
 		for (iii in 1:(end_side-1)) {
-			turtle_forward(dist=unit_len * num_segs/2)
+			turtle_forward(distance=unit_len * num_segs/2)
 			.turn_right(multiplier * 120)
-			turtle_forward(dist=unit_len * num_segs/2)
+			turtle_forward(distance=unit_len * num_segs/2)
 		}
 	}
-	if (start_from=='corner') { turtle_backward(dist=unit_len * num_segs/2) }
+	if (start_from=='corner') { turtle_backward(distance=unit_len * num_segs/2) }
 }
 
 #for vim modeline: (do not edit)

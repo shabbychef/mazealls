@@ -9,7 +9,7 @@ Authors@R: c(person(c("Steven", "E."), "Pav", role=c("aut","cre"),
 Version: VERSION()
 Date: DATE()
 License: LGPL-3
-Title: Generate recursive mazes
+Title: Generate Recursive Mazes
 BugReports: https://github.com/shabbychef/PKG_NAME()/issues
 Description: Supports the generation of parallelogram, equilateral
     triangle, regular hexagon, and isosceles trapezoid mazes via
