@@ -57,7 +57,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/para_maze-1.png" title="plot of chunk para_maze" alt="plot of chunk para_maze" width="800px" height="600px" />
+<img src="man/figures/para_maze-1.png" title="plot of chunk para_maze" alt="plot of chunk para_maze" width="800px" height="800px" />
 
 # triangle maze
 
@@ -95,7 +95,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/eq_tri_uniform-1.png" title="plot of chunk eq_tri_uniform" alt="plot of chunk eq_tri_uniform" width="800px" height="600px" />
+<img src="man/figures/eq_tri_uniform-1.png" title="plot of chunk eq_tri_uniform" alt="plot of chunk eq_tri_uniform" width="800px" height="800px" />
 
 
 ```r
@@ -114,7 +114,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/eq_tri_stack-1.png" title="plot of chunk eq_tri_stack" alt="plot of chunk eq_tri_stack" width="800px" height="600px" />
+<img src="man/figures/eq_tri_stack-1.png" title="plot of chunk eq_tri_stack" alt="plot of chunk eq_tri_stack" width="800px" height="800px" />
 
 
 ```r
@@ -133,7 +133,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/eq_tri_four_tri-1.png" title="plot of chunk eq_tri_four_tri" alt="plot of chunk eq_tri_four_tri" width="800px" height="600px" />
+<img src="man/figures/eq_tri_four_tri-1.png" title="plot of chunk eq_tri_four_tri" alt="plot of chunk eq_tri_four_tri" width="800px" height="800px" />
 
 ```r
 library(TurtleGraphics)
@@ -151,7 +151,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/eq_tri_two_ears-1.png" title="plot of chunk eq_tri_two_ears" alt="plot of chunk eq_tri_two_ears" width="800px" height="600px" />
+<img src="man/figures/eq_tri_two_ears-1.png" title="plot of chunk eq_tri_two_ears" alt="plot of chunk eq_tri_two_ears" width="800px" height="800px" />
 
 
 ```r
@@ -170,7 +170,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/eq_tri_hex_and_three-1.png" title="plot of chunk eq_tri_hex_and_three" alt="plot of chunk eq_tri_hex_and_three" width="800px" height="600px" />
+<img src="man/figures/eq_tri_hex_and_three-1.png" title="plot of chunk eq_tri_hex_and_three" alt="plot of chunk eq_tri_hex_and_three" width="800px" height="800px" />
 
 
 ```r
@@ -189,7 +189,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/eq_tri_shave-1.png" title="plot of chunk eq_tri_shave" alt="plot of chunk eq_tri_shave" width="800px" height="600px" />
+<img src="man/figures/eq_tri_shave-1.png" title="plot of chunk eq_tri_shave" alt="plot of chunk eq_tri_shave" width="800px" height="800px" />
 
 
 
@@ -209,5 +209,5 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/eq_tri_shave_all-1.png" title="plot of chunk eq_tri_shave_all" alt="plot of chunk eq_tri_shave_all" width="800px" height="600px" />
+<img src="man/figures/eq_tri_shave_all-1.png" title="plot of chunk eq_tri_shave_all" alt="plot of chunk eq_tri_shave_all" width="800px" height="800px" />
 

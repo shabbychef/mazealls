@@ -83,7 +83,7 @@ Unlike some shapes, this method applies for arbitrary (integral) side lengths,
 where by 'length' we mean in units of 'hallway widths', what we call the
 `unit_len` in the API. Here is a simple parallelogram maze:
 
-```{r para_maze,cache=TRUE,eval=TRUE,echo=TRUE,dpi=250,out.width='800px',out.height='600px',fig.keep='last'}
+```{r para_maze,cache=TRUE,eval=TRUE,echo=TRUE,dpi=250,out.width='800px',out.height='800px',fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 turtle_init(1000,1000)
@@ -118,7 +118,7 @@ of side length one less than the original.
 
 I illustrate them here:
 
-```{r eq_tri_uniform,cache=TRUE,eval=TRUE,echo=TRUE,dpi=250,out.width='800px',out.height='600px',fig.keep='last'}
+```{r eq_tri_uniform,cache=TRUE,eval=TRUE,echo=TRUE,dpi=250,out.width='800px',out.height='800px',fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # uniform method
@@ -133,7 +133,7 @@ turtle_do({
 })
 ```
 
-```{r eq_tri_stack,cache=TRUE,eval=TRUE,echo=TRUE,dpi=250,out.width='800px',out.height='600px',fig.keep='last'}
+```{r eq_tri_stack,cache=TRUE,eval=TRUE,echo=TRUE,dpi=250,out.width='800px',out.height='800px',fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # stacked trapezoids
@@ -148,7 +148,7 @@ turtle_do({
 })
 ```
 
-```{r eq_tri_four_tri,cache=TRUE,eval=TRUE,echo=TRUE,dpi=250,out.width='800px',out.height='600px',fig.keep='last'}
+```{r eq_tri_four_tri,cache=TRUE,eval=TRUE,echo=TRUE,dpi=250,out.width='800px',out.height='800px',fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # four triangles
@@ -162,7 +162,7 @@ turtle_do({
 	eq_triangle_maze(depth=6,unit_len=12,method='triangles',draw_boundary=TRUE)
 })
 
-```{r eq_tri_two_ears,cache=TRUE,eval=TRUE,echo=TRUE,dpi=250,out.width='800px',out.height='600px',fig.keep='last'}
+```{r eq_tri_two_ears,cache=TRUE,eval=TRUE,echo=TRUE,dpi=250,out.width='800px',out.height='800px',fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # two ears
@@ -177,7 +177,7 @@ turtle_do({
 })
 ```
 
-```{r eq_tri_hex_and_three,cache=TRUE,eval=TRUE,echo=TRUE,dpi=250,out.width='800px',out.height='600px',fig.keep='last'}
+```{r eq_tri_hex_and_three,cache=TRUE,eval=TRUE,echo=TRUE,dpi=250,out.width='800px',out.height='800px',fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # hex and three
@@ -192,7 +192,7 @@ turtle_do({
 })
 ```
 
-```{r eq_tri_shave,cache=TRUE,eval=TRUE,echo=TRUE,dpi=250,out.width='800px',out.height='600px',fig.keep='last'}
+```{r eq_tri_shave,cache=TRUE,eval=TRUE,echo=TRUE,dpi=250,out.width='800px',out.height='800px',fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # shave 
@@ -208,7 +208,7 @@ turtle_do({
 ```
 
 
-```{r eq_tri_shave_all,cache=TRUE,eval=TRUE,echo=TRUE,dpi=250,out.width='800px',out.height='600px',fig.keep='last'}
+```{r eq_tri_shave_all,cache=TRUE,eval=TRUE,echo=TRUE,dpi=250,out.width='800px',out.height='800px',fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # shave all
