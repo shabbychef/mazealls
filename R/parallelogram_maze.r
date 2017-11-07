@@ -57,6 +57,10 @@
 #' Sub-mazes are chosen to be nearly equal in size.}
 #' \item{random}{A method is chosen uniformly at random.}
 #' }
+#' @param balance for the \code{two_parallelograms} method, we choose whether
+#' to split on height or width based on a balance condition. The log odds
+#' of choosing height over width is \code{balance} times the difference
+#' \code{height - width}. Set to 0 by default for equal odds.
 #' @examples
 #' \dontrun{
 #'
@@ -68,11 +72,24 @@
 #' 	 draw_boundary=TRUE)
 #' })
 #'
+#' # testing imbalance condition
+#' turtle_init(2000,2000)
+#' turtle_hide()
+#' turtle_up()
+#' turtle_do({
+#' 	turtle_left(90)
+#' 	turtle_forward(700)
+#' 	turtle_right(90)
+#' 	parallelogram_maze(angle=90,unit_len=12,width=110,height=120,method='two_parallelograms',draw_boundary=TRUE,balance=-0.01)
+#' })
+#' 
+#'
 #' }
 #' @export
 parallelogram_maze <- function(unit_len,height,width=height,angle=90,clockwise=TRUE,
 															 method=c('two_parallelograms','four_parallelograms','uniform','random'),
 															 start_from=c('midpoint','corner'),
+															 balance=0,
 															 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,boundary_hole_color=NULL,
 															 end_side=1) {
 	
@@ -92,26 +109,33 @@ parallelogram_maze <- function(unit_len,height,width=height,angle=90,clockwise=T
 		
 		switch(my_method,
 					 two_parallelograms={
-						 spliton <- sample(c('height','width'),1)
+						 dheight <- height - width
+						 logodds <- balance * dheight
+						 elogo   <- exp(logodds)
+						 spliton <- ifelse(runif(1) <= elogo / (1 + elogo),'height','width')
 						 switch(spliton,
 										height={
 											midp <- sample.int(size=1,n=(height-1))
 											parallelogram_maze(unit_len=unit_len,height=midp,width=width,angle=angle,clockwise=clockwise,method=method,start_from='corner',
+																				 balance=balance,
 																				 draw_boundary=TRUE,num_boundary_holes=0,boundary_lines=2,boundary_holes=2)
 											turtle_forward(midp*unit_len)
 											parallelogram_maze(unit_len=unit_len,height=height-midp,width=width,angle=angle,clockwise=clockwise,method=method,start_from='corner',
+																				 balance=balance,
 																				 draw_boundary=FALSE)
 											turtle_backward(midp*unit_len)
 										},
 										width={
 											midp <- sample.int(size=1,n=(width-1))
 											parallelogram_maze(unit_len=unit_len,height=height,width=midp,angle=angle,clockwise=clockwise,method=method,start_from='corner',
+																				 balance=balance,
 																				 draw_boundary=TRUE,num_boundary_holes=0,boundary_lines=3,boundary_holes=3)
 
 											.turn_right(angle*multiplier)
 											turtle_forward(midp*unit_len)
 											.turn_left(angle*multiplier)
 											parallelogram_maze(unit_len=unit_len,height=height,width=width-midp,angle=angle,clockwise=clockwise,method=method,start_from='corner',
+																				 balance=balance,
 																				 draw_boundary=FALSE)
 											.turn_right(angle*multiplier)
 											turtle_backward(midp*unit_len)
@@ -130,9 +154,11 @@ parallelogram_maze <- function(unit_len,height,width=height,angle=90,clockwise=T
 						 }
 
 						 parallelogram_maze(unit_len=unit_len,height=mid_height,width=mid_width,angle=angle,clockwise=clockwise,method=method,start_from='corner',
+																balance=balance,
 																draw_boundary=TRUE,boundary_lines=2,boundary_holes=1 %in% bholes)
 						 turtle_forward(mid_height*unit_len)
 						 parallelogram_maze(unit_len=unit_len,height=height-mid_height,width=mid_width,angle=angle,clockwise=clockwise,method=method,start_from='corner',
+																balance=balance,
 																draw_boundary=TRUE,boundary_lines=3,boundary_holes=2 %in% bholes)
 
 						 .turn_right(angle*multiplier)
@@ -140,9 +166,11 @@ parallelogram_maze <- function(unit_len,height,width=height,angle=90,clockwise=T
 						 .turn_left(angle*multiplier)
 
 						 parallelogram_maze(unit_len=unit_len,height=height-mid_height,width=width-mid_width,angle=angle,clockwise=clockwise,method=method,start_from='corner',
+																balance=balance,
 																draw_boundary=TRUE,boundary_lines=4,boundary_holes=4 %in% bholes)
 						 turtle_backward(mid_height*unit_len)
 						 parallelogram_maze(unit_len=unit_len,height=mid_height,width=width-mid_width,angle=angle,clockwise=clockwise,method=method,start_from='corner',
+																balance=balance,
 																draw_boundary=TRUE,boundary_lines=1,boundary_holes=3 %in% bholes)
 
 						 .turn_right(angle*multiplier)
@@ -179,7 +207,6 @@ parallelogram_maze <- function(unit_len,height,width=height,angle=90,clockwise=T
 	if (start_from=='midpoint') { 
 		turtle_forward(distance=unit_len * ifelse(.is_even(end_side),width,height)/2) }
 }
-
 
 #for vim modeline: (do not edit)
 # vim:fdm=marker:fmr=FOLDUP,UNFOLD:cms=#%s:syn=r:ft=r

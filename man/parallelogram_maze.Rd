@@ -6,7 +6,7 @@
 \usage{
 parallelogram_maze(unit_len, height, width = height, angle = 90,
   clockwise = TRUE, method = c("two_parallelograms", "four_parallelograms",
-  "uniform", "random"), start_from = c("midpoint", "corner"),
+  "uniform", "random"), start_from = c("midpoint", "corner"), balance = 0,
   draw_boundary = FALSE, num_boundary_holes = 2, boundary_lines = TRUE,
   boundary_holes = NULL, boundary_hole_color = NULL, end_side = 1)
 }
@@ -40,6 +40,11 @@ Sub-mazes are chosen to be nearly equal in size.}
 
 \item{start_from}{whether to start from the midpoint of the first side
 of a maze, or from the corner facing the first side.}
+
+\item{balance}{for the \code{two_parallelograms} method, we choose whether
+to split on height or width based on a balance condition. The log odds
+of choosing height over width is \code{balance} times the difference
+\code{height - width}. Set to 0 by default for equal odds.}
 
 \item{draw_boundary}{a boolean indicating whether a final boundary shall be
 drawn around the maze.}
@@ -96,6 +101,18 @@ turtle_do({
 	parallelogram_maze(angle=90,unit_len=12,width=75,height=55,method='uniform',
 	 draw_boundary=TRUE)
 })
+
+# testing imbalance condition
+turtle_init(2000,2000)
+turtle_hide()
+turtle_up()
+turtle_do({
+	turtle_left(90)
+	turtle_forward(700)
+	turtle_right(90)
+	parallelogram_maze(angle=90,unit_len=12,width=110,height=120,method='two_parallelograms',draw_boundary=TRUE,balance=-0.01)
+})
+
 
 }
 }
