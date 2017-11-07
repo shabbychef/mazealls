@@ -331,3 +331,26 @@ turtle_do({
 
 <img src="man/figures/trap_ear-1.png" title="plot of chunk trap_ear" alt="plot of chunk trap_ear" width="700px" height="700px" />
 
+# Koch snowflake maze
+
+Everyone's favorite snowflake can also be a maze. Simply fill in triangle bumps
+with triangular mazes and create lines with holes as needed:
+
+
+```r
+library(TurtleGraphics)
+library(mazealls)
+# koch
+turtle_init(1000, 1000)
+turtle_up()
+turtle_hide()
+turtle_do({
+    turtle_left(90)
+    turtle_forward(distance = 200)
+    turtle_right(90)
+    turtle_backward(distance = 300)
+    koch_maze(depth = 4, unit_len = 8)
+})
+```
+
+<img src="man/figures/koch_flake-1.png" title="plot of chunk koch_flake" alt="plot of chunk koch_flake" width="700px" height="700px" />

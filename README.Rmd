@@ -323,3 +323,23 @@ turtle_do({
 })
 ```
 
+# Koch snowflake maze
+
+Everyone's favorite snowflake can also be a maze. Simply fill in triangle bumps
+with triangular mazes and create lines with holes as needed:
+
+```{r koch_flake,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+library(TurtleGraphics)
+library(mazealls)
+# koch
+turtle_init(1000,1000)
+turtle_up()
+turtle_hide()
+turtle_do({
+	turtle_left(90)
+	turtle_forward(distance=200)
+	turtle_right(90)
+	turtle_backward(distance=300)
+ 	koch_maze(depth=4,unit_len=8)
+})
+```
