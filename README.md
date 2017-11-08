@@ -59,6 +59,42 @@ turtle_do({
 
 <img src="man/figures/para_maze-1.png" title="plot of chunk para_maze" alt="plot of chunk para_maze" width="700px" height="700px" />
 
+The `parallelogram_maze` function admits a `balance` parameter which controls
+how the maze should be recursively subdivided. A negative value creates
+imbalanced mazes, while positive values create more uniform mazes. In the
+example below we create seven mazes side by side with an increasing balance
+parameter:
+
+
+```r
+library(TurtleGraphics)
+library(mazealls)
+turtle_init(2000, 2000)
+turtle_hide()
+turtle_up()
+turtle_do({
+    turtle_left(90)
+    turtle_forward(930)
+    turtle_right(90)
+    valseq <- seq(from = -1.5, to = 1.5, length.out = 7)
+    blines <- c(1, 2, 3, 4)
+    bholes <- c(1, 3)
+    set.seed(1234)
+    for (iii in seq_along(valseq)) {
+        parallelogram_maze(angle = 90, unit_len = 12, 
+            width = 22, height = 130, method = "two_parallelograms", 
+            draw_boundary = TRUE, balance = valseq[iii], 
+            end_side = 3, boundary_lines = blines, 
+            boundary_holes = bholes)
+        turtle_right(180)
+        blines <- c(2, 3, 4)
+        bholes <- c(3)
+    }
+})
+```
+
+<img src="man/figures/para_imbalance_fade-1.png" title="plot of chunk para_imbalance_fade" alt="plot of chunk para_imbalance_fade" width="700px" height="700px" />
+
 # triangle maze
 
 An equilateral triangle maze can be constructed in a number of different ways:

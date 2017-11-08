@@ -59,8 +59,12 @@
 #' }
 #' @param balance for the \code{two_parallelograms} method, we choose whether
 #' to split on height or width based on a balance condition. The log odds
-#' of choosing height over width is \code{balance} times the difference
-#' \code{height - width}. Set to 0 by default for equal odds.
+#' of choosing height over width is the factor \code{balance} times the 
+#' sign of the difference \code{height - width}. When balance takes the default
+#' value of 0, you have equal odds of selecting to split on height or width.
+#' Note that balance is positive and large, you tend to generate nearly
+#' uniform splits. When balance is negative and large, you tend to have
+#' imbalanced mazes, and the imbalance propagates.
 #' @examples
 #' \dontrun{
 #'
@@ -80,9 +84,29 @@
 #' 	turtle_left(90)
 #' 	turtle_forward(700)
 #' 	turtle_right(90)
-#' 	parallelogram_maze(angle=90,unit_len=12,width=110,height=120,method='two_parallelograms',draw_boundary=TRUE,balance=-0.01)
+#' 	parallelogram_maze(angle=90,unit_len=12,width=110,height=120,method='two_parallelograms',draw_boundary=TRUE,balance=-1.0)
 #' })
 #' 
+#' # a bunch of imbalanced mazes, fading into each other
+#'  turtle_init(2000,2000)
+#'  turtle_hide()
+#'  turtle_up()
+#'  turtle_do({
+#'  	turtle_left(90)
+#'  	turtle_forward(950)
+#'  	turtle_right(90)
+#' 	valseq <- seq(from=-1.5,to=1.5,length.out=5)
+#' 	blines <- c(1,2,3,4)
+#' 	bholes <- c(1,3)
+#' 	set.seed(12354)
+#' 	for (iii in seq_along(valseq)) {
+#' 		parallelogram_maze(angle=90,unit_len=12,width=30,height=125,method='two_parallelograms',draw_boundary=TRUE,balance=valseq[iii],
+#' 											 end_side=3,boundary_lines=blines,boundary_holes=bholes)
+#' 		turtle_right(180)
+#' 		blines <- c(2,3,4)
+#' 		bholes <- c(3)
+#' 	}
+#'  })
 #'
 #' }
 #' @export
@@ -110,7 +134,7 @@ parallelogram_maze <- function(unit_len,height,width=height,angle=90,clockwise=T
 		switch(my_method,
 					 two_parallelograms={
 						 dheight <- height - width
-						 logodds <- balance * dheight
+						 logodds <- balance * sign(dheight)
 						 elogo   <- exp(logodds)
 						 spliton <- ifelse(runif(1) <= elogo / (1 + elogo),'height','width')
 						 switch(spliton,
