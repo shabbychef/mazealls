@@ -373,3 +373,157 @@ turtle_do({
  	koch_maze(depth=4,unit_len=8)
 })
 ```
+
+
+# Controls
+
+## unit length
+
+The `unit_len` parameter controls the graphical length of one 'unit', which is
+the length of holes between sections of the mazes, and is roughly the width
+of the 'hallways' of a maze. Here is an example of using different
+unit lengths in a stack of trapezoids
+
+```{r unit_len_stack_trap,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+library(TurtleGraphics)
+library(mazealls)
+# stack some trapezoids with different unit_len
+turtle_init(2500,2500)
+turtle_up()
+turtle_hide()
+turtle_do({
+	turtle_left(90)
+	turtle_forward(distance=800)
+	turtle_right(90)
+	clockwise <- TRUE
+	for (iii in c(1:6)) {
+		iso_trapezoid_maze(depth=5,unit_len=2^(6-iii),method='four_trapezoids',draw_boundary=TRUE,clockwise=clockwise,end_side=3,start_from='midpoint',
+			boundary_lines=c(1,2,4),boundary_holes=c(1))
+		clockwise <- !clockwise
+	}
+})
+```
+
+## boundaries
+
+The parameters `draw_boundary`, `boundary_lines`, `boundary_holes`, `num_boundary_holes` and `boundary_hole_color` control
+the drawing of the final outer boundary of polynomial mazes. Without a boundary
+the maze can be used in recursive construction. Adding a boundary provides the
+typical entry and exit points of a maze. The parameter `draw_boundary` is a
+single Boolean that controls whether the boundary is drawn or not.
+The parameter `boundary_lines` may be a scalar Boolean, or a numeric
+array giving the indices of which sides should have drawn boundary lines.
+The sides are numbered in the order in which they appear, and are
+controlled by the `clockwise` parameter. The parameter `boundary_holes`
+is a numeric array giving the indices of the boundary lines that should
+have holes. If `NULL`, then we uniformly choose `num_boundary_holes` holes 
+at random. Holes can be drawn as colored segments with the
+`boundary_hole_color`, which is a character array giving the color of each
+hole. The value 'clear' stands in for clear holes.
+
+```{r boundary_stuff,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+library(TurtleGraphics)
+library(mazealls)
+# side by side
+turtle_init(1000,400)
+turtle_up()
+turtle_hide()
+turtle_do({
+	turtle_left(90)
+	turtle_forward(distance=450)
+	turtle_right(90)
+
+	parallelogram_maze(unit_len=10,height=25,draw_boundary=FALSE,end_side=3)
+
+	turtle_left(90)
+	turtle_forward(distance=30)
+	turtle_left(90)
+
+	parallelogram_maze(unit_len=10,height=25,draw_boundary=TRUE,boundary_lines=c(1,3),boundary_holes=FALSE,end_side=3)
+
+	turtle_left(90)
+	turtle_forward(distance=30)
+	turtle_left(90)
+
+	parallelogram_maze(unit_len=10,height=25,draw_boundary=TRUE,boundary_lines=c(2,4),boundary_holes=c(2,4),boundary_hole_color=c('ignore','green','ignore','blue'))
+})
+
+```
+
+## end side
+
+The `end_side` parameter controls which side of the maze the turtle ends on.
+The default value of 1 essentially causes the turtle to end where it 
+started. The sides are numbered in the order in which the boundary would be
+drawn. Along with the boundar controls, the ending side can be useful to join together 
+polygons into more complex mazes, as below:
+
+```{r tri_of_hex,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+library(TurtleGraphics)
+library(mazealls)
+# triangle of hexes
+turtle_init(2500,2500)
+turtle_up()
+turtle_hide()
+ul <- 22
+dep <- 4
+turtle_do({
+	turtle_left(90)
+	turtle_forward(distance=1150)
+	turtle_right(90)
+	turtle_backward(distance=650)
+	hexagon_maze(unit_len=ul,depth=dep,end_side=4,draw_boundary=TRUE,boundary_holes=c(1,3,4))
+	parallelogram_maze(unit_len=ul,height=2^dep,clockwise=FALSE,width=3*(2^dep),end_side=3,
+		draw_boundary=TRUE,num_boundary_holes=0,boundary_lines=c(2,4))
+	hexagon_maze(unit_len=ul,depth=dep,end_side=2,draw_boundary=TRUE,boundary_holes=c(1,2))
+	parallelogram_maze(unit_len=ul,height=2^dep,clockwise=FALSE,width=3*(2^dep),end_side=3,
+		draw_boundary=TRUE,num_boundary_holes=0,boundary_lines=c(2,4))
+	hexagon_maze(unit_len=ul,depth=dep,end_side=2,draw_boundary=TRUE,boundary_holes=c(1,5))
+	parallelogram_maze(unit_len=ul,height=2^dep,clockwise=FALSE,width=3*(2^dep),end_side=3,
+		draw_boundary=TRUE,num_boundary_holes=0,boundary_lines=c(2,4))
+})
+```
+
+```{r tileit,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+library(TurtleGraphics)
+library(mazealls)
+# tiling!
+tile_bit <- function(unit_len,depth,clockwise=TRUE,draw_boundary=FALSE,boundary_holes=NULL) {
+	turtle_col('black')
+	parallelogram_maze(unit_len=unit_len,height=2^depth,clockwise=clockwise,draw_boundary=TRUE,num_boundary_holes=4)
+	turtle_col('red')
+	for (iii in c(1:4)) {
+		turtle_forward(unit_len * 2^(depth-1))
+		turtle_right(90)
+		turtle_forward(unit_len * 2^(depth-1))
+		eq_triangle_maze(unit_len=unit_len,depth=depth,clockwise=!clockwise,draw_boundary=draw_boundary,
+			boundary_lines=ifelse(iii <= 2,2,3),num_boundary_holes=3,end_side=ifelse(iii==4,2,1))
+		if (iii==2) { turtle_col('blue') }
+	}
+	turtle_col('black')
+	if (draw_boundary) { blines <- 1:4 } else { blines = 1 }
+	parallelogram_maze(unit_len=unit_len,height=2^depth,clockwise=clockwise,draw_boundary=TRUE,
+		boundary_lines=blines,boundary_holes=blines,end_side=3)
+	turtle_forward(unit_len * 2^(depth-1))
+	turtle_left(60)
+	turtle_forward(unit_len * 2^(depth-1))
+}
+
+turtle_init(2500,2500,mode='clip')
+turtle_up()
+turtle_hide()
+
+x0 <- 220
+y0 <- 0
+ul <- 20
+dep <- 5
+turtle_do({
+	for (jjj in c(1:5)) {
+		turtle_setpos(x=x0,y=y0)
+		turtle_setangle(angle=0)
+		replicate(5,tile_bit(unit_len=ul,depth=dep,draw_boundary=TRUE))
+		x0 <- x0 + ul * (2^dep) * (1 + sqrt(3)/2)
+		y0 <- y0 + ul * (2^(dep-1))
+	}
+})
+```

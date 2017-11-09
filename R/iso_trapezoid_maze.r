@@ -235,9 +235,11 @@ iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('mi
 							 has_hole=FALSE,
 							 hole_color=NULL)
 
-		turtle_forward(distance=unit_len * num_segs)
+		turtle_forward(distance=unit_len * num_segs/2)
 	}
-	if (start_from=='corner') { turtle_backward(distance=unit_len * num_segs) }
+	if (start_from=='corner') { 
+		turtle_backward(distance=unit_len * num_segs / ifelse(end_side==1,1,2)) 
+	}
 }
 
 

@@ -110,6 +110,7 @@
 #'
 #' }
 #' @export
+#' @importFrom stats runif
 parallelogram_maze <- function(unit_len,height,width=height,angle=90,clockwise=TRUE,
 															 method=c('two_parallelograms','four_parallelograms','uniform','random'),
 															 start_from=c('midpoint','corner'),
