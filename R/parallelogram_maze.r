@@ -84,7 +84,8 @@
 #' 	turtle_left(90)
 #' 	turtle_forward(700)
 #' 	turtle_right(90)
-#' 	parallelogram_maze(angle=90,unit_len=12,width=110,height=120,method='two_parallelograms',draw_boundary=TRUE,balance=-1.0)
+#' 	parallelogram_maze(angle=90,unit_len=12,width=110,height=120,
+#' 	  method='two_parallelograms',draw_boundary=TRUE,balance=-1.0)
 #' })
 #' 
 #' # a bunch of imbalanced mazes, fading into each other
@@ -100,8 +101,9 @@
 #' 	bholes <- c(1,3)
 #' 	set.seed(12354)
 #' 	for (iii in seq_along(valseq)) {
-#' 		parallelogram_maze(angle=90,unit_len=12,width=30,height=125,method='two_parallelograms',draw_boundary=TRUE,balance=valseq[iii],
-#' 											 end_side=3,boundary_lines=blines,boundary_holes=bholes)
+#' 		parallelogram_maze(angle=90,unit_len=12,width=30,height=125,
+#'			method='two_parallelograms',draw_boundary=TRUE,balance=valseq[iii],
+#' 			end_side=3,boundary_lines=blines,boundary_holes=bholes)
 #' 		turtle_right(180)
 #' 		blines <- c(2,3,4)
 #' 		bholes <- c(3)

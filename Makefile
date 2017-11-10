@@ -10,7 +10,7 @@
 VMAJOR 						 = 0
 VMINOR 						 = 0
 VPATCH  					 = 0
-VDEV 							 = .0004
+VDEV 							 = .0005
 PKG_NAME 					:= mazealls
 
 RPKG_USES_RCPP 		:= 0

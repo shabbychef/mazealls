@@ -93,7 +93,9 @@ Recursively draw an equilateral triangle, with sides consisting
 of \eqn{2^depth} pieces of length \code{unit_len}.
 }
 \details{
+For \code{uniform} method:
 
+\figure{eq\_tri\_uniform-1.png}
 }
 \examples{
 \dontrun{

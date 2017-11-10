@@ -30,6 +30,10 @@
 #'
 #' @details
 #'
+#' For \code{uniform} method:
+#'
+#' \figure{eq\_tri\_uniform-1.png}
+#'
 #' @keywords plotting
 #' @template etc
 #' @template param-unitlen
