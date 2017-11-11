@@ -34,15 +34,15 @@ neighbors.}
 parallelogram maze connected to two two half size equilateral triangle
 mazes, which are \sQuote{ears}.}
 \item{random}{A method is randomly selected from the available methods.}
-\item{hex_and_three}{When \eqn{2^depth} is a power of three, the triangle
+\item{hex_and_three}{When \eqn{2^{depth}} is a power of three, the triangle
 is drawn as a hexagonal maze of one third size connected to three
 equilateral triangular mazes, each one third size, at the corners.}
-\item{shave}{Here \eqn{2^depth} can be arbitrary. A single line is
+\item{shave}{Here \eqn{2^{depth}} can be arbitrary. A single line is
 \sQuote{shaved} off the triangle, connected to another equilateral triangle of
 length one less is drawn next to it. This sub triangle will either be
 drawn using a \sQuote{hex_and_three}, \sQuote{random}, or \sQuote{shave}
 methods, in decreasing order of preference, depending on the side length.}
-\item{shave_all}{Here \eqn{2^depth} can be arbitrary. A single line is
+\item{shave_all}{Here \eqn{2^{depth}} can be arbitrary. A single line is
 \sQuote{shaved} off the triangle, connected to another equilateral triangle of
 length one less is drawn next to it. This sub triangle will also be drawn
 using the \sQuote{shave_all} method. These mazes tend to look boring, and
@@ -90,12 +90,62 @@ the shape.
 }
 \description{
 Recursively draw an equilateral triangle, with sides consisting
-of \eqn{2^depth} pieces of length \code{unit_len}.
+of \eqn{2^{depth}} pieces of length \code{unit_len}.
 }
 \details{
 For \code{uniform} method:
 
-\figure{eq\_tri\_uniform-1.png}
+\if{html}{
+\figure{eq-tri-uniform-1.png}{options: width="100\%" alt="Figure: uniform"}
+}
+\if{latex}{
+\figure{eq-tri-uniform-1.png}{options: width=10cm}
+}
+
+For \code{method='triangles'}:
+
+\if{html}{
+\figure{eq-tri-four-tri-1.png}{options: width="100\%" alt="Figure: eq-tri-four-tri-1.png"}
+}
+\if{latex}{
+\figure{eq-tri-four-tri-1.png}{options: width=10cm}
+}
+
+For \code{method='two_ears'}:
+
+\if{html}{
+\figure{eq-tri-two-ears-1.png}{options: width="100\%" alt="Figure: eq-tri-two-ears-1.png"}
+}
+\if{latex}{
+\figure{eq-tri-two-ears-1.png}{options: width=10cm}
+}
+
+For \code{method='hex_and_three'}:
+
+\if{html}{
+\figure{eq-tri-hex-and-three-1.png}{options: width="100\%" alt="Figure: eq-tri-hex-and-three-1.png"}
+}
+\if{latex}{
+\figure{eq-tri-hex-and-three-1.png}{options: width=10cm}
+}
+
+For \code{method='shave'}:
+
+\if{html}{
+\figure{eq-tri-shave-1.png}{options: width="100\%" alt="Figure: eq-tri-shave-1.png"}
+}
+\if{latex}{
+\figure{eq-tri-shave-1.png}{options: width=10cm}
+}
+
+For \code{method='shave_all'}:
+
+\if{html}{
+\figure{eq-tri-shave-all-1.png}{options: width="100\%" alt="Figure: eq-tri-shave-all-1.png"}
+}
+\if{latex}{
+\figure{eq-tri-shave-all-1.png}{options: width=10cm}
+}
 }
 \examples{
 \dontrun{

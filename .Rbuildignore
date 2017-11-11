@@ -31,3 +31,5 @@ rpkg_make
 libs
 nohup.out
 vignettes
+Rd2.pdf
+mazealls.pdf

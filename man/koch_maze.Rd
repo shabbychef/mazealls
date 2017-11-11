@@ -51,7 +51,7 @@ the shape.
 }
 \description{
 Recursively draw an Koch snowflake maze. The inner part of the snowflake
-maze consists of an equilateral triangle of side length \eqn{3^depth}
+maze consists of an equilateral triangle of side length \eqn{3^{depth}}
 pieces of length \code{unit_len}.
 }
 \details{

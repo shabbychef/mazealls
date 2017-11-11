@@ -57,7 +57,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/para_maze-1.png" title="plot of chunk para_maze" alt="plot of chunk para_maze" width="700px" height="700px" />
+<img src="man/figures/para-maze-1.png" title="plot of chunk para-maze" alt="plot of chunk para-maze" width="700px" height="700px" />
 
 The `parallelogram_maze` function admits a `balance` parameter which controls
 how the maze should be recursively subdivided. A negative value creates
@@ -93,7 +93,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/para_imbalance_fade-1.png" title="plot of chunk para_imbalance_fade" alt="plot of chunk para_imbalance_fade" width="700px" height="700px" />
+<img src="man/figures/para-imbalance-fade-1.png" title="plot of chunk para-imbalance-fade" alt="plot of chunk para-imbalance-fade" width="700px" height="700px" />
 
 # triangle maze
 
@@ -131,7 +131,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/eq_tri_uniform-1.png" title="plot of chunk eq_tri_uniform" alt="plot of chunk eq_tri_uniform" width="700px" height="700px" />
+<img src="man/figures/eq-tri-uniform-1.png" title="plot of chunk eq-tri-uniform" alt="plot of chunk eq-tri-uniform" width="700px" height="700px" />
 
 
 ```r
@@ -150,7 +150,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/eq_tri_stack-1.png" title="plot of chunk eq_tri_stack" alt="plot of chunk eq_tri_stack" width="700px" height="700px" />
+<img src="man/figures/eq-tri-stack-1.png" title="plot of chunk eq-tri-stack" alt="plot of chunk eq-tri-stack" width="700px" height="700px" />
 
 
 ```r
@@ -169,7 +169,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/eq_tri_four_tri-1.png" title="plot of chunk eq_tri_four_tri" alt="plot of chunk eq_tri_four_tri" width="700px" height="700px" />
+<img src="man/figures/eq-tri-four-tri-1.png" title="plot of chunk eq-tri-four-tri" alt="plot of chunk eq-tri-four-tri" width="700px" height="700px" />
 
 ```r
 library(TurtleGraphics)
@@ -187,7 +187,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/eq_tri_two_ears-1.png" title="plot of chunk eq_tri_two_ears" alt="plot of chunk eq_tri_two_ears" width="700px" height="700px" />
+<img src="man/figures/eq-tri-two-ears-1.png" title="plot of chunk eq-tri-two-ears" alt="plot of chunk eq-tri-two-ears" width="700px" height="700px" />
 
 
 ```r
@@ -206,7 +206,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/eq_tri_hex_and_three-1.png" title="plot of chunk eq_tri_hex_and_three" alt="plot of chunk eq_tri_hex_and_three" width="700px" height="700px" />
+<img src="man/figures/eq-tri-hex-and-three-1.png" title="plot of chunk eq-tri-hex-and-three" alt="plot of chunk eq-tri-hex-and-three" width="700px" height="700px" />
 
 
 ```r
@@ -225,7 +225,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/eq_tri_shave-1.png" title="plot of chunk eq_tri_shave" alt="plot of chunk eq_tri_shave" width="700px" height="700px" />
+<img src="man/figures/eq-tri-shave-1.png" title="plot of chunk eq-tri-shave" alt="plot of chunk eq-tri-shave" width="700px" height="700px" />
 
 
 
@@ -245,7 +245,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/eq_tri_shave_all-1.png" title="plot of chunk eq_tri_shave_all" alt="plot of chunk eq_tri_shave_all" width="700px" height="700px" />
+<img src="man/figures/eq-tri-shave-all-1.png" title="plot of chunk eq-tri-shave-all" alt="plot of chunk eq-tri-shave-all" width="700px" height="700px" />
 
 # hexagon maze
 
@@ -277,7 +277,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/hex_trapezoids-1.png" title="plot of chunk hex_trapezoids" alt="plot of chunk hex_trapezoids" width="700px" height="700px" />
+<img src="man/figures/hex-trapezoids-1.png" title="plot of chunk hex-trapezoids" alt="plot of chunk hex-trapezoids" width="700px" height="700px" />
 
 
 ```r
@@ -296,7 +296,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/hex_triangles-1.png" title="plot of chunk hex_triangles" alt="plot of chunk hex_triangles" width="700px" height="700px" />
+<img src="man/figures/hex-triangles-1.png" title="plot of chunk hex-triangles" alt="plot of chunk hex-triangles" width="700px" height="700px" />
 
 
 ```r
@@ -346,7 +346,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/trap_four-1.png" title="plot of chunk trap_four" alt="plot of chunk trap_four" width="700px" height="700px" />
+<img src="man/figures/trap-four-1.png" title="plot of chunk trap-four" alt="plot of chunk trap-four" width="700px" height="700px" />
 
 
 ```r
@@ -365,7 +365,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/trap_ear-1.png" title="plot of chunk trap_ear" alt="plot of chunk trap_ear" width="700px" height="700px" />
+<img src="man/figures/trap-ear-1.png" title="plot of chunk trap-ear" alt="plot of chunk trap-ear" width="700px" height="700px" />
 
 # Koch snowflake maze
 
@@ -389,7 +389,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/koch_flake-1.png" title="plot of chunk koch_flake" alt="plot of chunk koch_flake" width="700px" height="700px" />
+<img src="man/figures/koch-flake-1.png" title="plot of chunk koch-flake" alt="plot of chunk koch-flake" width="700px" height="700px" />
 
 
 # Controls
@@ -424,7 +424,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/unit_len_stack_trap-1.png" title="plot of chunk unit_len_stack_trap" alt="plot of chunk unit_len_stack_trap" width="700px" height="700px" />
+<img src="man/figures/unit-len-stack-trap-1.png" title="plot of chunk unit-len-stack-trap" alt="plot of chunk unit-len-stack-trap" width="700px" height="700px" />
 
 ## boundaries
 
@@ -478,7 +478,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/boundary_stuff-1.png" title="plot of chunk boundary_stuff" alt="plot of chunk boundary_stuff" width="700px" height="700px" />
+<img src="man/figures/boundary-stuff-1.png" title="plot of chunk boundary-stuff" alt="plot of chunk boundary-stuff" width="700px" height="700px" />
 
 ## end side
 
@@ -527,7 +527,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/tri_of_hex-1.png" title="plot of chunk tri_of_hex" alt="plot of chunk tri_of_hex" width="700px" height="700px" />
+<img src="man/figures/tri-of-hex-1.png" title="plot of chunk tri-of-hex" alt="plot of chunk tri-of-hex" width="700px" height="700px" />
 
 
 ```r
@@ -556,7 +556,7 @@ tile_bit <- function(unit_len, depth, clockwise = TRUE,
     }
     turtle_col("black")
     if (draw_boundary) {
-        blines <- 1:4
+        blines <- c(1, 2, 4)
     } else {
         blines = 1
     }

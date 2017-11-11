@@ -83,7 +83,7 @@ Unlike some shapes, this method applies for arbitrary (integral) side lengths,
 where by 'length' we mean in units of 'hallway widths', what we call the
 `unit_len` in the API. Here is a simple parallelogram maze:
 
-```{r para_maze,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+```{r para-maze,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 turtle_init(1000,1000)
@@ -105,7 +105,7 @@ imbalanced mazes, while positive values create more uniform mazes. In the
 example below we create seven mazes side by side with an increasing balance
 parameter:
 
-```{r para_imbalance_fade,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+```{r para-imbalance-fade,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 turtle_init(2000,2000)
@@ -148,7 +148,7 @@ of side length one less than the original.
 
 I illustrate them here:
 
-```{r eq_tri_uniform,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+```{r eq-tri-uniform,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # uniform method
@@ -163,7 +163,7 @@ turtle_do({
 })
 ```
 
-```{r eq_tri_stack,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+```{r eq-tri-stack,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # stacked trapezoids
@@ -178,7 +178,7 @@ turtle_do({
 })
 ```
 
-```{r eq_tri_four_tri,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+```{r eq-tri-four-tri,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # four triangles
@@ -192,7 +192,7 @@ turtle_do({
 	eq_triangle_maze(depth=6,unit_len=12,method='triangles',draw_boundary=TRUE)
 })
 
-```{r eq_tri_two_ears,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+```{r eq-tri-two-ears,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # two ears
@@ -207,7 +207,7 @@ turtle_do({
 })
 ```
 
-```{r eq_tri_hex_and_three,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+```{r eq-tri-hex-and-three,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # hex and three
@@ -222,7 +222,7 @@ turtle_do({
 })
 ```
 
-```{r eq_tri_shave,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+```{r eq-tri-shave,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # shave 
@@ -238,7 +238,7 @@ turtle_do({
 ```
 
 
-```{r eq_tri_shave_all,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+```{r eq-tri-shave-all,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # shave all
@@ -266,7 +266,7 @@ An regular hexagonal maze can be constructed in a number of different ways:
 	 holes dividing them.
 
 
-```{r hex_trapezoids,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+```{r hex-trapezoids,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # two trapezoids
@@ -281,7 +281,7 @@ turtle_do({
 })
 ```
 
-```{r hex_triangles,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+```{r hex-triangles,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # six triangles
@@ -323,7 +323,7 @@ An isosceles trapezoid maze can be constructed in a number of different ways:
 	 with holes between them
 
 
-```{r trap_four,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+```{r trap-four,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # four trapezoids
@@ -338,7 +338,7 @@ turtle_do({
 })
 ```
 
-```{r trap_ear,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+```{r trap-ear,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # one ear
@@ -358,7 +358,7 @@ turtle_do({
 Everyone's favorite snowflake can also be a maze. Simply fill in triangle bumps
 with triangular mazes and create lines with holes as needed:
 
-```{r koch_flake,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+```{r koch-flake,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # koch
@@ -384,7 +384,7 @@ the length of holes between sections of the mazes, and is roughly the width
 of the 'hallways' of a maze. Here is an example of using different
 unit lengths in a stack of trapezoids
 
-```{r unit_len_stack_trap,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+```{r unit-len-stack-trap,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # stack some trapezoids with different unit_len
@@ -421,7 +421,7 @@ at random. Holes can be drawn as colored segments with the
 `boundary_hole_color`, which is a character array giving the color of each
 hole. The value 'clear' stands in for clear holes.
 
-```{r boundary_stuff,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+```{r boundary-stuff,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # side by side
@@ -458,7 +458,7 @@ started. The sides are numbered in the order in which the boundary would be
 drawn. Along with the boundar controls, the ending side can be useful to join together 
 polygons into more complex mazes, as below:
 
-```{r tri_of_hex,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+```{r tri-of-hex,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # triangle of hexes
@@ -501,7 +501,7 @@ tile_bit <- function(unit_len,depth,clockwise=TRUE,draw_boundary=FALSE,boundary_
 		if (iii==2) { turtle_col('blue') }
 	}
 	turtle_col('black')
-	if (draw_boundary) { blines <- 1:4 } else { blines = 1 }
+	if (draw_boundary) { blines <- c(1,2,4) } else { blines = 1 }
 	parallelogram_maze(unit_len=unit_len,height=2^depth,clockwise=clockwise,draw_boundary=TRUE,
 		boundary_lines=blines,boundary_holes=blines,end_side=3)
 	turtle_forward(unit_len * 2^(depth-1))

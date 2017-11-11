@@ -36,3 +36,6 @@ mazealls/
 cache/
 .docker_img
 *.crancheck
+.Rd2pdf*/
+Rd2.pdf
+mazealls.pdf

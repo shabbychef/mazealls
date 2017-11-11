@@ -72,7 +72,7 @@ the shape.
 }
 \description{
 Recursively draw a isosceles trapezoid, with three sides consisting
-of \eqn{2^depth} pieces of length \code{unit_len}, and one long
+of \eqn{2^{depth}} pieces of length \code{unit_len}, and one long
 side of length \eqn{2^(depth+1)} pieces, starting from the
 long side.
 }
