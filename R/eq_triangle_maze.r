@@ -25,63 +25,73 @@
 #'
 #' @description 
 #'
-#' Recursively draw an equilateral triangle, with sides consisting
-#' of \eqn{2^{depth}} pieces of length \code{unit_len}.
+#' Recursively draw an equilateral triangle maze, with sides consisting
+#' of \eqn{2^{depth}} pieces of length \code{unit_len}. 
 #'
 #' @details
 #'
-#' For \code{uniform} method:
+#' Draws a maze in an equilateral triangle, starting from the midpoint
+#' of the first side (or the corner before the first side via the
+#' \code{start_from} option). A number of different recursive methods
+#' are supported, dividing the triangle into sub-triangles, or hexagons,
+#' parallelogram and triangles, and so on.  Optionally draws boundaries
+#' around the triangle, with control over which sides have lines and
+#' holes. Side length of triangles consists of \eqn{2^{depth}} segments
+#' of length \code{unit_len}, though \code{depth} may be non-integral.
+#' A number of different methods are supported.
+#'
+#' For \code{method='uniform'}:
 #'
 #' \if{html}{
 #' \figure{eq-tri-uniform-1.png}{options: width="100\%" alt="Figure: uniform"}
 #' }
 #' \if{latex}{
-#' \figure{eq-tri-uniform-1.png}{options: width=10cm}
+#' \figure{eq-tri-uniform-1.png}{options: width=7cm}
 #' }
 #'
 #' For \code{method='triangles'}:
 #'
 #' \if{html}{
-#' \figure{eq-tri-four-tri-1.png}{options: width="100\%" alt="Figure: eq-tri-four-tri-1.png"}
+#' \figure{eq-tri-four-tri-1.png}{options: width="100\%" alt="Figure: triangles"}
 #' }
 #' \if{latex}{
-#' \figure{eq-tri-four-tri-1.png}{options: width=10cm}
+#' \figure{eq-tri-four-tri-1.png}{options: width=7cm}
 #' }
 #'
 #' For \code{method='two_ears'}:
 #'
 #' \if{html}{
-#' \figure{eq-tri-two-ears-1.png}{options: width="100\%" alt="Figure: eq-tri-two-ears-1.png"}
+#' \figure{eq-tri-two-ears-1.png}{options: width="100\%" alt="Figure: two ears"}
 #' }
 #' \if{latex}{
-#' \figure{eq-tri-two-ears-1.png}{options: width=10cm}
+#' \figure{eq-tri-two-ears-1.png}{options: width=7cm}
 #' }
 #'
 #' For \code{method='hex_and_three'}:
 #'
 #' \if{html}{
-#' \figure{eq-tri-hex-and-three-1.png}{options: width="100\%" alt="Figure: eq-tri-hex-and-three-1.png"}
+#' \figure{eq-tri-hex-and-three-1.png}{options: width="100\%" alt="Figure: hex and three triangles"}
 #' }
 #' \if{latex}{
-#' \figure{eq-tri-hex-and-three-1.png}{options: width=10cm}
+#' \figure{eq-tri-hex-and-three-1.png}{options: width=7cm}
 #' }
 #'
 #' For \code{method='shave'}:
 #'
 #' \if{html}{
-#' \figure{eq-tri-shave-1.png}{options: width="100\%" alt="Figure: eq-tri-shave-1.png"}
+#' \figure{eq-tri-shave-1.png}{options: width="100\%" alt="Figure: shave"}
 #' }
 #' \if{latex}{
-#' \figure{eq-tri-shave-1.png}{options: width=10cm}
+#' \figure{eq-tri-shave-1.png}{options: width=7cm}
 #' }
 #'
 #' For \code{method='shave_all'}:
 #'
 #' \if{html}{
-#' \figure{eq-tri-shave-all-1.png}{options: width="100\%" alt="Figure: eq-tri-shave-all-1.png"}
+#' \figure{eq-tri-shave-all-1.png}{options: width="100\%" alt="Figure: shave all"}
 #' }
 #' \if{latex}{
-#' \figure{eq-tri-shave-all-1.png}{options: width=10cm}
+#' \figure{eq-tri-shave-all-1.png}{options: width=7cm}
 #' }
 #'
 #' @keywords plotting

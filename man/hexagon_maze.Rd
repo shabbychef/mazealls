@@ -78,7 +78,42 @@ Recursively draw a regular hexagon, with sides consisting
 of \eqn{2^depth} pieces of length \code{unit_len}.
 }
 \details{
+Draws a maze in a regular hexagon, starting from the midpoint
+of the first side (or the corner before the first side via the
+\code{start_from} option). A number of different recursive methods
+are supported, dividing the triangle into trapezoids, triangles
+or parallelograms. Optionally draws boundaries
+around the hexagon, with control over which sides have lines and
+holes. Sides of the hexagon consist of \eqn{2^{depth}} segments
+of length \code{unit_len}, though \code{depth} may be non-integral.
+A number of different methods are supported.
 
+For \code{method='two_trapezoids'}:
+
+\if{html}{
+\figure{hex-trapezoids-1.png}{options: width="100\%" alt="Figure: two trapezoids"}
+}
+\if{latex}{
+\figure{hex-trapezoids-1.png}{options: width=7cm}
+}
+
+For \code{method='six_trapezoids'}:
+
+\if{html}{
+\figure{hex-triangles-1.png}{options: width="100\%" alt="Figure: six triangles"}
+}
+\if{latex}{
+\figure{hex-triangles-1.png}{options: width=7cm}
+}
+
+For \code{method='three_trapezoids'}:
+
+\if{html}{
+\figure{hex-parallelo-1.png}{options: width="100\%" alt="Figure: three parallelograms"}
+}
+\if{latex}{
+\figure{hex-parallelo-1.png}{options: width=7cm}
+}
 }
 \examples{
 \dontrun{

@@ -23,6 +23,61 @@
 
 #' Generate recursive mazes.
 #'
+#' Recursive generation of mazes proceeds roughly as follows: subdivide
+#' the domain logicall into two or more parts, creating mazes in the 
+#' sub-parts, then drawing dividing lines between them with some holes.
+#' The holes in the dividing lines should be constructed so that the
+#' sub-parts form a tree, with exactly one way to get from one of the
+#' sub-parts to any one of the others. Then an optional outer boundary
+#' with optional holes is drawn to finish the maze.
+#'
+#' @section unit length
+#'
+#' The \code{unit_len} parameter controls the graphical length of one \sQuote{unit}, 
+#' which is the length of holes between sections of the mazes, and is roughly the width
+#' of the \sQuote{hallways} of a maze. Here is an example of using different
+#' unit lengths in a stack of trapezoids
+#'
+#' \if{html}{
+#' \figure{unit-len-stack-trap-1.png}{options: width="100\%" alt="Figure: Stacked trapezoids"}
+#' }
+#' \if{latex}{
+#' \figure{unit-len-stack-trap-1.png}{options: width=7cm}
+#' }
+#'
+#' @section boundaries
+#'
+#' The parameters \code{draw_boundary}, \code{boundary_lines}, \code{boundary_holes}, 
+#' \code{num_boundary_holes} and \code{boundary_hole_color} control
+#' the drawing of the final outer boundary of polynomial mazes. Without a boundary
+#' the maze can be used in recursive construction. Adding a boundary provides the
+#' typical entry and exit points of a maze. The parameter \code{draw_boundary} is a
+#' single Boolean that controls whether the boundary is drawn or not.
+#' The parameter \code{boundary_lines} may be a scalar Boolean, or a numeric
+#' array giving the indices of which sides should have drawn boundary lines.
+#' The sides are numbered in the order in which they appear, and are
+#' controlled by the \code{clockwise} parameter. The parameter \code{boundary_holes}
+#' is a numeric array giving the indices of the boundary lines that should
+#' have holes. If \code{NULL}, then we uniformly choose \code{num_boundary_holes} holes 
+#' at random. Holes can be drawn as colored segments with the
+#' \code{boundary_hole_color}, which is a character array giving the color of each
+#' hole. The value 'clear' stands in for clear holes.
+#'
+#' \if{html}{
+#' \figure{boundary-stuff-1.png}{options: width="100\%" alt="Figure: Boundary Examples"}
+#' }
+#' \if{latex}{
+#' \figure{boundary-stuff-1.png}{options: width=7cm}
+#' }
+#'
+#' @section end side
+#'
+#' The \code{end_side} parameter controls which side of the maze the turtle ends on.
+#' The default value of 1 essentially causes the turtle to end where it 
+#' started. The sides are numbered in the order in which the boundary would be
+#' drawn. Along with the boundary controls, the ending side can be useful to join together 
+#' polygons into more complex mazes.
+#'
 #' @section Legal Mumbo Jumbo:
 #'
 #' mazealls is distributed in the hope that it will be useful,
@@ -41,7 +96,12 @@
 #' @keywords package
 #' @note
 #' 
-#' This package is dedicated to my friend, Abie Flaxman, who gave me the idea.
+#' This package is dedicated to my friend, Abie Flaxman, who gave me the idea,
+#' and other ideas.
+#'
+#' @note
+#' If you like this package, please endorse the author for \sQuote{mazes} on
+#' LinkedIn.
 #'
 NULL
 
@@ -54,7 +114,7 @@ NULL
 #' \newcommand{\CRANpkg}{\href{http://cran.r-project.org/package=#1}{\pkg{#1}}}
 #' \newcommand{\mazealls}{\CRANpkg{mazealls}}
 #'
-#' @section \mazealls{} Initial Version 0.1.0 (2017-11-10) :
+#' @section \mazealls{} Initial Version 0.1.0 (2017-11-12) :
 #' \itemize{
 #' \item first CRAN release.
 #' }

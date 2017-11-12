@@ -455,7 +455,7 @@ turtle_do({
 The `end_side` parameter controls which side of the maze the turtle ends on.
 The default value of 1 essentially causes the turtle to end where it 
 started. The sides are numbered in the order in which the boundary would be
-drawn. Along with the boundar controls, the ending side can be useful to join together 
+drawn. Along with the boundary controls, the ending side can be useful to join together 
 polygons into more complex mazes, as below:
 
 ```{r tri-of-hex,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}

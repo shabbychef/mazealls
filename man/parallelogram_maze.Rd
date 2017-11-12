@@ -93,7 +93,33 @@ Recursively draw a parallelogram maze, with the first side consisting of
 the first and second side may be set.
 }
 \details{
+Draws a maze in an parallelogram, starting from the midpoint
+of the first side (or the corner before the first side via the
+\code{start_from} option). Can recursively subdivide into two or
+four parallelograms.  The first (and third) side shall consist of \code{height}
+segments of length \code{unit_len}. The second and fourth side consist of
+\code{width} segments of length \code{unit_len}. The angle between them is
+\code{angle}. Here is an example maze:
 
+\if{html}{
+\figure{para-maze-1.png}{options: width="100\%" alt="Figure: parallelogram maze"}
+}
+\if{latex}{
+\figure{para-maze-1.png}{options: width=7cm}
+}
+
+This function admits a \code{balance} parameter which controls
+how the maze should be recursively subdivided. A negative value creates
+imbalanced mazes, while positive values create more uniform mazes. Here are
+create seven mazes created side by side with an increasing balance
+parameter:
+
+\if{html}{
+\figure{para-imbalance-fade-1.png}{options: width="100\%" alt="Figure: parallelogram maze"}
+}
+\if{latex}{
+\figure{para-imbalance-fade-1.png}{options: width=7cm}
+}
 }
 \examples{
 \dontrun{

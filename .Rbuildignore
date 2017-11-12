@@ -33,3 +33,4 @@ nohup.out
 vignettes
 Rd2.pdf
 mazealls.pdf
+.Rd2pdf*

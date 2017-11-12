@@ -8,18 +8,22 @@
 \description{
 Generate recursive mazes.
 }
+\details{
+Recursive generation of mazes proceeds roughly as follows: subdivide
+the domain logicall into two or more parts, creating mazes in the 
+sub-parts, then drawing dividing lines between them with some holes.
+The holes in the dividing lines should be constructed so that the
+sub-parts form a tree, with exactly one way to get from one of the
+sub-parts to any one of the others. Then an optional outer boundary
+with optional holes is drawn to finish the maze.
+}
 \note{
-This package is dedicated to my friend, Abie Flaxman, who gave me the idea.
+This package is dedicated to my friend, Abie Flaxman, who gave me the idea,
+and other ideas.
+
+If you like this package, please endorse the author for \sQuote{mazes} on
+LinkedIn.
 }
-\section{Legal Mumbo Jumbo}{
-
-
-mazealls is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
-}
-
 \author{
 Steven E. Pav \email{shabbychef@gmail.com}
 }

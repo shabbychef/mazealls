@@ -28,3 +28,4 @@ Collate:
     'mazealls.r'
     'parallelogram_maze.r'
     'utils.r'
+RoxygenNote: 6.0.1

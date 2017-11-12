@@ -79,12 +79,42 @@ holey_bone <- function(unit_len,num_segs) {
 #'
 #' @description 
 #' 
-#' Recursively draw a isosceles trapezoid, with three sides consisting
+#' Recursively draw a isosceles trapezoid maze, with three sides consisting
 #' of \eqn{2^{depth}} pieces of length \code{unit_len}, and one long
 #' side of length \eqn{2^(depth+1)} pieces, starting from the
 #' long side.
 #'
 #' @details
+#'
+#' Draws a maze in an isoscelese trapezoid with three sides of equal length
+#' and one long side of twice that length, starting from the midpoint
+#' of the long side (or the corner before the first side via the
+#' \code{start_from} option). A number of different recursive methods
+#' are supported.
+#' Optionally draws boundaries around the trapezoid, 
+#' with control over which sides have lines and
+#' holes. Three sides of the trapezoid consist of \eqn{2^{depth}} segments
+#' of length \code{unit_len}, while the longer has \eqn{2^{depth}}. 
+#' A number of different methods are supported.
+#' For \code{method='four_trapezoids'}:
+#'
+#' \if{html}{
+#' \figure{trap-four-1.png}{options: width="100\%" alt="Figure: four trapezoids"}
+#' }
+#' \if{latex}{
+#' \figure{trap-four-1.png}{options: width=7cm}
+#' }
+#'
+#' For \code{method='one_ear'}:
+#'
+#' \if{html}{
+#' \figure{trap-ear-1.png}{options: width="100\%" alt="Figure: one ear"}
+#' }
+#' \if{latex}{
+#' \figure{trap-ear-1.png}{options: width=7cm}
+#' }
+#'
+#'
 #'
 #' @keywords plotting
 #' @template etc
@@ -94,8 +124,10 @@ holey_bone <- function(unit_len,num_segs) {
 #' @template param-end-side
 #' @template param-boundary-stuff
 #' @template return-none
-#' @param depth the depth of recursion. Should be integer. This controls the
-#' side length.
+#' @param depth the depth of recursion. This controls the
+#' side length: three sides have \code{round(2^depth)} segments
+#' of length \code{unit_len}, while the long side is twice as long.
+#' \code{depth} need not be integral.
 #' @param method there are many ways to recursive draw an isosceles
 #' trapezoid.  The following values are acceptable:
 #' \describe{
