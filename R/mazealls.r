@@ -101,7 +101,7 @@
 #'
 #' @note
 #' If you like this package, please endorse the author for \sQuote{mazes} on
-#' \href{https://www.linkedin.com/in/shabbychef/}{LinkedIn}.
+#' LinkedIn.
 #'
 NULL
 
