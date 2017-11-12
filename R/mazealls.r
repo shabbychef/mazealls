@@ -111,7 +111,7 @@ NULL
 #'
 #' News for package \sQuote{mazealls}
 #'
-#' \newcommand{\CRANpkg}{\href{http://cran.r-project.org/package=#1}{\pkg{#1}}}
+#' \newcommand{\CRANpkg}{\href{https://cran.r-project.org/package=#1}{\pkg{#1}}}
 #' \newcommand{\mazealls}{\CRANpkg{mazealls}}
 #'
 #' @section \mazealls{} Initial Version 0.1.0 (2017-11-12) :
