@@ -22,7 +22,7 @@ This package is dedicated to my friend, Abie Flaxman, who gave me the idea,
 and other ideas.
 
 If you like this package, please endorse the author for \sQuote{mazes} on
-\href{https://www.linkedin.com/in/shabbychef/}{LinkedIn}.
+LinkedIn.
 }
 \section{unit length}{
 
