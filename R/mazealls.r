@@ -31,7 +31,7 @@
 #' sub-parts to any one of the others. Then an optional outer boundary
 #' with optional holes is drawn to finish the maze.
 #'
-#' @section unit length
+#' @section unit length:
 #'
 #' The \code{unit_len} parameter controls the graphical length of one \sQuote{unit}, 
 #' which is the length of holes between sections of the mazes, and is roughly the width
@@ -45,7 +45,7 @@
 #' \figure{unit-len-stack-trap-1.png}{options: width=7cm}
 #' }
 #'
-#' @section boundaries
+#' @section boundaries:
 #'
 #' The parameters \code{draw_boundary}, \code{boundary_lines}, \code{boundary_holes}, 
 #' \code{num_boundary_holes} and \code{boundary_hole_color} control
@@ -70,7 +70,7 @@
 #' \figure{boundary-stuff-1.png}{options: width=7cm}
 #' }
 #'
-#' @section end side
+#' @section end side:
 #'
 #' The \code{end_side} parameter controls which side of the maze the turtle ends on.
 #' The default value of 1 essentially causes the turtle to end where it 
@@ -101,7 +101,7 @@
 #'
 #' @note
 #' If you like this package, please endorse the author for \sQuote{mazes} on
-#' LinkedIn.
+#' \href{https://www.linkedin.com/in/shabbychef/}{LinkedIn}.
 #'
 NULL
 

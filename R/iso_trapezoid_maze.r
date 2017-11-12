@@ -81,7 +81,7 @@ holey_bone <- function(unit_len,num_segs) {
 #' 
 #' Recursively draw a isosceles trapezoid maze, with three sides consisting
 #' of \eqn{2^{depth}} pieces of length \code{unit_len}, and one long
-#' side of length \eqn{2^(depth+1)} pieces, starting from the
+#' side of length \eqn{2^{depth+1}} pieces, starting from the
 #' long side.
 #'
 #' @details

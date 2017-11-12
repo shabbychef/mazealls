@@ -75,7 +75,7 @@ the shape.
 }
 \description{
 Recursively draw a regular hexagon, with sides consisting
-of \eqn{2^depth} pieces of length \code{unit_len}.
+of \eqn{2^{depth}} pieces of length \code{unit_len}.
 }
 \details{
 Draws a maze in a regular hexagon, starting from the midpoint
