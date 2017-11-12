@@ -10,7 +10,7 @@
 VMAJOR 						 = 0
 VMINOR 						 = 1
 VPATCH  					 = 0
-#VDEV 							 = .0006
+#VDEV 							 = .0001
 VDEV 							 =
 PKG_NAME 					:= mazealls
 

@@ -315,7 +315,7 @@ turtle_do({
 })
 ```
 
-<img src="man/figures/hex_parallelo-1.png" title="plot of chunk hex_parallelo" alt="plot of chunk hex_parallelo" width="700px" height="700px" />
+<img src="man/figures/hex-parallelo-1.png" title="plot of chunk hex-parallelo" alt="plot of chunk hex-parallelo" width="700px" height="700px" />
 
 
 # trapezoid maze
@@ -485,7 +485,7 @@ turtle_do({
 The `end_side` parameter controls which side of the maze the turtle ends on.
 The default value of 1 essentially causes the turtle to end where it 
 started. The sides are numbered in the order in which the boundary would be
-drawn. Along with the boundar controls, the ending side can be useful to join together 
+drawn. Along with the boundary controls, the ending side can be useful to join together 
 polygons into more complex mazes, as below:
 
 

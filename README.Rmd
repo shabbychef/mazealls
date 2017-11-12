@@ -296,7 +296,7 @@ turtle_do({
 })
 ```
 
-```{r hex_parallelo,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+```{r hex-parallelo,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 # six triangles
