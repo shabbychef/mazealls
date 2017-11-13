@@ -40,7 +40,7 @@ RUN (DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true apt-get ins
 # rinstall somethings...
 RUN /usr/local/bin/install2.r TurtleGraphics;
 
-RUN groupadd -g 1000 spav && useradd -g spav -u 1000 spav;
+RUN groupadd -g 1001 spav && useradd -g spav -u 1001 spav;
 USER spav
 
 #####################################################
