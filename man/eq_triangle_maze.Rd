@@ -158,6 +158,7 @@ For \code{method='shave_all'}:
 }
 }
 \examples{
+library(TurtleGraphics)
 turtle_init(1500,1500)
 turtle_hide() 
 turtle_up()

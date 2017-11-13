@@ -123,6 +123,8 @@ parameter:
 }
 \examples{
 
+library(TurtleGraphics)
+
 turtle_init(2000,2000)
 turtle_hide()
 turtle_up()

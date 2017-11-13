@@ -16,7 +16,8 @@ FROM shabbychef/crancheck
 MAINTAINER Steven E. Pav, shabbychef@gmail.com
 # UNFOLD
 
-ENV DOCKERFILE_REFRESHED_AT 2017.03.14
+#ENV DOCKERFILE_REFRESHED_AT 2017.03.14
+ENV DOCKERFILE_REFRESHED_AT 2017.11.13
 # see http://crosbymichael.com/dockerfile-best-practices.html
 #RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
 

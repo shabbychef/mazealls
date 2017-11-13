@@ -41,6 +41,8 @@ This function is the workhorse of drawing mazes, as it
 creates a maze wall with a single hole in it.
 }
 \examples{
+
+library(TurtleGraphics)
 turtle_init(1000,1000)
 y <- holey_line(unit_len=20, num_segs=15)
 }

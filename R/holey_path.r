@@ -62,6 +62,8 @@
 #' acceptable values.
 #' @template return-none
 #' @examples 
+#'
+#' library(TurtleGraphics)
 #' # draw a triangle with holes on the boundaries
 #' turtle_init(1000,1000)
 #' holey_path(unit_len=20, lengths=rep(10,3), angles=c(120), draw_line=TRUE, has_hole=TRUE)
