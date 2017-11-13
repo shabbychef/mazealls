@@ -51,10 +51,8 @@
 #' the function is called for side effects only.
 #' @template etc
 #' @examples 
-#' \dontrun{
 #' turtle_init(1000,1000)
 #' y <- holey_line(unit_len=20, num_segs=15)
-#' }
 #' @export
 holey_line <- function(unit_len,num_segs,which_seg=NULL,go_back=FALSE,hole_color=NULL) {
 	if (num_segs > 1) {

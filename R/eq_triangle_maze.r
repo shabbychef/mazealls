@@ -134,7 +134,6 @@
 #' }
 #'
 #' @examples 
-#' \dontrun{
 #' turtle_init(1500,1500)
 #' turtle_hide() 
 #' turtle_up()
@@ -182,7 +181,6 @@
 #'   eq_triangle_maze(depth=log2(81),12,clockwise=FALSE,method='shave',draw_boundary=TRUE,
 #'     boundary_lines=c(2,3),boundary_holes=c(2),boundary_hole_color='green')
 #' })
-#' }
 #' @export
 eq_triangle_maze <- function(depth,unit_len,clockwise=TRUE,
 														 method=c('stack_trapezoids','triangles','uniform','two_ears','random','hex_and_three','shave_all','shave'),

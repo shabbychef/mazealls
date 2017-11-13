@@ -158,7 +158,6 @@ For \code{method='shave_all'}:
 }
 }
 \examples{
-\dontrun{
 turtle_init(1500,1500)
 turtle_hide() 
 turtle_up()
@@ -206,7 +205,6 @@ turtle_do({
   eq_triangle_maze(depth=log2(81),12,clockwise=FALSE,method='shave',draw_boundary=TRUE,
     boundary_lines=c(2,3),boundary_holes=c(2),boundary_hole_color='green')
 })
-}
 }
 \author{
 Steven E. Pav \email{shabbychef@gmail.com}

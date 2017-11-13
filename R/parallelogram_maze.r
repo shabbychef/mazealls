@@ -94,7 +94,6 @@
 #' uniform splits. When balance is negative and large, you tend to have
 #' imbalanced mazes, and the imbalance propagates.
 #' @examples
-#' \dontrun{
 #'
 #' turtle_init(2000,2000)
 #' turtle_hide()
@@ -138,7 +137,6 @@
 #' 	}
 #'  })
 #'
-#' }
 #' @export
 #' @importFrom stats runif
 parallelogram_maze <- function(unit_len,height,width=height,angle=90,clockwise=TRUE,

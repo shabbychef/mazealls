@@ -116,7 +116,6 @@ For \code{method='three_trapezoids'}:
 }
 }
 \examples{
-\dontrun{
 turtle_init(2000,2000)
 turtle_hide()
 turtle_do({
@@ -192,8 +191,6 @@ turtle_do({
 		turtle_forward(distance=unit_len * num_segs/2)
 	}
 })
-
-}
 }
 \author{
 Steven E. Pav \email{shabbychef@gmail.com}

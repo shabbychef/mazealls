@@ -140,7 +140,6 @@ holey_bone <- function(unit_len,num_segs) {
 #' }
 #'
 #' @examples 
-#' \dontrun{
 #' turtle_init(1000,1000)
 #' turtle_hide() 
 #' iso_trapezoid_maze(depth=4,20,clockwise=FALSE,draw_boundary=TRUE)
@@ -161,7 +160,6 @@ holey_bone <- function(unit_len,num_segs) {
 #' 	iso_trapezoid_maze(depth=log2(len),15,clockwise=FALSE,draw_boundary=TRUE,
 #' 	  boundary_lines=c(2,3,4),boundary_holes=c(2),method='one_ear',boundary_hole_color=c('red'))
 #' })
-#' }
 #' @export
 iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('midpoint','corner'),
 															 method=c('four_trapezoids','one_ear','random'),

@@ -91,7 +91,6 @@
 #'
 #'
 #' @examples 
-#' \dontrun{
 #' turtle_init(2000,2000)
 #' turtle_hide() 
 #' turtle_up()
@@ -104,8 +103,6 @@
 #' 	turtle_right(30)
 #' 	koch_maze(depth=4,unit_len=15)
 #' })
-#'
-#' }
 #' @export
 koch_maze <- function(depth,unit_len,clockwise=TRUE,
 											draw_boundary=TRUE,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,boundary_hole_color=NULL) {

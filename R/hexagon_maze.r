@@ -91,7 +91,6 @@
 #' \item{random}{A method is chosen uniformly at random.}
 #' }
 #' @examples
-#' \dontrun{
 #' turtle_init(2000,2000)
 #' turtle_hide()
 #' turtle_do({
@@ -167,8 +166,6 @@
 #' 		turtle_forward(distance=unit_len * num_segs/2)
 #' 	}
 #' })
-#'
-#' }
 #' @export
 hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids','six_triangles','three_parallelograms','random'),
 												 start_from=c('midpoint','corner'),

@@ -53,7 +53,6 @@ argument via \code{mapply}, which simplifies
 the path description.
 }
 \examples{
-\dontrun{
 # draw a triangle with holes on the boundaries
 turtle_init(1000,1000)
 holey_path(unit_len=20, lengths=rep(10,3), angles=c(120), draw_line=TRUE, has_hole=TRUE)
@@ -69,8 +68,6 @@ turtle_init(1000,1000)
 turtle_hide()
 holey_path(unit_len=20, lengths=sort(rep(1:10,2),decreasing=TRUE), angles=c(90), 
   draw_line=TRUE, has_hole=FALSE)
-
-}
 }
 \seealso{
 \code{\link{holey_line}}.

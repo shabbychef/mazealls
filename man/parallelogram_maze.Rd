@@ -122,7 +122,6 @@ parameter:
 }
 }
 \examples{
-\dontrun{
 
 turtle_init(2000,2000)
 turtle_hide()
@@ -166,7 +165,6 @@ turtle_do({
 	}
  })
 
-}
 }
 \author{
 Steven E. Pav \email{shabbychef@gmail.com}

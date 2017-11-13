@@ -108,7 +108,6 @@ For \code{method='one_ear'}:
 }
 }
 \examples{
-\dontrun{
 turtle_init(1000,1000)
 turtle_hide() 
 iso_trapezoid_maze(depth=4,20,clockwise=FALSE,draw_boundary=TRUE)
@@ -129,7 +128,6 @@ turtle_do({
 	iso_trapezoid_maze(depth=log2(len),15,clockwise=FALSE,draw_boundary=TRUE,
 	  boundary_lines=c(2,3,4),boundary_holes=c(2),method='one_ear',boundary_hole_color=c('red'))
 })
-}
 }
 \author{
 Steven E. Pav \email{shabbychef@gmail.com}

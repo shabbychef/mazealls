@@ -62,7 +62,6 @@
 #' acceptable values.
 #' @template return-none
 #' @examples 
-#' \dontrun{
 #' # draw a triangle with holes on the boundaries
 #' turtle_init(1000,1000)
 #' holey_path(unit_len=20, lengths=rep(10,3), angles=c(120), draw_line=TRUE, has_hole=TRUE)
@@ -78,8 +77,6 @@
 #' turtle_hide()
 #' holey_path(unit_len=20, lengths=sort(rep(1:10,2),decreasing=TRUE), angles=c(90), 
 #'   draw_line=TRUE, has_hole=FALSE)
-#'
-#' }
 #' @export
 holey_path <- function(unit_len,lengths,angles,draw_line=TRUE,has_hole=FALSE,hole_color=NULL) {
 # do something here about recycling hole color too?

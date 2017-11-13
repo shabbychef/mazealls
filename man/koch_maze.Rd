@@ -68,7 +68,6 @@ of length \code{unit_len}.
 }
 }
 \examples{
-\dontrun{
 turtle_init(2000,2000)
 turtle_hide() 
 turtle_up()
@@ -81,8 +80,6 @@ turtle_do({
 	turtle_right(30)
 	koch_maze(depth=4,unit_len=15)
 })
-
-}
 }
 \author{
 Steven E. Pav \email{shabbychef@gmail.com}
