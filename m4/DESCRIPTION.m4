@@ -4,8 +4,10 @@ include(basedefs.m4)
 divert(0)dnl
 Package: PKG_NAME()
 Maintainer: Steven E. Pav <shabbychef@gmail.com>
-Authors@R: c(person(c("Steven", "E."), "Pav", role=c("aut","cre"),
-    email="shabbychef@gmail.com"))
+Authors@R: c(person(c("Steven", "E."), "Pav", 
+    role=c("aut","cre"),
+    email="shabbychef@gmail.com",
+		comment = c(ORCID = "0000-0002-4197-6195")))
 Version: VERSION()
 Date: DATE()
 License: LGPL-3
