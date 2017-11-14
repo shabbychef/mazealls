@@ -159,7 +159,7 @@ For \code{method='shave_all'}:
 }
 \examples{
 library(TurtleGraphics)
-turtle_init(1500,1500)
+turtle_init(2500,2500)
 turtle_hide() 
 turtle_up()
 turtle_do({
@@ -169,7 +169,7 @@ turtle_do({
   eq_triangle_maze(depth=4,12,clockwise=FALSE,method='two_ears',draw_boundary=TRUE)
 })
 
-turtle_init(1500,1500)
+turtle_init(2500,2500)
 turtle_hide() 
 turtle_up()
 turtle_do({
@@ -180,7 +180,7 @@ turtle_do({
 })
 
 # join two together, with green holes on opposite sides
-turtle_init(1500,1500)
+turtle_init(2500,2500)
 turtle_hide() 
 turtle_up()
 turtle_do({
@@ -194,7 +194,7 @@ turtle_do({
 })
 
 # non integral depths also possible:
-turtle_init(1500,1500)
+turtle_init(2500,2500)
 turtle_hide() 
 turtle_up()
 turtle_do({
