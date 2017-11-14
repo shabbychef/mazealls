@@ -101,10 +101,10 @@
 #' turtle_hide()
 #' turtle_up()
 #' turtle_do({
-#' 	turtle_setpos(15,15)
-#' 	turtle_setangle(0)
-#' 	parallelogram_maze(angle=90,unit_len=10,width=45,height=25,method='uniform',
-#' 										 start_from='corner',draw_boundary=TRUE)
+#'  turtle_setpos(15,15)
+#'  turtle_setangle(0)
+#'  parallelogram_maze(angle=90,unit_len=10,width=45,height=25,method='uniform',
+#'  	start_from='corner',draw_boundary=TRUE)
 #' })
 #' 
 #' # testing imbalance condition
@@ -112,10 +112,10 @@
 #' turtle_hide()
 #' turtle_up()
 #' turtle_do({
-#' 	turtle_setpos(15,250)
-#' 	turtle_setangle(0)
-#' 	parallelogram_maze(angle=90,unit_len=10,width=30,height=40,
-#' 	  method='two_parallelograms',draw_boundary=TRUE,balance=-1.0)
+#'  turtle_setpos(15,250)
+#'  turtle_setangle(0)
+#'  parallelogram_maze(angle=90,unit_len=10,width=30,height=40,
+#'    method='two_parallelograms',draw_boundary=TRUE,balance=-1.0)
 #' })
 #' 
 #' # a bunch of imbalanced mazes, fading into each other
@@ -130,12 +130,12 @@
 #'   bholes <- c(1,3)
 #'   set.seed(12354)
 #'   for (iii in seq_along(valseq)) {
-#' 		  parallelogram_maze(angle=90,unit_len=10,width=20,height=25,
-#'  	  	method='two_parallelograms',draw_boundary=TRUE,balance=valseq[iii],
-#' 		  	end_side=3,boundary_lines=blines,boundary_holes=bholes)
-#' 		  turtle_right(180)
-#' 		  blines <- c(2,3,4)
-#' 		  bholes <- c(3)
+#'      parallelogram_maze(angle=90,unit_len=10,width=20,height=25,
+#'       method='two_parallelograms',draw_boundary=TRUE,balance=valseq[iii],
+#'        end_side=3,boundary_lines=blines,boundary_holes=bholes)
+#'      turtle_right(180)
+#'      blines <- c(2,3,4)
+#'      bholes <- c(3)
 #'   }
 #' })
 #'
