@@ -122,11 +122,11 @@ turtle_hide()
 turtle_do({
 	turtle_up()
 	turtle_backward(250)
-	.turn_right(90)
+	turtle_right(90)
 	turtle_forward(150)
-	.turn_left(90)
+	turtle_left(90)
 
-	.turn_right(60)
+	turtle_right(60)
 	hexagon_maze(depth=5,12,clockwise=FALSE,method='six_triangles',
 	  draw_boundary=TRUE,boundary_holes=c(1,4),boundary_hole_color='green')
 })
@@ -137,11 +137,11 @@ turtle_hide()
 turtle_do({
 	turtle_up()
 	turtle_backward(250)
-	.turn_right(90)
+	turtle_right(90)
 	turtle_forward(150)
-	.turn_left(90)
+	turtle_left(90)
 
-	.turn_right(60)
+	turtle_right(60)
 	hexagon_maze(depth=log2(20),12,clockwise=FALSE,method='six_triangles',
 	  draw_boundary=TRUE,boundary_holes=c(1,4),boundary_hole_color='green')
 })
@@ -152,11 +152,11 @@ turtle_hide()
 turtle_do({
 	turtle_up()
 	turtle_backward(250)
-	.turn_right(90)
+	turtle_right(90)
 	turtle_forward(150)
-	.turn_left(90)
+	turtle_left(90)
 
-	.turn_right(60)
+	turtle_right(60)
 	hexagon_maze(depth=5,12,clockwise=FALSE,method='three_parallelograms',
 	  draw_boundary=TRUE,boundary_holes=c(1,4),boundary_hole_color='green')
 })
@@ -188,7 +188,7 @@ turtle_do({
 		hexagon_maze(depth=depth,unit_len,clockwise=TRUE,method='two_trapezoids',
 		  draw_boundary=TRUE,boundary_holes=holes)
 		turtle_forward(distance=unit_len * num_segs/2)
-		.turn_right(multiplier * 60)
+		turtle_right(multiplier * 60)
 		turtle_forward(distance=unit_len * num_segs/2)
 	}
 })
