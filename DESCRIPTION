@@ -31,7 +31,6 @@ Collate:
     'iso_trapezoid_maze.r'
     'koch_maze.r'
     'mazealls.r'
-    'octagon.r'
+    'octagon_maze.r'
     'parallelogram_maze.r'
     'utils.r'
-RoxygenNote: 6.0.1
