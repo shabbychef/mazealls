@@ -22,7 +22,36 @@
 # Comments: Steven E. Pav
 
 
-#' \notrun{
+#' @title octagon_maze .
+#'
+#' @description 
+#'
+#' Draw a regular octagon maze, with each side consisting of
+#' of \eqn{2^{depth}} pieces of length \code{unit_len}. 
+#'
+#' @details
+#'
+#' Draws a maze in a regular octagon via the Ammann-Beenker tiling
+#' decomposition into rhombuses.
+#'
+#' @keywords plotting
+#' @template etc
+#' @template param-unitlen
+#' @template param-clockwise
+#' @template param-start-from
+#' @template param-end-side
+#' @template param-boundary-stuff
+#' @template return-none
+#' @param depth the depth of recursion. This controls the side length.
+#'
+#' @param method there are many ways to recursively draw an octagon. 
+#' The following values are acceptable:
+#' \describe{
+#' \item{ammann_beenker}{Decompose into 4 45-degree rhombuses and two squares.}
+#' }
+#'
+#' @examples 
+#' \dontrun{
 #' turtle_init(2000,2000,mode='clip')
 #' turtle_hide()
 #' turtle_up()
@@ -32,6 +61,7 @@
 #' 	octagon_maze(6,12,draw_boundary=TRUE)
 #' })
 #' }
+#' @export
 octagon_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('midpoint','corner'),
 												 method=c('ammann_beenker'),
 												 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,boundary_hole_color=NULL,

@@ -2,24 +2,77 @@
 % Please edit documentation in R/octagon.r
 \name{octagon_maze}
 \alias{octagon_maze}
-\title{\notrun{
-turtle_init(2000,2000,mode='clip')
-turtle_hide()
-turtle_up()
-turtle_do({
-  turtle_setpos(75,1000)
-  turtle_setangle(0)
-	octagon_maze(6,12,draw_boundary=TRUE)
-})
-}}
+\title{octagon_maze .}
 \usage{
 octagon_maze(depth, unit_len = 4L, clockwise = TRUE,
   start_from = c("midpoint", "corner"), method = c("ammann_beenker"),
   draw_boundary = FALSE, num_boundary_holes = 2, boundary_lines = TRUE,
   boundary_holes = NULL, boundary_hole_color = NULL, end_side = 1)
 }
+\arguments{
+\item{depth}{the depth of recursion. This controls the side length.}
+
+\item{unit_len}{the unit length in graph coordinates. This controls
+the width of the \sQuote{holes} in the boundary lines and
+generally controls the spacing of mazes.}
+
+\item{clockwise}{whether to draw clockwise.}
+
+\item{start_from}{whether to start from the midpoint of the first side
+of a maze, or from the corner facing the first side.}
+
+\item{method}{there are many ways to recursively draw an octagon. 
+The following values are acceptable:
+\describe{
+\item{ammann_beenker}{Decompose into 4 45-degree rhombuses and two squares.}
+}}
+
+\item{draw_boundary}{a boolean indicating whether a final boundary shall be
+drawn around the maze.}
+
+\item{num_boundary_holes}{the number of boundary sides which should be
+randomly selected to have holes. Note that the \code{boundary_holes}
+parameter takes precedence.}
+
+\item{boundary_lines}{indicates which of the sides of the maze
+shall have drawn boundary lines. Can be a logical array indicating
+which sides shall have lines, or a numeric array, giving the
+index of sides that shall have lines.}
+
+\item{boundary_holes}{an array indicating which of the boundary lines
+have holes. If \code{NULL}, then boundary holes are randomly selected
+by the \code{num_boundary_holes} parameter. If numeric, indicates
+which sides of the maze shall have holes. If a boolean array, indicates
+which of the sides shall have holes. These forms are recycled
+if needed. See \code{\link{holey_path}}. Note that if no line
+is drawn, no hole can be drawn either.}
+
+\item{boundary_hole_color}{the color of boundary holes. A value of
+\code{NULL} indicates no colored holes. See \code{\link{holey_path}}
+for more details. Can be an array of colors, or colors and the 
+value \code{'clear'}, which stands in for \code{NULL} to
+indicate no filled hole to be drawn.}
+
+\item{end_side}{the number of the side to end on. A value of
+1 corresponds to the starting side, while higher numbers
+correspond to the drawn side of the figure in the canonical order
+(that is, the order induced by the \code{clockwise} parameter).}
+}
+\value{
+nothing; the function is called for side effects only, though in
+the future this might return information about the drawn boundary of
+the shape.
+}
 \description{
-\notrun{
+Draw a regular octagon maze, with each side consisting of
+of \eqn{2^{depth}} pieces of length \code{unit_len}.
+}
+\details{
+Draws a maze in a regular octagon via the Ammann-Beenker tiling
+decomposition into rhombuses.
+}
+\examples{
+\dontrun{
 turtle_init(2000,2000,mode='clip')
 turtle_hide()
 turtle_up()
@@ -30,3 +83,7 @@ turtle_do({
 })
 }
 }
+\author{
+Steven E. Pav \email{shabbychef@gmail.com}
+}
+\keyword{plotting}
