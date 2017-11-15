@@ -86,5 +86,31 @@ draw_colored_line <- function(distance,color) {
 	turtle_col(old_color)
 }
 
+# return a subset of indices of edges implied by
+# starts and ends that is random and defines a
+# tree on the nodes
+.span_tree <- function(starts,ends,all_nodes=NULL) {
+	if (is.null(all_nodes)) {
+		all_nodes <- unique(c(starts,ends))
+	}
+	stopifnot(length(starts)==length(ends))
+	isin <- rep(FALSE,length(starts))
+	# pick one node at random
+	in_nodes <- sample(all_nodes,1)
+	start_in <- starts %in% in_nodes
+	end_in <- ends %in% in_nodes
+	mismatch <- xor(start_in,end_in)
+	while (any(mismatch)) {
+		witchmatch <- which(mismatch)
+		nexty <- witchmatch[sample(length(witchmatch),1)]
+		isin[nexty] <- TRUE
+		in_nodes <- unique(c(in_nodes,starts[nexty],ends[nexty]))
+		start_in <- starts %in% in_nodes
+		end_in <- ends %in% in_nodes
+		mismatch <- xor(start_in,end_in)
+	}
+	which(isin)
+}
+
 #for vim modeline: (do not edit)
 # vim:fdm=marker:fmr=FOLDUP,UNFOLD:cms=#%s:syn=r:ft=r
