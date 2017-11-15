@@ -18,11 +18,14 @@ Generate mazes recursively via Turtle graphics.
 ## Installation
 
 This package can be installed 
+from CRAN, 
 via [drat](https://github.com/eddelbuettel/drat "drat"), or
 from github:
 
 
 ```r
+# via CRAN:
+install.packages("mazealls")
 # via drat:
 if (require(drat)) {
     drat:::add("shabbychef")

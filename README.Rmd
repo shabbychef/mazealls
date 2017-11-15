@@ -38,9 +38,6 @@ library(microbenchmark)
 #[![Downloads](http://cranlogs.r-pkg.org/badges/mazealls?color=green)](http://www.r-pkg.org/pkg/mazealls)
 #[![Total](http://cranlogs.r-pkg.org/badges/grand-total/mazealls?color=green)](http://www.r-pkg.org/pkg/mazealls)
 # think lifecycle badges: https://github.com/r-lib/usethis/issues/48
-#from CRAN, 
-# via CRAN:
-#install.packages("mazealls")
 ```
 
 # mazealls
@@ -61,10 +58,13 @@ Generate mazes recursively via Turtle graphics.
 ## Installation
 
 This package can be installed 
+from CRAN, 
 via [drat](https://github.com/eddelbuettel/drat "drat"), or
 from github:
 
 ```{r install,eval=FALSE,echo=TRUE}
+# via CRAN:
+install.packages("mazealls")
 # via drat:
 if (require(drat)) {
     drat:::add("shabbychef")
