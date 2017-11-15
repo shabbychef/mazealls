@@ -22,7 +22,7 @@
 # Comments: Steven E. Pav
 
 
-#' \dontrun{
+#' \notrun{
 #' turtle_init(2000,2000,mode='clip')
 #' turtle_hide()
 #' turtle_up()

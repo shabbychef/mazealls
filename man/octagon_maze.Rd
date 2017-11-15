@@ -2,7 +2,7 @@
 % Please edit documentation in R/octagon.r
 \name{octagon_maze}
 \alias{octagon_maze}
-\title{\dontrun{
+\title{\notrun{
 turtle_init(2000,2000,mode='clip')
 turtle_hide()
 turtle_up()
@@ -19,7 +19,7 @@ octagon_maze(depth, unit_len = 4L, clockwise = TRUE,
   boundary_holes = NULL, boundary_hole_color = NULL, end_side = 1)
 }
 \description{
-\dontrun{
+\notrun{
 turtle_init(2000,2000,mode='clip')
 turtle_hide()
 turtle_up()
