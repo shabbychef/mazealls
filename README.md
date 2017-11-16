@@ -702,3 +702,39 @@ turtle_do({
 ```
 
 <img src="man/figures/tree-thing-1.png" title="plot of chunk tree-thing" alt="plot of chunk tree-thing" width="700px" height="700px" />
+
+## A hex spiral
+
+
+```r
+turtle_init(2500, 2500, mode = "clip")
+turtle_up()
+turtle_hide()
+della <- -3
+lens <- seq(from = 120, to = 2 - della, by = della)
+
+ulen <- 10
+high <- 14
+turtle_do({
+    turtle_setpos(260, 570)
+    turtle_setangle(270)
+    for (iter in seq_along(lens)) {
+        parallelogram_maze(unit_len = ulen, height = high, 
+            width = lens[iter], start_from = "corner", 
+            clockwise = TRUE, draw_boundary = TRUE, 
+            boundary_holes = c(1, 3), end_side = 3)
+        eq_triangle_maze(unit_len = ulen, depth = log2(high), 
+            start_from = "corner", clockwise = FALSE, 
+            draw_boundary = TRUE, boundary_lines = c(3), 
+            num_boundary_holes = 0, boundary_holes = rep(FALSE, 
+                3), end_side = 2)
+    }
+    parallelogram_maze(unit_len = ulen, height = high, 
+        width = lens[iter] + della, start_from = "corner", 
+        clockwise = TRUE, draw_boundary = TRUE, boundary_holes = c(1, 
+            3), end_side = 3)
+})
+```
+
+<img src="man/figures/hex-spiral-1.png" title="plot of chunk hex-spiral" alt="plot of chunk hex-spiral" width="700px" height="700px" />
+
