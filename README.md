@@ -637,3 +637,66 @@ turtle_do({
 ```
 
 <img src="man/figures/tileit-1.png" title="plot of chunk tileit" alt="plot of chunk tileit" width="700px" height="700px" />
+
+# Fun
+
+Or whatever you call it. Here are some mazes built using the primitives.
+
+## A dumb looking tree
+
+Like it says on the label.
+
+
+```r
+library(TurtleGraphics)
+library(mazealls)
+treeit <- function(unit_len, depth, height, left_shrink = 3/4, 
+    right_shrink = 1/3) {
+    height <- ceiling(height)
+    parallelogram_maze(unit_len = unit_len, height = 2^depth, 
+        width = height, clockwise = TRUE, draw_boundary = TRUE, 
+        boundary_lines = c(1, 2, 4), start_from = "midpoint", 
+        boundary_holes = c(1), end_side = 3)
+    if (depth > 0) {
+        iso_trapezoid_maze(depth = depth - 1, unit_len = unit_len, 
+            clockwise = FALSE, draw_boundary = TRUE, 
+            boundary_lines = c(1, 3), start_from = "midpoint", 
+            boundary_holes = c(1), end_side = 4)
+        treeit(unit_len = unit_len, depth = depth - 
+            1, height = left_shrink * height, left_shrink = left_shrink, 
+            right_shrink = right_shrink)
+        turtle_right(180)
+        turtle_forward(unit_len * 2^(depth - 2))
+        turtle_right(60)
+        turtle_forward(unit_len * 2^(depth - 1))
+        turtle_right(60)
+        turtle_forward(unit_len * 2^(depth - 2))
+        turtle_right(180)
+        treeit(unit_len = unit_len, depth = depth - 
+            1, height = right_shrink * height, left_shrink = left_shrink, 
+            right_shrink = right_shrink)
+        turtle_forward(unit_len * 2^(depth - 2))
+        turtle_left(60)
+        turtle_forward(unit_len * 2^(depth - 2))
+        turtle_left(90)
+        turtle_forward(unit_len * sqrt(3) * 2^(depth - 
+            2))
+        turtle_left(90)
+    }
+    turtle_right(90)
+    turtle_forward(unit_len * height)
+    turtle_right(90)
+}
+
+turtle_init(2500, 2500, mode = "clip")
+turtle_up()
+turtle_hide()
+turtle_do({
+    turtle_setpos(1600, 20)
+    turtle_setangle(270)
+    treeit(unit_len = 13, depth = 5, height = 70, left_shrink = 2/3, 
+        right_shrink = 1/3)
+})
+```
+
+<img src="man/figures/tree-thing-1.png" title="plot of chunk tree-thing" alt="plot of chunk tree-thing" width="700px" height="700px" />
