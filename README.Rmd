@@ -44,9 +44,11 @@ library(microbenchmark)
 
 [![Build Status](https://travis-ci.org/shabbychef/mazealls.png)](https://travis-ci.org/shabbychef/mazealls)
 [![codecov.io](http://codecov.io/github/shabbychef/mazealls/coverage.svg?branch=master)](http://codecov.io/github/shabbychef/mazealls?branch=master)
-[![CRAN](http://www.r-pkg.org/badges/version/mazealls)](https://cran.r-project.org/package=mazealls)
+[![CRAN](http://www.r-pkg.org/badges/version-ago/mazealls)](https://cran.r-project.org/package=mazealls)
 [![Downloads](http://cranlogs.r-pkg.org/badges/mazealls?color=brightgreen)](http://www.r-pkg.org/pkg/mazealls)
 [![Total](http://cranlogs.r-pkg.org/badges/grand-total/mazealls?color=brightgreen)](http://www.r-pkg.org/pkg/mazealls)
+(https://github.com/shabbychef/mazealls/blob/master/LICENSE) 
+[![Rdoc](http://www.rdocumentation.org/badges/version/mazealls)](http://www.rdocumentation.org/packages/mazealls)
 
 > *Sometimes magic is just someone spending more time on something than anyone else might reasonably expect.* -- Teller
 	
