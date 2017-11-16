@@ -372,6 +372,48 @@ turtle_do({
 
 <img src="man/figures/trap-ear-1.png" title="plot of chunk trap-ear" alt="plot of chunk trap-ear" width="700px" height="700px" />
 
+# Rhombic Dissections
+
+Regular _2n_ gons usually admit a dissection into rhombuses. Sometimes,
+however, these have extremely acute angles, which do not translate into nice
+mazes. At the moment, there is only support for octagons and decagons:
+
+
+```r
+library(TurtleGraphics)
+library(mazealls)
+# octagon
+turtle_init(2000, 2000, mode = "clip")
+turtle_hide()
+turtle_up()
+turtle_do({
+    turtle_setpos(75, 1000)
+    turtle_setangle(0)
+    octagon_maze(log2(48), 16, draw_boundary = TRUE, 
+        boundary_holes = c(1, 5))
+})
+```
+
+<img src="man/figures/simple-octagon-1.png" title="plot of chunk simple-octagon" alt="plot of chunk simple-octagon" width="700px" height="700px" />
+
+
+```r
+library(TurtleGraphics)
+library(mazealls)
+# decagon
+turtle_init(2200, 2200, mode = "clip")
+turtle_hide()
+turtle_up()
+turtle_do({
+    turtle_setpos(60, 1100)
+    turtle_setangle(0)
+    decagon_maze(5, 21, draw_boundary = TRUE, boundary_holes = c(1, 
+        6))
+})
+```
+
+<img src="man/figures/simple-decagon-1.png" title="plot of chunk simple-decagon" alt="plot of chunk simple-decagon" width="700px" height="700px" />
+
 # Koch snowflake maze
 
 Everyone's favorite snowflake can also be a maze. Simply fill in triangle bumps
