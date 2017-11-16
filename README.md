@@ -7,8 +7,8 @@
 [![CRAN](http://www.r-pkg.org/badges/version-ago/mazealls)](https://cran.r-project.org/package=mazealls)
 [![Downloads](http://cranlogs.r-pkg.org/badges/mazealls?color=brightgreen)](http://www.r-pkg.org/pkg/mazealls)
 [![Total](http://cranlogs.r-pkg.org/badges/grand-total/mazealls?color=brightgreen)](http://www.r-pkg.org/pkg/mazealls)
-(https://github.com/shabbychef/mazealls/blob/master/LICENSE) 
 [![Rdoc](http://www.rdocumentation.org/badges/version/mazealls)](http://www.rdocumentation.org/packages/mazealls)
+[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 
 > *Sometimes magic is just someone spending more time on something than anyone else might reasonably expect.* -- Teller
 	
