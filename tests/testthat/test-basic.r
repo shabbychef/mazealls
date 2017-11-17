@@ -39,14 +39,15 @@ test_that("README code",{#FOLDUP
 
 	library(TurtleGraphics)
 	library(mazealls)
-	turtle_init(1000,1000)
+	turtle_init(2000,2000,mode='clip')
 	turtle_up()
 	turtle_hide()
+
 	turtle_do({
 		turtle_left(90)
 		turtle_forward(distance=400)
 		turtle_right(90)
-		parallelogram_maze(angle=90,unit_len=10,width=75,height=55,method='uniform',
+		parallelogram_maze(angle=90,unit_len=10,width=25,height=25,method='uniform',
 		 draw_boundary=TRUE)
 	})
 
@@ -54,20 +55,20 @@ test_that("README code",{#FOLDUP
 	turtle_hide()
 	turtle_up()
 	turtle_do({
-	turtle_left(90)
-	turtle_forward(930)
-	turtle_right(90)
-	valseq <- seq(from=-1.5,to=1.5,length.out=7)
-	blines <- c(1,2,3,4)
-	bholes <- c(1,3)
-	set.seed(1234)
-	for (iii in seq_along(valseq)) {
-		parallelogram_maze(angle=90,unit_len=12,width=22,height=130,method='two_parallelograms',draw_boundary=TRUE,balance=valseq[iii],
-											 end_side=3,boundary_lines=blines,boundary_holes=bholes)
-		turtle_right(180)
-		blines <- c(2,3,4)
-		bholes <- c(3)
-	}
+		turtle_left(90)
+		turtle_forward(930)
+		turtle_right(90)
+		valseq <- seq(from=-1.5,to=1.5,length.out=7)
+		blines <- c(1,2,3,4)
+		bholes <- c(1,3)
+		set.seed(1234)
+		for (iii in seq_along(valseq)) {
+			parallelogram_maze(angle=90,unit_len=12,width=22,height=20,method='two_parallelograms',draw_boundary=TRUE,balance=valseq[iii],
+												 end_side=3,boundary_lines=blines,boundary_holes=bholes)
+			turtle_right(180)
+			blines <- c(2,3,4)
+			bholes <- c(3)
+		}
 	})
 
 	# triangle
@@ -79,7 +80,7 @@ test_that("README code",{#FOLDUP
 		turtle_left(90)
 		turtle_forward(distance=300)
 		turtle_right(90)
-		eq_triangle_maze(depth=6,unit_len=12,method='uniform',draw_boundary=TRUE)
+		eq_triangle_maze(depth=4,unit_len=12,method='uniform',draw_boundary=TRUE)
 	})
 
 	# stacked trapezoids
@@ -90,7 +91,7 @@ test_that("README code",{#FOLDUP
 		turtle_left(90)
 		turtle_forward(distance=300)
 		turtle_right(90)
-		eq_triangle_maze(depth=6,unit_len=12,method='stack_trapezoids',draw_boundary=TRUE)
+		eq_triangle_maze(depth=4,unit_len=12,method='stack_trapezoids',draw_boundary=TRUE)
 	})
 
 	# four triangles
@@ -101,7 +102,7 @@ test_that("README code",{#FOLDUP
 		turtle_left(90)
 		turtle_forward(distance=300)
 		turtle_right(90)
-		eq_triangle_maze(depth=6,unit_len=12,method='triangles',draw_boundary=TRUE)
+		eq_triangle_maze(depth=4,unit_len=12,method='triangles',draw_boundary=TRUE)
 	})
 
 	# two ears
@@ -112,7 +113,7 @@ test_that("README code",{#FOLDUP
 		turtle_left(90)
 		turtle_forward(distance=300)
 		turtle_right(90)
-		eq_triangle_maze(depth=6,unit_len=12,method='two_ears',draw_boundary=TRUE)
+		eq_triangle_maze(depth=4,unit_len=12,method='two_ears',draw_boundary=TRUE)
 	})
 
 	# hex and three
@@ -158,7 +159,7 @@ test_that("README code",{#FOLDUP
 		turtle_left(90)
 		turtle_forward(distance=300)
 		turtle_right(90)
-		hexagon_maze(depth=5,unit_len=12,method='two_trapezoids',draw_boundary=TRUE)
+		hexagon_maze(depth=4,unit_len=12,method='two_trapezoids',draw_boundary=TRUE)
 	})
 	# six triangles
 	turtle_init(1000,1000)
@@ -168,7 +169,7 @@ test_that("README code",{#FOLDUP
 		turtle_left(90)
 		turtle_forward(distance=300)
 		turtle_right(90)
-		hexagon_maze(depth=5,unit_len=12,method='six_triangles',draw_boundary=TRUE)
+		hexagon_maze(depth=4,unit_len=12,method='six_triangles',draw_boundary=TRUE)
 	})
 	# six triangles
 	turtle_init(1000,1000)
@@ -178,7 +179,7 @@ test_that("README code",{#FOLDUP
 		turtle_left(90)
 		turtle_forward(distance=300)
 		turtle_right(90)
-		hexagon_maze(depth=5,unit_len=12,method='three_parallelograms',draw_boundary=TRUE)
+		hexagon_maze(depth=4,unit_len=12,method='three_parallelograms',draw_boundary=TRUE)
 	})
 
 	# trapezoid maze
@@ -201,7 +202,7 @@ test_that("README code",{#FOLDUP
 		turtle_left(90)
 		turtle_forward(distance=300)
 		turtle_right(90)
-		iso_trapezoid_maze(depth=5,unit_len=12,method='one_ear',draw_boundary=TRUE)
+		iso_trapezoid_maze(depth=4,unit_len=12,method='one_ear',draw_boundary=TRUE)
 	})
 
 	# Rhombic Dissections
@@ -267,19 +268,19 @@ test_that("README code",{#FOLDUP
 		turtle_forward(distance=450)
 		turtle_right(90)
 
-		parallelogram_maze(unit_len=10,height=25,draw_boundary=FALSE,end_side=3)
+		parallelogram_maze(unit_len=10,height=15,draw_boundary=FALSE,end_side=3)
 
 		turtle_left(90)
 		turtle_forward(distance=30)
 		turtle_left(90)
 
-		parallelogram_maze(unit_len=10,height=25,draw_boundary=TRUE,boundary_lines=c(1,3),boundary_holes=FALSE,end_side=3)
+		parallelogram_maze(unit_len=10,height=15,draw_boundary=TRUE,boundary_lines=c(1,3),boundary_holes=FALSE,end_side=3)
 
 		turtle_left(90)
 		turtle_forward(distance=30)
 		turtle_left(90)
 
-		parallelogram_maze(unit_len=10,height=25,draw_boundary=TRUE,boundary_lines=c(2,4),boundary_holes=c(2,4),boundary_hole_color=c('ignore','green','ignore','blue'))
+		parallelogram_maze(unit_len=10,height=15,draw_boundary=TRUE,boundary_lines=c(2,4),boundary_holes=c(2,4),boundary_hole_color=c('ignore','green','ignore','blue'))
 	})
 
 	# sentinel
