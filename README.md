@@ -426,7 +426,7 @@ turtle_init(2200, 2200, mode = "clip")
 turtle_hide()
 turtle_up()
 turtle_do({
-    turtle_setpos(160, 1100)
+    turtle_setpos(80, 1100)
     turtle_setangle(0)
     dodecagon_maze(depth = log2(27), unit_len = 20, 
         draw_boundary = TRUE, boundary_holes = c(1, 
