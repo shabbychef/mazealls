@@ -4,7 +4,7 @@ Authors@R: c(person(c("Steven", "E."), "Pav",
     role=c("aut","cre"),
     email="shabbychef@gmail.com",
 		comment = c(ORCID = "0000-0002-4197-6195")))
-Version: 0.1.0.0006
+Version: 0.1.0.0007
 Date: 2017-11-16
 License: LGPL-3
 Title: Generate Recursive Mazes
@@ -36,4 +36,3 @@ Collate:
     'octagon_maze.r'
     'parallelogram_maze.r'
     'utils.r'
-RoxygenNote: 6.0.1
