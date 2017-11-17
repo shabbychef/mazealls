@@ -176,11 +176,11 @@ hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids'
 	method <- match.arg(method)
 	start_from <- match.arg(start_from)
 
-	if (start_from=='corner') { turtle_forward(distance=unit_len * num_segs/2) }
-
 	# check for off powers of two
 	num_segs <- round(2^depth)
 	multiplier <- ifelse(clockwise,1,-1)
+
+	if (start_from=='corner') { turtle_forward(distance=unit_len * num_segs/2) }
 
 	if (depth > 1) {
 		turtle_up()

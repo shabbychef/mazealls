@@ -378,7 +378,8 @@ turtle_do({
 
 Regular _2n_ gons usually admit a dissection into rhombuses. Sometimes,
 however, these have extremely acute angles, which do not translate into nice
-mazes. At the moment, there is only support for octagons and decagons:
+mazes. At the moment, there is only support for octagons, decagons, and
+dodecagons:
 
 
 ```r
@@ -415,6 +416,25 @@ turtle_do({
 ```
 
 <img src="man/figures/simple-decagon-1.png" title="plot of chunk simple-decagon" alt="plot of chunk simple-decagon" width="700px" height="700px" />
+
+
+```r
+library(TurtleGraphics)
+library(mazealls)
+# dodecagon
+turtle_init(2200, 2200, mode = "clip")
+turtle_hide()
+turtle_up()
+turtle_do({
+    turtle_setpos(160, 1100)
+    turtle_setangle(0)
+    dodecagon_maze(depth = log2(27), unit_len = 20, 
+        draw_boundary = TRUE, boundary_holes = c(1, 
+            7))
+})
+```
+
+<img src="man/figures/simple-dodecagon-1.png" title="plot of chunk simple-dodecagon" alt="plot of chunk simple-dodecagon" width="700px" height="700px" />
 
 # Koch snowflake maze
 

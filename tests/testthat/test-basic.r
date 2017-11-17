@@ -226,6 +226,15 @@ test_that("README code",{#FOLDUP
 		decagon_maze(5,21,draw_boundary=TRUE,boundary_holes=c(1,6))
 	})
 
+	# dodecagon
+	turtle_init(2200,2200,mode='clip')
+	turtle_hide()
+	turtle_up()
+	turtle_do({
+		turtle_setpos(60,1100)
+		turtle_setangle(0)
+		 dodecagon_maze(depth=log2(14),unit_len=10,draw_boundary=TRUE,boundary_holes=c(1,7))
+	})
 
 	# Koch snowflake maze
 
