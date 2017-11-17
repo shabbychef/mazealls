@@ -738,3 +738,49 @@ turtle_do({
 
 <img src="man/figures/hex-spiral-1.png" title="plot of chunk hex-spiral" alt="plot of chunk hex-spiral" width="700px" height="700px" />
 
+## Sierpinski Triangle
+
+I should not have, but I did.
+
+
+```r
+sierpinski <- function(unit_len, depth, boundary_lines = FALSE, 
+    boundary_hole_sides = NULL) {
+    seglen <- 2^depth
+    if (depth > 0) {
+        for (iter in 1:3) {
+            sierpinski(unit_len, depth - 1)
+            turtle_forward(unit_len * seglen)
+            turtle_right(120)
+        }
+        turtle_forward(unit_len * seglen/2)
+        turtle_right(60)
+        turtle_col("green")
+        eq_triangle_maze(unit_len, depth = depth - 
+            1, clockwise = TRUE, start_from = "corner")
+        turtle_col("black")
+        holey_path(unit_len, lengths = seglen/2, angles = rep(120, 
+            3), draw_line = TRUE, has_hole = rep(TRUE, 
+            3))
+        turtle_left(60)
+        turtle_backward(unit_len * seglen/2)
+    }
+    if (boundary_lines) {
+        holey_path(unit_len, lengths = seglen, angles = rep(120, 
+            3), draw_line = TRUE, has_hole = boundary_hole_sides)
+    }
+}
+
+turtle_init(2500, 2500, mode = "clip")
+turtle_up()
+turtle_hide()
+turtle_do({
+    turtle_setpos(250, 50)
+    turtle_setangle(0)
+    sierpinski(unit_len = 19, depth = 7, boundary_lines = TRUE, 
+        boundary_hole_sides = c(1, 3))
+})
+```
+
+<img src="man/figures/sierpinski-1.png" title="plot of chunk sierpinski" alt="plot of chunk sierpinski" width="700px" height="700px" />
+
