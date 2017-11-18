@@ -31,7 +31,15 @@
 #'
 #' @details
 #'
-#' Draws a maze in a regular decagon...
+#' Draws a maze in a regular decagon. Dissects the decagon
+#' into rhombuses.
+#'
+#' \if{html}{
+#' \figure{simple-decagon-1.png}{options: width="100\%" alt="Figure: five flower decagon"}
+#' }
+#' \if{latex}{
+#' \figure{simple-decagon-1.png}{options: width=7cm}
+#' }
 #'
 #' @keywords plotting
 #' @template etc
@@ -43,10 +51,11 @@
 #' @template return-none
 #' @param depth the depth of recursion. This controls the side length.
 #'
-#' @param method there are many ways to recursively draw an decagon. 
+#' @param method there are a few ways to recursively draw an decagon. 
 #' The following values are acceptable:
 #' \describe{
-#' \item{random}{Hobson's choice.}
+#' \item{five_flower}{Dissects the decagon as \sQuote{flower} of five rhombuses in the center, and
+#' another five surrounding them.}
 #' }
 #'
 #' @examples 
@@ -62,7 +71,7 @@
 #' }
 #' @export
 decagon_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('midpoint','corner'),
-												 method=c('ten_rhombs'),
+												 method=c('five_flower'),
 												 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,boundary_hole_color=NULL,
 												 end_side=1) {
 	method <- match.arg(method)
@@ -78,7 +87,7 @@ decagon_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('midpoint
 
 
 	switch(method,
-				 ten_rhombs={
+				 five_flower={
 					 .turn_right(multiplier * inang)
 
 					 starts <- c(1,1,2,3,3,4,5,5,6,7,7,8,9,9,10)

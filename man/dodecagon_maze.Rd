@@ -21,10 +21,11 @@ generally controls the spacing of mazes.}
 \item{start_from}{whether to start from the midpoint of the first side
 of a maze, or from the corner facing the first side.}
 
-\item{method}{there are many ways to recursively draw an decagon. 
+\item{method}{there are a few ways to recursively draw an decagon. 
 The following values are acceptable:
 \describe{
-\item{random}{Hobson's choice.}
+\item{hex_ring}{A regular hexagon maze in the center is drawn, with a 
+ring of alternating squares and equilateral triangle mazes around it.}
 }}
 
 \item{draw_boundary}{a boolean indicating whether a final boundary shall be
@@ -68,7 +69,15 @@ Draw a regular dodecagon maze, with each side consisting of
 of \eqn{2^{depth}} pieces of length \code{unit_len}.
 }
 \details{
-Draws a maze in a regular dodecagon...
+Draws a maze in a regular dodecagon. Currently dissects the maze
+into a hexagon and a ring of squares and equilateral triangles.
+
+\if{html}{
+\figure{simple-dodecagon-1.png}{options: width="100\%" alt="Figure: hex ring dodecagon"}
+}
+\if{latex}{
+\figure{simple-dodecagon-1.png}{options: width=7cm}
+}
 }
 \examples{
 \dontrun{

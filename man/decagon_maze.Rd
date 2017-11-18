@@ -5,7 +5,7 @@
 \title{decagon_maze .}
 \usage{
 decagon_maze(depth, unit_len = 4L, clockwise = TRUE,
-  start_from = c("midpoint", "corner"), method = c("ten_rhombs"),
+  start_from = c("midpoint", "corner"), method = c("five_flower"),
   draw_boundary = FALSE, num_boundary_holes = 2, boundary_lines = TRUE,
   boundary_holes = NULL, boundary_hole_color = NULL, end_side = 1)
 }
@@ -21,10 +21,11 @@ generally controls the spacing of mazes.}
 \item{start_from}{whether to start from the midpoint of the first side
 of a maze, or from the corner facing the first side.}
 
-\item{method}{there are many ways to recursively draw an decagon. 
+\item{method}{there are a few ways to recursively draw an decagon. 
 The following values are acceptable:
 \describe{
-\item{random}{Hobson's choice.}
+\item{five_flower}{Dissects the decagon as \sQuote{flower} of five rhombuses in the center, and
+another five surrounding them.}
 }}
 
 \item{draw_boundary}{a boolean indicating whether a final boundary shall be
@@ -68,7 +69,15 @@ Draw a regular decagon maze, with each side consisting of
 of \eqn{2^{depth}} pieces of length \code{unit_len}.
 }
 \details{
-Draws a maze in a regular decagon...
+Draws a maze in a regular decagon. Dissects the decagon
+into rhombuses.
+
+\if{html}{
+\figure{simple-decagon-1.png}{options: width="100\%" alt="Figure: five flower decagon"}
+}
+\if{latex}{
+\figure{simple-decagon-1.png}{options: width=7cm}
+}
 }
 \examples{
 \dontrun{

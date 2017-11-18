@@ -31,8 +31,14 @@
 #'
 #' @details
 #'
-#' Draws a maze in a regular octagon via the Ammann-Beenker tiling
-#' decomposition into rhombuses.
+#' Draws a maze in a regular octagon via dissection into rhombuses.
+#'
+#' \if{html}{
+#' \figure{simple-octagon-1.png}{options: width="100\%" alt="Figure: Amman Beenker octagon"}
+#' }
+#' \if{latex}{
+#' \figure{simple-octagon-1.png}{options: width=7cm}
+#' }
 #'
 #' @keywords plotting
 #' @template etc
@@ -44,7 +50,7 @@
 #' @template return-none
 #' @param depth the depth of recursion. This controls the side length.
 #'
-#' @param method there are many ways to recursively draw an octagon. 
+#' @param method there are a few ways to recursively draw an octagon. 
 #' The following values are acceptable:
 #' \describe{
 #' \item{ammann_beenker}{Decompose into 4 45-degree rhombuses and two squares.}
@@ -123,7 +129,6 @@ octagon_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('midpoint
 	}
 	if (start_from=='midpoint') { turtle_forward(distance=unit_len * num_segs/2) }
 }
-
 
 #for vim modeline: (do not edit)
 # vim:fdm=marker:fmr=FOLDUP,UNFOLD:cms=#%s:syn=r:ft=r

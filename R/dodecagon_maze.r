@@ -31,7 +31,15 @@
 #'
 #' @details
 #'
-#' Draws a maze in a regular dodecagon...
+#' Draws a maze in a regular dodecagon. Currently dissects the maze
+#' into a hexagon and a ring of squares and equilateral triangles.
+#'
+#' \if{html}{
+#' \figure{simple-dodecagon-1.png}{options: width="100\%" alt="Figure: hex ring dodecagon"}
+#' }
+#' \if{latex}{
+#' \figure{simple-dodecagon-1.png}{options: width=7cm}
+#' }
 #'
 #' @keywords plotting
 #' @template etc
@@ -43,10 +51,11 @@
 #' @template return-none
 #' @param depth the depth of recursion. This controls the side length.
 #'
-#' @param method there are many ways to recursively draw an decagon. 
+#' @param method there are a few ways to recursively draw an decagon. 
 #' The following values are acceptable:
 #' \describe{
-#' \item{random}{Hobson's choice.}
+#' \item{hex_ring}{A regular hexagon maze in the center is drawn, with a 
+#' ring of alternating squares and equilateral triangle mazes around it.}
 #' }
 #'
 #' @examples 

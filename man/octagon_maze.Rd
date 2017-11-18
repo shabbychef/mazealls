@@ -21,7 +21,7 @@ generally controls the spacing of mazes.}
 \item{start_from}{whether to start from the midpoint of the first side
 of a maze, or from the corner facing the first side.}
 
-\item{method}{there are many ways to recursively draw an octagon. 
+\item{method}{there are a few ways to recursively draw an octagon. 
 The following values are acceptable:
 \describe{
 \item{ammann_beenker}{Decompose into 4 45-degree rhombuses and two squares.}
@@ -68,8 +68,14 @@ Draw a regular octagon maze, with each side consisting of
 of \eqn{2^{depth}} pieces of length \code{unit_len}.
 }
 \details{
-Draws a maze in a regular octagon via the Ammann-Beenker tiling
-decomposition into rhombuses.
+Draws a maze in a regular octagon via dissection into rhombuses.
+
+\if{html}{
+\figure{simple-octagon-1.png}{options: width="100\%" alt="Figure: Amman Beenker octagon"}
+}
+\if{latex}{
+\figure{simple-octagon-1.png}{options: width=7cm}
+}
 }
 \examples{
 \dontrun{

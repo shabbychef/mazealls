@@ -324,6 +324,29 @@ turtle_do({
 
 <img src="man/figures/hex-parallelo-1.png" title="plot of chunk hex-parallelo" alt="plot of chunk hex-parallelo" width="700px" height="700px" />
 
+# dodecagon maze
+
+A dodecagon can be dissected into a hexagon and a ring of alternating
+squares and equilateral triangles:
+
+
+```r
+library(TurtleGraphics)
+library(mazealls)
+# dodecagon
+turtle_init(2200, 2200, mode = "clip")
+turtle_hide()
+turtle_up()
+turtle_do({
+    turtle_setpos(80, 1100)
+    turtle_setangle(0)
+    dodecagon_maze(depth = log2(27), unit_len = 20, 
+        draw_boundary = TRUE, boundary_holes = c(1, 
+            7))
+})
+```
+
+<img src="man/figures/simple-dodecagon-1.png" title="plot of chunk simple-dodecagon" alt="plot of chunk simple-dodecagon" width="700px" height="700px" />
 
 # trapezoid maze
 
@@ -378,8 +401,9 @@ turtle_do({
 
 Regular _2n_ gons usually admit a dissection into rhombuses. Sometimes,
 however, these have extremely acute angles, which do not translate into nice
-mazes. At the moment, there is only support for octagons, decagons, and
-dodecagons:
+mazes. At the moment, there is only support for octagons, and decagons. While
+a dodecagon would also admit such a dissection, this would require extremely
+acute angles which would make an ugly maze.
 
 
 ```r
@@ -416,25 +440,6 @@ turtle_do({
 ```
 
 <img src="man/figures/simple-decagon-1.png" title="plot of chunk simple-decagon" alt="plot of chunk simple-decagon" width="700px" height="700px" />
-
-
-```r
-library(TurtleGraphics)
-library(mazealls)
-# dodecagon
-turtle_init(2200, 2200, mode = "clip")
-turtle_hide()
-turtle_up()
-turtle_do({
-    turtle_setpos(80, 1100)
-    turtle_setangle(0)
-    dodecagon_maze(depth = log2(27), unit_len = 20, 
-        draw_boundary = TRUE, boundary_holes = c(1, 
-            7))
-})
-```
-
-<img src="man/figures/simple-dodecagon-1.png" title="plot of chunk simple-dodecagon" alt="plot of chunk simple-dodecagon" width="700px" height="700px" />
 
 # Koch snowflake maze
 
