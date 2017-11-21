@@ -674,6 +674,56 @@ turtle_do({
 })
 ```
 
+
+## A rectangular spiral
+
+Well, a rhombus spiral.
+
+```{r rect-spiral,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+
+rect_spiral <- function(unit_len,height,width,thickness=8L,angle=90,clockwise=TRUE,start_hole=FALSE) {
+	bholes <- 3
+	if (start_hole) { bholes <- c(1,bholes) }
+	last_one <- (width < thickness)
+
+	if (start_hole) {
+		fourl_dist <- height-thickness
+	} else {
+		fourl_dist <- height
+	}
+
+	parallelogram_maze(unit_len=unit_len,
+										 height=thickness,width=fourl_dist,
+										 angle=180-angle,
+										 start_from='corner',clockwise=clockwise,
+										 draw_boundary=TRUE,boundary_lines=1:3,
+										 boundary_holes=bholes,
+										 end_side=4)
+	turtle_down()
+	turtle_forward(unit_len * (height-thickness))
+	turtle_up()
+	turtle_backward(unit_len * (height-thickness))
+	if (clockwise) { turtle_left(180-angle) } else { turtle_right(180-angle) }
+	turtle_backward(unit_len * (thickness))
+	if (clockwise) { turtle_left(angle) } else { turtle_right(angle) }
+
+	if (!last_one) {
+		rect_spiral(unit_len,height=width,width=height-thickness,
+								thickness=thickness,angle=180-angle,clockwise=clockwise,start_hole=FALSE)
+	}
+}
+
+turtle_init(2500,2500,mode='clip')
+turtle_up()
+turtle_hide()
+turtle_do({
+	turtle_setpos(300,50)
+	turtle_setangle(270)
+	rect_spiral(unit_len=20,110,90,thickness=15,angle=80,start_hole=TRUE)
+})
+```
+
+
 ## Sierpinski Triangle
 
 I should not have, but I did.
