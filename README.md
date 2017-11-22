@@ -772,33 +772,28 @@ Well, a rhombus spiral.
 ```r
 rect_spiral <- function(unit_len, height, width, thickness = 8L, 
     angle = 90, clockwise = TRUE, start_hole = FALSE) {
-    bholes <- 3
     if (start_hole) {
-        bholes <- c(1, bholes)
-    }
-    last_one <- (width < thickness)
-    
-    if (start_hole) {
+        bholes <- 1
         fourl_dist <- height - thickness
     } else {
+        bholes <- 4
         fourl_dist <- height
     }
+    
+    last_one <- (width < thickness)
+    if (last_one) {
+        blines <- 1:4
+        bholes <- c(3, bholes)
+    } else {
+        blines <- c(1, 2, 4)
+    }
+    blocs <- -sample.int(n = thickness, size = 4, replace = TRUE)
     
     parallelogram_maze(unit_len = unit_len, height = thickness, 
         width = fourl_dist, angle = 180 - angle, start_from = "corner", 
         clockwise = clockwise, draw_boundary = TRUE, 
-        boundary_lines = 1:3, boundary_holes = bholes, 
-        end_side = 4)
-    turtle_down()
-    turtle_forward(unit_len * (height - thickness))
-    turtle_up()
-    turtle_backward(unit_len * (height - thickness))
-    if (clockwise) {
-        turtle_left(180 - angle)
-    } else {
-        turtle_right(180 - angle)
-    }
-    turtle_backward(unit_len * (thickness))
+        boundary_lines = blines, boundary_holes = bholes, 
+        boundary_hole_locations = blocs, end_side = 3)
     if (clockwise) {
         turtle_left(angle)
     } else {
@@ -824,7 +819,6 @@ turtle_do({
 ```
 
 <img src="man/figures/rect-spiral-1.png" title="plot of chunk rect-spiral" alt="plot of chunk rect-spiral" width="700px" height="700px" />
-
 
 ## Sierpinski Triangle
 

@@ -48,6 +48,7 @@
 #' @template param-start-from
 #' @template param-end-side
 #' @template param-boundary-stuff
+#' @template param-boundary-hole-controls
 #' @template return-none
 #' @param depth the depth of recursion. This controls the side length.
 #'
@@ -72,7 +73,8 @@
 #' @export
 decagon_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('midpoint','corner'),
 												 method=c('five_flower'),
-												 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,boundary_hole_color=NULL,
+												 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,
+												 boundary_holes=NULL,boundary_hole_color=NULL,boundary_hole_locations=NULL,
 												 end_side=1) {
 	method <- match.arg(method)
 	start_from <- match.arg(start_from)
@@ -117,7 +119,8 @@ decagon_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('midpoint
 	if (draw_boundary) {
 		.do_boundary(unit_len,lengths=rep(num_segs,nsides),angles=multiplier * inang,
 								 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
-								 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color)
+								 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color,
+								 boundary_hole_locations=boundary_hole_locations)
 	}
 	# move to ending side
 	if ((end_side != 1) && (!is.null(end_side))) {

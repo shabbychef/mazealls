@@ -74,6 +74,7 @@
 #' @template param-start-from
 #' @template param-end-side
 #' @template param-boundary-stuff
+#' @template param-boundary-hole-controls
 #' @template return-none
 #' @param depth the depth of recursion. This controls the
 #' side length. If an integer then nice recursive mazes
@@ -170,7 +171,8 @@
 #' @export
 hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids','six_triangles','three_parallelograms','random'),
 												 start_from=c('midpoint','corner'),
-												 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,boundary_hole_color=NULL,
+												 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,
+												 boundary_holes=NULL,boundary_hole_color=NULL,boundary_hole_locations=NULL,
 												 end_side=1) {
 	
 	method <- match.arg(method)
@@ -234,7 +236,8 @@ hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids'
 		turtle_backward(distance=unit_len * num_segs/2)
 		.do_boundary(unit_len,lengths=rep(num_segs,6),angles=multiplier * 60,
 								 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
-								 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color)
+								 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color,
+								 boundary_hole_locations=boundary_hole_locations)
 		turtle_forward(distance=unit_len * num_segs/2)
 	}
 	if ((end_side != 1) && (!is.null(end_side))) {

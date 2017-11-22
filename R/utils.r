@@ -112,10 +112,11 @@ draw_colored_line <- function(distance,color) {
 	which(isin)
 }
 
-.do_boundary <- function(unit_len,lengths,angles,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,
+.do_boundary <- function(unit_len,lengths,angles,nsides=length(lengths),
+												 num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,
 												 boundary_hole_color=NULL,boundary_hole_locations=NULL) {
-	holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=3)
-	boundary_lines <- .interpret_boundary_lines(boundary_lines,nsides=3)
+	holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=nsides)
+	boundary_lines <- .interpret_boundary_lines(boundary_lines,nsides=nsides)
 
 	holey_path(unit_len=unit_len,
 						 lengths=lengths,

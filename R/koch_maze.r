@@ -84,7 +84,7 @@
 #' @template etc
 #' @template param-unitlen
 #' @template param-clockwise
-#' @template param-boundary-stuff
+#' @template param-boundary-hole-controls
 #' @template return-none
 #' @param depth the depth of recursion. This controls the side length.
 #' Should be an integer.
@@ -107,11 +107,7 @@
 #' })
 #' @export
 koch_maze <- function(depth,unit_len,clockwise=TRUE,
-											draw_boundary=TRUE,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,boundary_hole_color=NULL) {
-	
-	# stupid arguments and templates stupid.
-	stopifnot(boundary_lines)
-
+											num_boundary_holes=2,boundary_holes=NULL,boundary_hole_color=NULL) {
 	depth <- round(depth)
 	multiplier <- ifelse(clockwise,1,-1)
 	holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=3)

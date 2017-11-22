@@ -8,7 +8,8 @@ parallelogram_maze(unit_len, height, width = height, angle = 90,
   clockwise = TRUE, method = c("two_parallelograms", "four_parallelograms",
   "uniform", "random"), start_from = c("midpoint", "corner"), balance = 0,
   draw_boundary = FALSE, num_boundary_holes = 2, boundary_lines = TRUE,
-  boundary_holes = NULL, boundary_hole_color = NULL, end_side = 1)
+  boundary_holes = NULL, boundary_hole_color = NULL,
+  boundary_hole_locations = NULL, end_side = 1)
 }
 \arguments{
 \item{unit_len}{the unit length in graph coordinates. This controls
@@ -76,10 +77,39 @@ for more details. Can be an array of colors, or colors and the
 value \code{'clear'}, which stands in for \code{NULL} to
 indicate no filled hole to be drawn.}
 
+\item{boundary_hole_locations}{the \sQuote{locations} of the boundary holes
+within each boundary segment.
+A value of \code{NULL} indicates the code may randomly choose, as is
+the default.
+May be a numeric array. A positive value up to the side length is
+interpreted as the location to place the boundary hole.
+A negative value is interpreted as counting down from the side
+length plus 1. A value of zero corresponds to allowing the 
+code to pick the location within a segment.
+A value of \code{NA} may cause an error.}
+
 \item{end_side}{the number of the side to end on. A value of
 1 corresponds to the starting side, while higher numbers
 correspond to the drawn side of the figure in the canonical order
 (that is, the order induced by the \code{clockwise} parameter).}
+
+\item{num_boundary_holes}{the number of boundary sides which should be
+randomly selected to have holes. Note that the \code{boundary_holes}
+parameter takes precedence.}
+
+\item{boundary_holes}{an array indicating which of the boundary lines
+have holes. If \code{NULL}, then boundary holes are randomly selected
+by the \code{num_boundary_holes} parameter. If numeric, indicates
+which sides of the maze shall have holes. If a boolean array, indicates
+which of the sides shall have holes. These forms are recycled
+if needed. See \code{\link{holey_path}}. Note that if no line
+is drawn, no hole can be drawn either.}
+
+\item{boundary_hole_color}{the color of boundary holes. A value of
+\code{NULL} indicates no colored holes. See \code{\link{holey_path}}
+for more details. Can be an array of colors, or colors and the 
+value \code{'clear'}, which stands in for \code{NULL} to
+indicate no filled hole to be drawn.}
 }
 \value{
 nothing; the function is called for side effects only, though in

@@ -67,6 +67,7 @@
 #' @template param-start-from
 #' @template param-end-side
 #' @template param-boundary-stuff
+#' @template param-boundary-hole-controls
 #' @template return-none
 #' @param height the length of the first side in numbers of \code{unit_len}
 #' segments.
@@ -145,7 +146,8 @@ parallelogram_maze <- function(unit_len,height,width=height,angle=90,clockwise=T
 															 method=c('two_parallelograms','four_parallelograms','uniform','random'),
 															 start_from=c('midpoint','corner'),
 															 balance=0,
-															 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,boundary_hole_color=NULL,
+															 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,
+															 boundary_holes=NULL,boundary_hole_color=NULL,boundary_hole_locations=NULL,
 															 end_side=1) {
 	
 	method <- match.arg(method)
@@ -237,7 +239,8 @@ parallelogram_maze <- function(unit_len,height,width=height,angle=90,clockwise=T
 	if (draw_boundary) {
 		.do_boundary(unit_len,lengths=rep(c(height,width),2),angles=multiplier * c(angle,180-angle),
 								 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
-								 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color)
+								 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color,
+								 boundary_hole_locations=boundary_hole_locations)
 	}
 	# move to ending side
 	if ((end_side != 1) && (!is.null(end_side))) {

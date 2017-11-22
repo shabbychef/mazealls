@@ -1,12 +1,6 @@
-#' @param draw_boundary a boolean indicating whether a final boundary shall be
-#' drawn around the maze.
 #' @param num_boundary_holes the number of boundary sides which should be
 #' randomly selected to have holes. Note that the \code{boundary_holes}
 #' parameter takes precedence.
-#' @param boundary_lines indicates which of the sides of the maze
-#' shall have drawn boundary lines. Can be a logical array indicating
-#' which sides shall have lines, or a numeric array, giving the
-#' index of sides that shall have lines.
 #' @param boundary_holes an array indicating which of the boundary lines
 #' have holes. If \code{NULL}, then boundary holes are randomly selected
 #' by the \code{num_boundary_holes} parameter. If numeric, indicates
@@ -19,13 +13,3 @@
 #' for more details. Can be an array of colors, or colors and the 
 #' value \code{'clear'}, which stands in for \code{NULL} to
 #' indicate no filled hole to be drawn.
-#' @param boundary_hole_locations the \sQuote{locations} of the boundary holes
-#' within each boundary segment.
-#' A value of \code{NULL} indicates the code may randomly choose, as is
-#' the default.
-#' May be a numeric array. A positive value up to the side length is
-#' interpreted as the location to place the boundary hole.
-#' A negative value is interpreted as counting down from the side
-#' length plus 1. A value of zero corresponds to allowing the 
-#' code to pick the location within a segment.
-#' A value of \code{NA} may cause an error.

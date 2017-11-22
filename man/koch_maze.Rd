@@ -4,9 +4,8 @@
 \alias{koch_maze}
 \title{koch_maze .}
 \usage{
-koch_maze(depth, unit_len, clockwise = TRUE, draw_boundary = TRUE,
-  num_boundary_holes = 2, boundary_lines = TRUE, boundary_holes = NULL,
-  boundary_hole_color = NULL)
+koch_maze(depth, unit_len, clockwise = TRUE, num_boundary_holes = 2,
+  boundary_holes = NULL, boundary_hole_color = NULL)
 }
 \arguments{
 \item{depth}{the depth of recursion. This controls the side length.
@@ -18,17 +17,9 @@ generally controls the spacing of mazes.}
 
 \item{clockwise}{whether to draw clockwise.}
 
-\item{draw_boundary}{a boolean indicating whether a final boundary shall be
-drawn around the maze.}
-
 \item{num_boundary_holes}{the number of boundary sides which should be
 randomly selected to have holes. Note that the \code{boundary_holes}
 parameter takes precedence.}
-
-\item{boundary_lines}{indicates which of the sides of the maze
-shall have drawn boundary lines. Can be a logical array indicating
-which sides shall have lines, or a numeric array, giving the
-index of sides that shall have lines.}
 
 \item{boundary_holes}{an array indicating which of the boundary lines
 have holes. If \code{NULL}, then boundary holes are randomly selected
