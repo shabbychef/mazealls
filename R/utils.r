@@ -112,5 +112,19 @@ draw_colored_line <- function(distance,color) {
 	which(isin)
 }
 
+.do_boundary <- function(unit_len,lengths,angles,num_boundary_holes=2,boundary_lines=TRUE,boundary_holes=NULL,
+												 boundary_hole_color=NULL,boundary_hole_locations=NULL) {
+	holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=3)
+	boundary_lines <- .interpret_boundary_lines(boundary_lines,nsides=3)
+
+	holey_path(unit_len=unit_len,
+						 lengths=lengths,
+						 angles=angles,
+						 draw_line=boundary_lines,
+						 has_hole=holes,
+						 hole_color=boundary_hole_color,
+						 hole_locations=boundary_hole_locations)
+}
+
 #for vim modeline: (do not edit)
 # vim:fdm=marker:fmr=FOLDUP,UNFOLD:cms=#%s:syn=r:ft=r

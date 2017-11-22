@@ -85,7 +85,6 @@ decagon_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('midpoint
 	outang <- (180 * (nsides-2)) / nsides
 	inang <- 180 - outang
 
-
 	switch(method,
 				 five_flower={
 					 .turn_right(multiplier * inang)
@@ -116,15 +115,9 @@ decagon_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('midpoint
 					 .turn_left(multiplier * inang)
 	})
 	if (draw_boundary) {
-		holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=nsides)
-		boundary_lines <- .interpret_boundary_lines(boundary_lines,nsides=nsides)
-
-		holey_path(unit_len=unit_len,
-							 lengths=rep(num_segs,nsides),
-							 angles=multiplier * inang,
-							 draw_line=boundary_lines,
-							 has_hole=holes,
-							 hole_color=boundary_hole_color)
+		.do_boundary(unit_len,lengths=rep(num_segs,nsides),angles=multiplier * inang,
+								 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
+								 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color)
 	}
 	# move to ending side
 	if ((end_side != 1) && (!is.null(end_side))) {

@@ -60,6 +60,17 @@
 #' exit points of a maze.
 #' See the \code{\link[grDevices]{colors}} function for
 #' acceptable values.
+#' @param hole_locations an optional array of \sQuote{locations}
+#' of the holes. These affect the \code{which_seg} of any holey
+#' lines which are drawn. If an array of numeric values,
+#' a value of zero corresponds to allowing the code to randomly
+#' choose the location of a hole; 
+#' negative values are \sQuote{inverted} by adding \code{length + 1}, 
+#' so that if the same segment is drawn twice, in different 
+#' directions, only the sign of the hole location needs to be 
+#' flipped to have aligned holes.
+#' \code{NA} values will throw an error for now, though
+#' this may change in the future.
 #' @template return-none
 #' @examples 
 #'
@@ -80,17 +91,23 @@
 #' holey_path(unit_len=20, lengths=sort(rep(1:10,2),decreasing=TRUE), angles=c(90), 
 #'   draw_line=TRUE, has_hole=FALSE)
 #' @export
-holey_path <- function(unit_len,lengths,angles,draw_line=TRUE,has_hole=FALSE,hole_color=NULL) {
+holey_path <- function(unit_len,lengths,angles,draw_line=TRUE,has_hole=FALSE,hole_color=NULL,hole_locations=NULL) {
 # do something here about recycling hole color too?
 	if (is.null(hole_color)) { hole_color <- c('clear') }
-	retv <- mapply(function(len,ang,drawl,hol,holc) {
+	if (is.null(hole_locations)) { hole_locations <- c(0) }
+	retv <- mapply(function(len,ang,drawl,hol,holc,which_seg) {
 					 if (len > 0) {
 						 if (drawl) {
 							 if (hol) {
+								 if (which_seg < 0) { 
+									 which_seg <- len + which_seg + 1
+								 } else if (which_seg == 0) {
+									 which_seg <- NULL
+								 }
 								 if (holc == 'clear') {
-									 holey_line(unit_len,len,go_back=FALSE,hole_color=NULL)
+									 holey_line(unit_len,len,which_seg=which_seg,go_back=FALSE,hole_color=NULL)
 								 } else {
-									 holey_line(unit_len,len,go_back=FALSE,hole_color=holc)
+									 holey_line(unit_len,len,which_seg=which_seg,go_back=FALSE,hole_color=holc)
 								 }
 							 } else {
 								 draw_line(distance=unit_len*len)
@@ -100,7 +117,7 @@ holey_path <- function(unit_len,lengths,angles,draw_line=TRUE,has_hole=FALSE,hol
 						 }
 					 }
 					 .turn_right(ang)
-	},lengths,angles,draw_line,has_hole,hole_color)
+	},lengths,angles,draw_line,has_hole,hole_color,hole_locations)
 	invisible(retv)
 }
 

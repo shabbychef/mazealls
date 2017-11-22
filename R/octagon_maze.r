@@ -76,6 +76,10 @@ octagon_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('midpoint
 	start_from <- match.arg(start_from)
 	num_segs <- round(2^depth)
 
+	nsides <- 8
+	outang <- (180 * (nsides-2)) / nsides
+	inang <- 180 - outang
+
 	multiplier <- ifelse(clockwise,1,-1)
 	if (start_from=='midpoint') { turtle_backward(distance=unit_len * num_segs/2) }
 	switch(method,
@@ -110,21 +114,15 @@ octagon_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('midpoint
 		.turn_left(multiplier * 135)
 	})
 	if (draw_boundary) {
-		holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=8)
-		boundary_lines <- .interpret_boundary_lines(boundary_lines,nsides=8)
-
-		holey_path(unit_len=unit_len,
-							 lengths=rep(num_segs,8),
-							 angles=multiplier * 45,
-							 draw_line=boundary_lines,
-							 has_hole=holes,
-							 hole_color=boundary_hole_color)
+		.do_boundary(unit_len,lengths=rep(num_segs,nsides),angles=multiplier * inang,
+								 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
+								 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color)
 	}
 	# move to ending side
 	if ((end_side != 1) && (!is.null(end_side))) {
 		for (iii in 1:(end_side-1)) {
 			turtle_forward(distance=unit_len * num_segs)
-			.turn_right(multiplier * 45)
+			.turn_right(multiplier * inang)
 		}
 	}
 	if (start_from=='midpoint') { turtle_forward(distance=unit_len * num_segs/2) }

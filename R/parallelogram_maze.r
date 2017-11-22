@@ -235,15 +235,9 @@ parallelogram_maze <- function(unit_len,height,width=height,angle=90,clockwise=T
 	}
 
 	if (draw_boundary) {
-		holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=4)
-		boundary_lines <- .interpret_boundary_lines(boundary_lines,nsides=4)
-
-		holey_path(unit_len=unit_len,
-							 lengths=c(height,width,height,width),
-							 angles=multiplier*c(angle,180-angle),
-							 draw_line=boundary_lines,
-							 has_hole=holes,
-							 hole_color=boundary_hole_color)
+		.do_boundary(unit_len,lengths=rep(c(height,width),2),angles=multiplier * c(angle,180-angle),
+								 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
+								 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color)
 	}
 	# move to ending side
 	if ((end_side != 1) && (!is.null(end_side))) {

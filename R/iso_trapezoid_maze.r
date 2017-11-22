@@ -239,17 +239,11 @@ iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('mi
 
 	}
 	if (draw_boundary) {
-		holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=4)
-		boundary_lines <- .interpret_boundary_lines(boundary_lines,nsides=4)
-
 		turtle_backward(distance=unit_len * num_segs)
 
-		holey_path(unit_len=unit_len,
-							lengths=num_segs * c(2,1,1,1),
-							angles=multiplier * 60 * c(2,1,1,2),
-							draw_line=boundary_lines,
-							has_hole=holes,
-							hole_color=boundary_hole_color)
+		.do_boundary(unit_len,lengths=num_segs * c(2,1,1,1),angles=multiplier * 60 * c(2,1,1,2),
+								 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
+								 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color)
 
 		turtle_forward(distance=unit_len * num_segs)
 	}

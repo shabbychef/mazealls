@@ -308,16 +308,10 @@ eq_triangle_maze <- function(depth,unit_len,clockwise=TRUE,
 					 })
 	}
 	if (draw_boundary) {
-		holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=3)
-		boundary_lines <- .interpret_boundary_lines(boundary_lines,nsides=3)
 		turtle_backward(distance=unit_len * num_segs/2)
-
-		holey_path(unit_len=unit_len,
-							 lengths=rep(num_segs,3),
-							 angles=multiplier * 120,
-							 draw_line=boundary_lines,
-							 has_hole=holes,
-							 hole_color=boundary_hole_color)
+		.do_boundary(unit_len,lengths=rep(num_segs,3),angles=multiplier*120,
+								 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
+								 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color)
 		turtle_forward(distance=unit_len * num_segs/2)
 	}
 	# move to ending side
