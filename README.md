@@ -825,7 +825,8 @@ turtle_do({
 
 ```r
 boustro <- function(unit_len, height, width, thickness = 8L, 
-    angle = 90, clockwise = TRUE, start_hole = TRUE) {
+    angle = 90, clockwise = TRUE, start_hole = TRUE, 
+    balance = 0) {
     if (start_hole) {
         bholes <- c(1, 3)
         blines <- 1:4
@@ -838,14 +839,16 @@ boustro <- function(unit_len, height, width, thickness = 8L,
     blocs <- sample.int(n = thickness, size = 4, replace = TRUE)
     
     parallelogram_maze(unit_len = unit_len, height = height, 
-        width = thickness, angle = angle, start_from = "corner", 
-        clockwise = clockwise, draw_boundary = TRUE, 
-        boundary_lines = blines, boundary_holes = bholes, 
-        boundary_hole_locations = blocs, end_side = 3)
+        width = thickness, angle = angle, balance = balance, 
+        start_from = "corner", clockwise = clockwise, 
+        draw_boundary = TRUE, boundary_lines = blines, 
+        boundary_holes = bholes, boundary_hole_locations = blocs, 
+        end_side = 3)
     if (!last_one) {
         boustro(unit_len, height = height, width = width - 
             thickness, thickness = thickness, angle = 180 - 
-            angle, clockwise = !clockwise, start_hole = FALSE)
+            angle, clockwise = !clockwise, start_hole = FALSE, 
+            balance = balance)
     }
 }
 
@@ -853,10 +856,10 @@ turtle_init(2500, 2500, mode = "clip")
 turtle_up()
 turtle_hide()
 turtle_do({
-    turtle_setpos(300, 50)
+    turtle_setpos(100, 50)
     turtle_setangle(0)
-    boustro(unit_len = 22, 90, 70, thickness = 12, 
-        angle = 80)
+    boustro(unit_len = 26, height = 82, width = 80, 
+        thickness = 8, angle = 85, balance = 1.5)
 })
 ```
 
