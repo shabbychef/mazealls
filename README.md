@@ -819,8 +819,10 @@ turtle_do({
 ```
 
 <img src="man/figures/rect-spiral-1.png" title="plot of chunk rect-spiral" alt="plot of chunk rect-spiral" width="700px" height="700px" />
+
 ## A boustrophedon
 
+As in ox that plods back and forth in a field.
 
 
 ```r

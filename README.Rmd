@@ -723,8 +723,10 @@ turtle_do({
 	rect_spiral(unit_len=20,110,90,thickness=15,angle=80,start_hole=TRUE)
 })
 ```
+
 ## A boustrophedon
 
+As in ox that plods back and forth in a field.
 
 ```{r rect-boustrophedon,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
 
