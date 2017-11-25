@@ -820,6 +820,116 @@ turtle_do({
 
 <img src="man/figures/rect-spiral-1.png" title="plot of chunk rect-spiral" alt="plot of chunk rect-spiral" width="700px" height="700px" />
 
+
+## A double rectangular spiral
+
+The path spirals in, then out, joining at the center. This might be buggy.
+
+
+```r
+double_spiral <- function(unit_len, height, width, 
+    thickness = 8L, angle = 90, clockwise = TRUE, start_hole = TRUE, 
+    color1 = "black", color2 = "black") {
+    len1 <- height - thickness
+    bline1 <- c(1, 2, 4)
+    bline2 <- c(1, 3, 4)
+    bhole1 <- c(2)
+    if (start_hole) {
+        len2 <- len1
+        bline2 <- c(bline2, 2)
+        bhole1 <- c(bhole1, 4)
+    } else {
+        len2 <- len1 - 2 * thickness
+    }
+    blocs1 <- -sample.int(n = thickness, size = 4, 
+        replace = TRUE)
+    blocs2 <- -sample.int(n = thickness, size = 4, 
+        replace = TRUE)
+    last_one <- (min(len1, len2) <= 0) || (width <= 
+        2 * thickness)
+    if (last_one) {
+        bhole2 <- c(4)
+    } else {
+        bhole2 <- c(3)
+    }
+    if (start_hole) {
+        bhole2 <- c(bhole2, 2)
+    }
+    second_stripe <- ((len2 > 0) && (width > thickness))
+    
+    if (len1 > 0) {
+        turtle_col(color1)
+        parallelogram_maze(unit_len = unit_len, height = len1, 
+            width = thickness, angle = angle, start_from = "corner", 
+            clockwise = clockwise, draw_boundary = TRUE, 
+            boundary_lines = bline1, boundary_holes = bhole1, 
+            boundary_hole_locations = blocs1, end_side = ifelse(len2 > 
+                0, 3, 2))
+        if (second_stripe) {
+            wid2 <- min(thickness, width - thickness)
+            turtle_col(color2)
+            parallelogram_maze(unit_len = unit_len, 
+                height = len2, width = wid2, angle = 180 - 
+                  angle, start_from = "corner", clockwise = !clockwise, 
+                draw_boundary = TRUE, boundary_lines = bline2, 
+                boundary_holes = bhole2, boundary_hole_locations = blocs2, 
+                end_side = 4)
+            turtle_col(color1)
+            
+            turtle_forward(unit_len * (thickness + 
+                wid2))
+            if (clockwise) {
+                turtle_right(180 - angle)
+            } else {
+                turtle_left(180 - angle)
+            }
+            turtle_forward(unit_len * thickness)
+            if (clockwise) {
+                turtle_right(angle)
+            } else {
+                turtle_left(angle)
+            }
+        }
+    }
+    next_height <- width
+    next_width <- ifelse(start_hole, height, height - 
+        2 * thickness)
+    
+    if (last_one) {
+        if (second_stripe) {
+            parallelogram_maze(unit_len = unit_len, 
+                height = next_height, width = thickness, 
+                start_from = "corner", angle = 180 - 
+                  angle, clockwise = clockwise)
+        } else {
+            parallelogram_maze(unit_len = unit_len, 
+                height = next_height, width = thickness, 
+                start_from = "corner", angle = angle, 
+                clockwise = !clockwise)
+        }
+    } else {
+        double_spiral(unit_len, height = next_height, 
+            width = next_width, thickness = thickness, 
+            angle = 180 - angle, clockwise = clockwise, 
+            start_hole = FALSE, color1 = color1, color2 = color2)
+    }
+}
+
+turtle_init(2500, 2500, mode = "clip")
+turtle_up()
+turtle_hide()
+turtle_do({
+    turtle_setpos(300, 50)
+    turtle_setangle(0)
+    double_spiral(unit_len = 20, height = 100, width = 100, 
+        thickness = 10, angle = 80, start_hole = TRUE, 
+        color2 = "gray40")
+})
+```
+
+<img src="man/figures/rect-double-spiral-1.png" title="plot of chunk rect-double-spiral" alt="plot of chunk rect-double-spiral" width="700px" height="700px" />
+
+
 ## A boustrophedon
 
 As in ox that plods back and forth in a field.
