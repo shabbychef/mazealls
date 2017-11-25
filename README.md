@@ -984,20 +984,21 @@ I should not have, but I did.
 
 ```r
 sierpinski <- function(unit_len, depth, boundary_lines = FALSE, 
-    boundary_hole_sides = NULL) {
+    boundary_hole_sides = NULL, color1 = "black", color2 = "green") {
     seglen <- 2^depth
     if (depth > 0) {
         for (iter in 1:3) {
-            sierpinski(unit_len, depth - 1)
+            sierpinski(unit_len, depth - 1, color1 = color1, 
+                color2 = color2)
             turtle_forward(unit_len * seglen)
             turtle_right(120)
         }
         turtle_forward(unit_len * seglen/2)
         turtle_right(60)
-        turtle_col("green")
+        turtle_col(color2)
         eq_triangle_maze(unit_len, depth = depth - 
             1, clockwise = TRUE, start_from = "corner")
-        turtle_col("black")
+        turtle_col(color1)
         holey_path(unit_len, lengths = seglen/2, angles = rep(120, 
             3), draw_line = TRUE, has_hole = rep(TRUE, 
             3))
@@ -1017,7 +1018,8 @@ turtle_do({
     turtle_setpos(250, 50)
     turtle_setangle(0)
     sierpinski(unit_len = 19, depth = 7, boundary_lines = TRUE, 
-        boundary_hole_sides = c(1, 3))
+        boundary_hole_sides = c(1, 3), color1 = "black", 
+        color2 = "gray60")
 })
 ```
 
