@@ -79,12 +79,12 @@ triangular mazes for the internals.
 }
 \examples{
 library(TurtleGraphics)
-turtle_init(2000,2000)
+turtle_init(2000,2000,mode='clip')
 turtle_hide()
 turtle_do({
   turtle_setpos(50,1000)
   turtle_setangle(0)
-  hexaflake_maze(depth=3,unit_len=20,draw_boundary=TRUE,color2='green')
+  hexaflake_maze(depth=3,unit_len=10,draw_boundary=TRUE,color2='green')
 })
 
 }
