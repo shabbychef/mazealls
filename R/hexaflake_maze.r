@@ -40,6 +40,8 @@
 #' @template etc
 #' @template param-unitlen
 #' @template param-clockwise
+#' @template param-start-from
+#' @template param-end-side
 #' @template param-boundary-stuff
 #' @template param-boundary-hole-controls
 #' @template param-colors

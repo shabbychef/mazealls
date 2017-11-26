@@ -20,6 +20,9 @@ generally controls the spacing of mazes.}
 
 \item{clockwise}{whether to draw clockwise.}
 
+\item{start_from}{whether to start from the midpoint of the first side
+of a maze, or from the corner facing the first side.}
+
 \item{color1}{The dominant color of the maze.}
 
 \item{color2}{The negative color of the maze.}
@@ -60,6 +63,11 @@ A negative value is interpreted as counting down from the side
 length plus 1. A value of zero corresponds to allowing the 
 code to pick the location within a segment.
 A value of \code{NA} may cause an error.}
+
+\item{end_side}{the number of the side to end on. A value of
+1 corresponds to the starting side, while higher numbers
+correspond to the drawn side of the figure in the canonical order
+(that is, the order induced by the \code{clockwise} parameter).}
 }
 \value{
 nothing; the function is called for side effects only, though in

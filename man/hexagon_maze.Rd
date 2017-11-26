@@ -200,7 +200,7 @@ turtle_do({
 		hexagon_maze(depth=depth,unit_len,clockwise=TRUE,method='two_trapezoids',
 		  draw_boundary=TRUE,boundary_holes=holes)
 		turtle_forward(distance=unit_len * num_segs/2)
-		turtle_right(multiplier * 60)
+		turtle_right((multiplier * 60) \%\% 360)
 		turtle_forward(distance=unit_len * num_segs/2)
 	}
 })
