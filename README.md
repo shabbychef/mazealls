@@ -1025,3 +1025,34 @@ turtle_do({
 
 <img src="man/figures/sierpinski-1.png" title="plot of chunk sierpinski" alt="plot of chunk sierpinski" width="700px" height="700px" />
 
+## Hexaflake 
+
+A hexaflake is a cross between a Koch snowflake and a Sierpinski triangle, at
+least in theory.
+
+
+```r
+library(TurtleGraphics)
+library(mazealls)
+# hexaflake
+long_side <- 2400
+inner_side <- long_side * sqrt(3)/2
+sidelen <- long_side/2
+dep <- 4
+ul <- floor(sidelen/(3^dep))
+true_wid <- 2 * ul * 3^dep * sqrt(3)/2
+
+turtle_init(ceiling(1.1 * inner_side), ceiling(1.1 * 
+    long_side), mode = "clip")
+turtle_up()
+turtle_hide()
+turtle_do({
+    turtle_setpos(0.5 * (ceiling(1.1 * inner_side) - 
+        true_wid), 0.55 * long_side)
+    turtle_setangle(0)
+    hexaflake_maze(depth = dep, unit_len = floor(sidelen/(3^dep)), 
+        draw_boundary = TRUE, color2 = "gray80")
+})
+```
+
+<img src="man/figures/hexaflake-1.png" title="plot of chunk hexaflake" alt="plot of chunk hexaflake" width="700px" height="700px" />

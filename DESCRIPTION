@@ -4,8 +4,8 @@ Authors@R: c(person(c("Steven", "E."), "Pav",
     role=c("aut","cre"),
     email="shabbychef@gmail.com",
 		comment = c(ORCID = "0000-0002-4197-6195")))
-Version: 0.1.0.0009
-Date: 2017-11-22
+Version: 0.1.0.0010
+Date: 2017-11-25
 License: LGPL-3
 Title: Generate Recursive Mazes
 BugReports: https://github.com/shabbychef/mazealls/issues
@@ -27,6 +27,7 @@ Collate:
     'decagon_maze.r'
     'dodecagon_maze.r'
     'eq_triangle_maze.r'
+    'hexaflake_maze.r'
     'hexagon_maze.r'
     'holey_line.r'
     'holey_path.r'

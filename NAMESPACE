@@ -3,6 +3,7 @@
 export(decagon_maze)
 export(dodecagon_maze)
 export(eq_triangle_maze)
+export(hexaflake_maze)
 export(hexagon_maze)
 export(holey_line)
 export(holey_path)
