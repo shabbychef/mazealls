@@ -441,7 +441,9 @@ turtle_do({
 
 <img src="man/figures/simple-decagon-1.png" title="plot of chunk simple-decagon" alt="plot of chunk simple-decagon" width="700px" height="700px" />
 
-# Koch snowflake maze
+# Fractal mazes
+
+## Koch snowflake maze
 
 Everyone's favorite snowflake can also be a maze. Simply fill in triangle bumps
 with triangular mazes and create lines with holes as needed:
@@ -465,6 +467,57 @@ turtle_do({
 
 <img src="man/figures/koch-flake-1.png" title="plot of chunk koch-flake" alt="plot of chunk koch-flake" width="700px" height="700px" />
 
+## Sierpinski Triangle
+
+Similarly, one can construct a maze in a Sierpinski triangle.
+
+
+```r
+turtle_init(2500, 2500, mode = "clip")
+turtle_up()
+turtle_hide()
+turtle_do({
+    turtle_setpos(50, 1250)
+    turtle_setangle(0)
+    sierpinski_maze(unit_len = 19, depth = 7, draw_boundary = TRUE, 
+        boundary_lines = TRUE, boundary_holes = c(1, 
+            3), color1 = "black", color2 = "gray60")
+})
+```
+
+<img src="man/figures/sierpinski-1.png" title="plot of chunk sierpinski" alt="plot of chunk sierpinski" width="700px" height="700px" />
+
+## Hexaflake 
+
+A hexaflake is a cross between a Koch snowflake and a Sierpinski triangle, at
+least in theory.
+
+
+```r
+library(TurtleGraphics)
+library(mazealls)
+# hexaflake
+long_side <- 2400
+inner_side <- long_side * sqrt(3)/2
+sidelen <- long_side/2
+dep <- 4
+ul <- floor(sidelen/(3^dep))
+true_wid <- 2 * ul * 3^dep * sqrt(3)/2
+
+turtle_init(ceiling(1.1 * inner_side), ceiling(1.1 * 
+    long_side), mode = "clip")
+turtle_up()
+turtle_hide()
+turtle_do({
+    turtle_setpos(0.5 * (ceiling(1.1 * inner_side) - 
+        true_wid), 0.55 * long_side)
+    turtle_setangle(0)
+    hexaflake_maze(depth = dep, unit_len = floor(sidelen/(3^dep)), 
+        draw_boundary = TRUE, color2 = "gray80")
+})
+```
+
+<img src="man/figures/hexaflake-1.png" title="plot of chunk hexaflake" alt="plot of chunk hexaflake" width="700px" height="700px" />
 
 # Controls
 
@@ -976,83 +1029,3 @@ turtle_do({
 ```
 
 <img src="man/figures/rect-boustrophedon-1.png" title="plot of chunk rect-boustrophedon" alt="plot of chunk rect-boustrophedon" width="700px" height="700px" />
-
-## Sierpinski Triangle
-
-I should not have, but I did.
-
-
-```r
-sierpinski <- function(unit_len, depth, boundary_lines = FALSE, 
-    boundary_hole_sides = NULL, color1 = "black", color2 = "green") {
-    seglen <- 2^depth
-    if (depth > 0) {
-        for (iter in 1:3) {
-            sierpinski(unit_len, depth - 1, color1 = color1, 
-                color2 = color2)
-            turtle_forward(unit_len * seglen)
-            turtle_right(120)
-        }
-        turtle_forward(unit_len * seglen/2)
-        turtle_right(60)
-        turtle_col(color2)
-        eq_triangle_maze(unit_len, depth = depth - 
-            1, clockwise = TRUE, start_from = "corner")
-        turtle_col(color1)
-        holey_path(unit_len, lengths = seglen/2, angles = rep(120, 
-            3), draw_line = TRUE, has_hole = rep(TRUE, 
-            3))
-        turtle_left(60)
-        turtle_backward(unit_len * seglen/2)
-    }
-    if (boundary_lines) {
-        holey_path(unit_len, lengths = seglen, angles = rep(120, 
-            3), draw_line = TRUE, has_hole = boundary_hole_sides)
-    }
-}
-
-turtle_init(2500, 2500, mode = "clip")
-turtle_up()
-turtle_hide()
-turtle_do({
-    turtle_setpos(250, 50)
-    turtle_setangle(0)
-    sierpinski(unit_len = 19, depth = 7, boundary_lines = TRUE, 
-        boundary_hole_sides = c(1, 3), color1 = "black", 
-        color2 = "gray60")
-})
-```
-
-<img src="man/figures/sierpinski-1.png" title="plot of chunk sierpinski" alt="plot of chunk sierpinski" width="700px" height="700px" />
-
-## Hexaflake 
-
-A hexaflake is a cross between a Koch snowflake and a Sierpinski triangle, at
-least in theory.
-
-
-```r
-library(TurtleGraphics)
-library(mazealls)
-# hexaflake
-long_side <- 2400
-inner_side <- long_side * sqrt(3)/2
-sidelen <- long_side/2
-dep <- 4
-ul <- floor(sidelen/(3^dep))
-true_wid <- 2 * ul * 3^dep * sqrt(3)/2
-
-turtle_init(ceiling(1.1 * inner_side), ceiling(1.1 * 
-    long_side), mode = "clip")
-turtle_up()
-turtle_hide()
-turtle_do({
-    turtle_setpos(0.5 * (ceiling(1.1 * inner_side) - 
-        true_wid), 0.55 * long_side)
-    turtle_setangle(0)
-    hexaflake_maze(depth = dep, unit_len = floor(sidelen/(3^dep)), 
-        draw_boundary = TRUE, color2 = "gray80")
-})
-```
-
-<img src="man/figures/hexaflake-1.png" title="plot of chunk hexaflake" alt="plot of chunk hexaflake" width="700px" height="700px" />
