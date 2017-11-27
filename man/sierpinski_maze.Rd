@@ -24,6 +24,9 @@ generally controls the spacing of mazes.}
 \item{start_from}{whether to start from the midpoint of the first side
 of a maze, or from the corner facing the first side.}
 
+\item{method}{controls the method to draw the underlying
+equilateral triangles. See \code{\link{eq_triangle_maze}}.}
+
 \item{color1}{The dominant color of the maze.}
 
 \item{color2}{The negative color of the maze.}

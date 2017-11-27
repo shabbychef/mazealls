@@ -47,6 +47,8 @@
 #' @template return-none
 #' @param depth the depth of recursion. This controls the side length.
 #' Should be an integer.
+#' @param method controls the method to draw the underlying
+#' equilateral triangles. See \code{\link{eq_triangle_maze}}.
 #' @examples
 #' library(TurtleGraphics)
 #' turtle_init(1000,1000,mode='clip')
