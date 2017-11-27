@@ -93,7 +93,8 @@ turtle_hide()
 turtle_do({
 	turtle_setpos(10,500)
 	turtle_setangle(0)
-	sierpinski(unit_len=19,depth=5,boundary_lines=TRUE,boundary_hole_sides=c(1,3),color1='black',color2='gray60')
+	sierpinski_maze(depth=5,unit_len=19,boundary_lines=TRUE,
+	  boundary_hole_sides=c(1,3),color1='black',color2='gray60')
 })
 
 }
