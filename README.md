@@ -473,6 +473,8 @@ Similarly, one can construct a maze in a Sierpinski triangle.
 
 
 ```r
+library(TurtleGraphics)
+library(mazealls)
 turtle_init(2500, 2500, mode = "clip")
 turtle_up()
 turtle_hide()
@@ -486,6 +488,26 @@ turtle_do({
 ```
 
 <img src="man/figures/sierpinski-1.png" title="plot of chunk sierpinski" alt="plot of chunk sierpinski" width="700px" height="700px" />
+
+And a Sierpinski Carpet:
+
+
+```r
+library(TurtleGraphics)
+library(mazealls)
+turtle_init(800, 1000)
+turtle_up()
+turtle_hide()
+turtle_do({
+    turtle_setpos(50, 450)
+    turtle_setangle(0)
+    sierpinski_carpet_maze(angle = 80, unit_len = 8, 
+        width = 90, height = 90, draw_boundary = TRUE, 
+        boundary_holes = c(1, 3), balance = 1.5, color2 = "green")
+})
+```
+
+<img src="man/figures/sierpinski-carpet-1.png" title="plot of chunk sierpinski-carpet" alt="plot of chunk sierpinski-carpet" width="700px" height="700px" />
 
 ## Hexaflake 
 
