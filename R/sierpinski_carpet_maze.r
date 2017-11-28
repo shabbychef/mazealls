@@ -62,12 +62,31 @@
 #' turtle_hide()
 #' turtle_up()
 #' turtle_do({
-#'  turtle_setpos(15,450)
+#'  turtle_setpos(35,400)
 #'  turtle_setangle(0)
 #'  sierpinski_carpet_maze(angle=80,unit_len=8,width=90,height=90,
 #'    method='two_parallelograms',draw_boundary=TRUE,balance=-1.0,color2='green')
 #' })
 #'
+#' \dontrun{
+#' library(TurtleGraphics)
+#' turtle_init(2000,2000,mode='clip')
+#' turtle_hide()
+#' turtle_up()
+#' bholes <- list(c(1,2), c(1), c(2))
+#' turtle_do({
+#'  turtle_setpos(1000,1100)
+#'  turtle_setangle(180)
+#'  for (iii in c(1:3)) {
+#' 	 mybhol <- bholes[[iii]]
+#' 	 sierpinski_carpet_maze(angle=120,unit_len=12,width=81,height=81,
+#' 		 draw_boundary=TRUE,boundary_lines=c(1,2,3),num_boundary_holes=0,
+#' 		 boundary_holes=mybhol,balance=1.0,color2='green',
+#' 		 start_from='corner')
+#' 	 turtle_left(120)
+#'  }
+#' })
+#' }
 #' @export
 sierpinski_carpet_maze <- function(unit_len,height,width=height,angle=90,clockwise=TRUE,
 																	 method='random',
@@ -106,7 +125,19 @@ sierpinski_carpet_maze <- function(unit_len,height,width=height,angle=90,clockwi
 		inner_holes <- rep(FALSE,length(inner_lines))
 		inner_holes[which(inner_lines)[which_holes]] <- TRUE
 
-		flipflop <- clockwise
+		turtle_forward(unit_len*hei_1)
+		.turn_right(multiplier*angle)
+		turtle_forward(unit_len*wid_1)
+
+		turtle_col(color2)
+		parallelogram_maze(unit_len=unit_len,height=wid_2,width=hei_2,angle=angle,
+													 balance=balance,method=method,start_from='corner',
+													 clockwise=!clockwise,draw_boundary=FALSE,end_side=1)
+		turtle_col(color1)
+		turtle_backward(unit_len*wid_1)
+		.turn_left(multiplier*angle)
+		turtle_backward(unit_len*hei_1)
+
 		sierpinski_carpet_maze(unit_len=unit_len,height=hei_1,width=wid_1,angle=angle,
 													 color1=color1,color2=color2,balance=balance,method=method,start_from='corner',
 													 clockwise=clockwise,draw_boundary=FALSE,end_side=end_sides[1])
@@ -121,12 +152,16 @@ sierpinski_carpet_maze <- function(unit_len,height,width=height,angle=90,clockwi
 													 color1=color1,color2=color2,balance=balance,method=method,start_from='corner',
 													 clockwise=!clockwise,draw_boundary=TRUE,boundary_lines=(inner_lines[5:8]),
 													 boundary_holes=(inner_holes[5:8]),end_side=end_sides[4])
-		# center is different:
-		turtle_col(color2)
-		parallelogram_maze(unit_len=unit_len,height=wid_2,width=hei_2,angle=180-angle,
-													 balance=balance,method=method,start_from='corner',
-													 clockwise=clockwise,draw_boundary=FALSE,end_side=end_sides[5])
-		turtle_col(color1)
+		## center is different:
+		#turtle_col(color2)
+		#parallelogram_maze(unit_len=unit_len,height=wid_2,width=hei_2,angle=180-angle,
+													 #balance=balance,method=method,start_from='corner',
+													 #clockwise=clockwise,draw_boundary=FALSE,end_side=end_sides[5])
+		#turtle_col(color1)
+		turtle_forward(unit_len*wid_2)
+		.turn_right(multiplier*(180-angle))
+		turtle_forward(unit_len*hei_2)
+		.turn_right(multiplier*(angle))
 
 		sierpinski_carpet_maze(unit_len=unit_len,height=wid_2,width=hei_1,angle=angle,
 													 color1=color1,color2=color2,balance=balance,method=method,start_from='corner',

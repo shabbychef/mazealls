@@ -102,12 +102,31 @@ turtle_init(800,900,mode='clip')
 turtle_hide()
 turtle_up()
 turtle_do({
- turtle_setpos(15,450)
+ turtle_setpos(35,400)
  turtle_setangle(0)
  sierpinski_carpet_maze(angle=80,unit_len=8,width=90,height=90,
    method='two_parallelograms',draw_boundary=TRUE,balance=-1.0,color2='green')
 })
 
+\dontrun{
+library(TurtleGraphics)
+turtle_init(2000,2000,mode='clip')
+turtle_hide()
+turtle_up()
+bholes <- list(c(1,2), c(1), c(2))
+turtle_do({
+ turtle_setpos(1000,1100)
+ turtle_setangle(180)
+ for (iii in c(1:3)) {
+	 mybhol <- bholes[[iii]]
+	 sierpinski_carpet_maze(angle=120,unit_len=12,width=81,height=81,
+		 draw_boundary=TRUE,boundary_lines=c(1,2,3),num_boundary_holes=0,
+		 boundary_holes=mybhol,balance=1.0,color2='green',
+		 start_from='corner')
+	 turtle_left(120)
+ }
+})
+}
 }
 \seealso{
 \code{\link{parallelogram_maze}},

@@ -509,6 +509,31 @@ turtle_do({
 
 <img src="man/figures/sierpinski-carpet-1.png" title="plot of chunk sierpinski-carpet" alt="plot of chunk sierpinski-carpet" width="700px" height="700px" />
 
+
+```r
+library(TurtleGraphics)
+library(mazealls)
+turtle_init(2000, 2000, mode = "clip")
+turtle_hide()
+turtle_up()
+bholes <- list(c(1, 2), c(1), c(2))
+turtle_do({
+    turtle_setpos(1000, 1000)
+    turtle_setangle(180)
+    for (iii in c(1:3)) {
+        mybhol <- bholes[[iii]]
+        sierpinski_carpet_maze(angle = 120, unit_len = 11, 
+            width = 81, height = 81, draw_boundary = TRUE, 
+            boundary_lines = c(1, 2, 3), num_boundary_holes = 0, 
+            boundary_holes = mybhol, balance = 1, color2 = "green", 
+            start_from = "corner")
+        turtle_left(120)
+    }
+})
+```
+
+<img src="man/figures/menger-sponge-1.png" title="plot of chunk menger-sponge" alt="plot of chunk menger-sponge" width="700px" height="700px" />
+
 ## Hexaflake 
 
 A hexaflake is a cross between a Koch snowflake and a Sierpinski triangle, at
