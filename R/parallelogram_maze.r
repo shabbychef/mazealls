@@ -21,6 +21,11 @@
 # Author: Steven E. Pav <shabbychef@gmail.com>
 # Comments: Steven E. Pav
 
+# sample from a 'discrete' beta distribution
+.rboustro <- function(n,boustro=c(1,1),nsegs=100L) {
+	sample(nsegs,size=n,prob=dbeta(ppoints(nsegs),shape1=boustro[1],shape2=boustro[2]),replace=TRUE)
+}
+
 #' @title parallelogram_maze .
 #'
 #' @description 
@@ -74,6 +79,22 @@
 #' @param width the length of the second side in numbers of \code{unit_len}
 #' segments.
 #' @param angle the angle (in degrees) between the first and second sides.
+#' Note that this is the angle that the Turtle turns when rounding
+#' the first corner, so it is the internal angle at the starting
+#' point (if starting from a corner), and the external angle at
+#' the second corner.
+#' @param height_boustro an array of two values, which help determine
+#' the location of holes in internal lines of length
+#' \code{height}. The default value, \code{c(1,1)} results in 
+#' uniform selection. Otherwise the location of holes are chosen
+#' with probability proportional to a beta density with 
+#' \code{shape1} and \code{shape2} the two elements of \code{height_boustro}
+#' in order. In sub mazes, this parameter is reversed, which
+#' can lead to \sQuote{boustrophedonic} mazes. The sum of values
+#' should probably not exceed 30, as otherwise the location of internal
+#' holes is forced.
+#' @param width_boustro an array of two values, which help determine
+#' the location of any split along lines which are length \code{width}. 
 #' @param method there are many ways to recursive draw an isosceles
 #' trapezoid.  The following values are acceptable:
 #' \describe{
@@ -140,12 +161,23 @@
 #'   }
 #' })
 #'
+#' # a somewhat 'boustrophedonic' maze
+#' turtle_init(500,300,mode='clip')
+#' turtle_hide()
+#' turtle_up()
+#' turtle_do({
+#'  turtle_setpos(15,15)
+#'  turtle_setangle(0)
+#'  parallelogram_maze(angle=90,unit_len=10,width=47,height=27,
+#'     method='two_parallelograms', height_boustro=c(21,3),width_boustro=c(21,3),balance=-0.25,
+#' 		 start_from='corner',draw_boundary=TRUE)
+#' })
 #' @export
 #' @importFrom stats runif
 parallelogram_maze <- function(unit_len,height,width=height,angle=90,clockwise=TRUE,
 															 method=c('two_parallelograms','four_parallelograms','uniform','random'),
 															 start_from=c('midpoint','corner'),
-															 balance=0,
+															 balance=0,height_boustro=c(1,1),width_boustro=c(1,1),
 															 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,
 															 boundary_holes=NULL,boundary_hole_color=NULL,boundary_hole_locations=NULL,
 															 end_side=1) {
@@ -171,29 +203,36 @@ parallelogram_maze <- function(unit_len,height,width=height,angle=90,clockwise=T
 						 elogo   <- exp(logodds)
 						 spliton <- ifelse(runif(1) <= elogo / (1 + elogo),'height','width')
 						 switch(spliton,
+															 height_boustro=c(1,1),width_boustro=c(1,1),
 										height={
 											midp <- sample.int(size=1,n=(height-1))
 											parallelogram_maze(unit_len=unit_len,height=midp,width=width,angle=angle,clockwise=clockwise,method=method,start_from='corner',
 																				 balance=balance,
-																				 draw_boundary=TRUE,num_boundary_holes=0,boundary_lines=2,boundary_holes=2)
+																				 draw_boundary=TRUE,num_boundary_holes=0,boundary_lines=2,boundary_holes=2,
+																				 height_boustro=height_boustro,width_boustro=rev(width_boustro),
+																				 boundary_hole_locations=.rboustro(4,boustro=width_boustro,nsegs=width))
 											turtle_forward(midp*unit_len)
 											parallelogram_maze(unit_len=unit_len,height=height-midp,width=width,angle=angle,clockwise=clockwise,method=method,start_from='corner',
 																				 balance=balance,
-																				 draw_boundary=FALSE)
+																				 draw_boundary=FALSE,
+																				 height_boustro=height_boustro,width_boustro=rev(width_boustro))
 											turtle_backward(midp*unit_len)
 										},
 										width={
 											midp <- sample.int(size=1,n=(width-1))
 											parallelogram_maze(unit_len=unit_len,height=height,width=midp,angle=angle,clockwise=clockwise,method=method,start_from='corner',
 																				 balance=balance,
-																				 draw_boundary=TRUE,num_boundary_holes=0,boundary_lines=3,boundary_holes=3)
+																				 draw_boundary=TRUE,num_boundary_holes=0,boundary_lines=3,boundary_holes=3,
+																				 height_boustro=rev(height_boustro),width_boustro=width_boustro,
+																				 boundary_hole_locations=.rboustro(4,boustro=height_boustro,nsegs=height))
 
 											.turn_right(angle*multiplier)
 											turtle_forward(midp*unit_len)
 											.turn_left(angle*multiplier)
 											parallelogram_maze(unit_len=unit_len,height=height,width=width-midp,angle=angle,clockwise=clockwise,method=method,start_from='corner',
 																				 balance=balance,
-																				 draw_boundary=FALSE)
+																				 draw_boundary=FALSE,
+																				 height_boustro=rev(height_boustro),width_boustro=width_boustro)
 											.turn_right(angle*multiplier)
 											turtle_backward(midp*unit_len)
 											.turn_left(angle*multiplier)
@@ -211,24 +250,28 @@ parallelogram_maze <- function(unit_len,height,width=height,angle=90,clockwise=T
 						 }
 
 						 parallelogram_maze(unit_len=unit_len,height=mid_height,width=mid_width,angle=angle,clockwise=clockwise,method=method,start_from='corner',
-																balance=balance,
-																draw_boundary=TRUE,boundary_lines=2,boundary_holes=1 %in% bholes)
+																balance=balance,height_boustro=rev(height_boustro),width_boustro=rev(width_boustro),
+																draw_boundary=TRUE,boundary_lines=2,boundary_holes=1 %in% bholes,
+																boundary_hole_locations=.rboustro(1,boustro=width_boustro,nsegs=mid_width))
 						 turtle_forward(mid_height*unit_len)
 						 parallelogram_maze(unit_len=unit_len,height=height-mid_height,width=mid_width,angle=angle,clockwise=clockwise,method=method,start_from='corner',
-																balance=balance,
-																draw_boundary=TRUE,boundary_lines=3,boundary_holes=2 %in% bholes)
+																balance=balance,height_boustro=rev(height_boustro),width_boustro=rev(width_boustro),
+																draw_boundary=TRUE,boundary_lines=3,boundary_holes=2 %in% bholes,
+																boundary_hole_locations=.rboustro(1,boustro=height_boustro,nsegs=height-mid_height))
 
 						 .turn_right(angle*multiplier)
 						 turtle_forward(mid_width*unit_len)
 						 .turn_left(angle*multiplier)
 
 						 parallelogram_maze(unit_len=unit_len,height=height-mid_height,width=width-mid_width,angle=angle,clockwise=clockwise,method=method,start_from='corner',
-																balance=balance,
-																draw_boundary=TRUE,boundary_lines=4,boundary_holes=4 %in% bholes)
+																balance=balance,height_boustro=rev(height_boustro),width_boustro=rev(width_boustro),
+																draw_boundary=TRUE,boundary_lines=4,boundary_holes=4 %in% bholes,
+																boundary_hole_locations=.rboustro(1,boustro=width_boustro,nsegs=width-mid_width))
 						 turtle_backward(mid_height*unit_len)
 						 parallelogram_maze(unit_len=unit_len,height=mid_height,width=width-mid_width,angle=angle,clockwise=clockwise,method=method,start_from='corner',
-																balance=balance,
-																draw_boundary=TRUE,boundary_lines=1,boundary_holes=3 %in% bholes)
+																balance=balance,height_boustro=rev(height_boustro),width_boustro=rev(width_boustro),
+																draw_boundary=TRUE,boundary_lines=1,boundary_holes=3 %in% bholes,
+																boundary_hole_locations=.rboustro(1,boustro=height_boustro,nsegs=mid_height))
 
 						 .turn_right(angle*multiplier)
 						 turtle_backward(mid_width*unit_len)
