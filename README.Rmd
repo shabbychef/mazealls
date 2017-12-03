@@ -11,7 +11,9 @@ opts_chunk$set(cache=TRUE,cache.path="cache/")
 
 #opts_chunk$set(fig.path="figure/",dev=c("pdf","cairo_ps"))
 opts_chunk$set(fig.path="man/figures/",dev=c("png"))
-opts_chunk$set(fig.width=7,fig.height=7,dpi=300,out.width='700px',out.height='700px')
+#opts_chunk$set(fig.width=7,fig.height=7,dpi=300,out.width='700px',out.height='700px')
+# try to make the files smaller ... 
+opts_chunk$set(fig.width=7,fig.height=7,dpi=125,out.width='700px',out.height='700px')
 
 # doing this means that png files are made of figures;
 # the savings is small, and it looks like shit:

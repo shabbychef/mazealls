@@ -77,10 +77,38 @@ hexaflake_maze <- function(depth,unit_len,clockwise=TRUE,
 								 boundary_lines=boundary_lines,
 								 boundary_holes=boundary_holes,
 								 boundary_hole_locations=boundary_hole_locations,
+								 boundary_hole_color=boundary_hole_color,
 								 end_side=end_side)
 	} else {
 		multiplier <- ifelse(clockwise,1,-1)
 		if (start_from=='corner') { turtle_forward(distance=unit_len * num_segs/2) }
+
+		.in_middle <- function(x) {
+			(3 * x > num_segs) && (3 * x <= 2*num_segs)
+		}
+		# you have to pass these to the sub mazes ... 
+		nsides <- 6
+		holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=nsides)
+		if (!draw_boundary) { 
+			boundary_lines <- rep(FALSE,6) 
+		} else {
+			boundary_lines <- .interpret_boundary_lines(boundary_lines,nsides=nsides)
+			if (is.logical(boundary_lines) && length(boundary_lines) < 6) {
+				boundary_lines <- rep(boundary_lines,6)
+				boundary_lines <- boundary_lines[1:6]
+			}
+		}
+		if (is.null(boundary_hole_color)) { 
+			boundary_hole_color <- rep('clear',6) 
+		} else if (length(boundary_hole_color) < 6) {
+				boundary_hole_color <- rep(boundary_hole_color,6)
+				boundary_hole_color <- boundary_hole_color[1:6]
+		}
+		if (is.null(boundary_hole_locations)) { boundary_hole_locations <- sample.int(num_segs,size=6,replace=TRUE) }
+		bhl_in_mid <- (boundary_hole_locations > num_segs/3) & (boundary_hole_locations <= 2*num_segs/3)
+		bhl_in_high <- (boundary_hole_locations > 2*num_segs/3) 
+		bhl_in_low <- ! (bhl_in_mid | bhl_in_high)
+		#browser()
 
 		turtle_backward(distance=unit_len * num_segs/6) 
 		.turn_right(multiplier * 60)
@@ -106,7 +134,11 @@ hexaflake_maze <- function(depth,unit_len,clockwise=TRUE,
 			eq_triangle_maze(unit_len,depth=log2(num_segs/3),
 											 clockwise=!clockwise,
 											 start_from='corner',
-											 draw_boundary=FALSE,
+											 draw_boundary=TRUE,
+											 boundary_lines=c(FALSE,FALSE,boundary_lines[iii]),
+											 boundary_holes=c(FALSE,FALSE,holes[iii] && bhl_in_mid[iii]),
+											 boundary_hole_locations=c(0,0,max(0,boundary_hole_locations[iii] - num_segs/3)),
+											 boundary_hole_color=c('clear','clear',boundary_hole_color[iii]),
 											 end_side=1)
 			turtle_forward(distance=unit_len * num_segs/3) 
 			eq_triangle_maze(unit_len,depth=log2(num_segs/3),
@@ -115,15 +147,32 @@ hexaflake_maze <- function(depth,unit_len,clockwise=TRUE,
 											 draw_boundary=FALSE,
 											 end_side=3)
 			turtle_forward(distance=unit_len * num_segs/3) 
+			next_iii <- 1 + (iii %% 6)
+
 			myidx <- (1:6) + (iii-1) * 6
+			blines <- inner_lines[myidx]
+			bholes <- inner_holes[myidx]
+			blines[2] <- boundary_lines[iii]
+			blines[3] <- boundary_lines[next_iii]
+			bholes[2] <- holes[iii] && bhl_in_high[iii]
+			bholes[3] <- holes[next_iii] && bhl_in_low[next_iii]
+			bholoc <- rep(0,6)
+			bholoc[2] <- boundary_hole_locations[iii] - 2*num_segs / 3
+			bholoc[3] <- boundary_hole_locations[next_iii]
+			bhc <- rep('clear',6)
+			bhc[2] <- boundary_hole_color[iii]
+			bhc[3] <- boundary_hole_color[next_iii]
+
 			turtle_col(color1)
 			hexaflake_maze(depth=depth-1,unit_len=unit_len,
 										 clockwise=clockwise,start_from='corner',
 										 color1=color1,color2=color2,
 										 draw_boundary=TRUE,
 										 num_boundary_holes=NULL,
-										 boundary_lines=inner_lines[myidx],
-										 boundary_holes=inner_holes[myidx],
+										 boundary_lines=blines,
+										 boundary_holes=bholes,
+										 boundary_hole_locations=bholoc,
+										 boundary_hole_color=bhc,
 										 end_side=4)
 		}
 
@@ -146,14 +195,14 @@ hexaflake_maze <- function(depth,unit_len,clockwise=TRUE,
 		turtle_forward(distance=unit_len * num_segs/6) 
 
 
-		if (draw_boundary) {
-			turtle_backward(distance=unit_len * num_segs/2)
-			.do_boundary(unit_len,lengths=rep(num_segs,6),angles=multiplier * 60,
-									 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
-									 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color,
-									 boundary_hole_locations=boundary_hole_locations)
-			turtle_forward(distance=unit_len * num_segs/2)
-		}
+		#if (draw_boundary) {
+			#turtle_backward(distance=unit_len * num_segs/2)
+			#.do_boundary(unit_len,lengths=rep(num_segs,6),angles=multiplier * 60,
+									 #num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
+									 #boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color,
+									 #boundary_hole_locations=boundary_hole_locations)
+			#turtle_forward(distance=unit_len * num_segs/2)
+		#}
 		if ((end_side != 1) && (!is.null(end_side))) {
 			for (iii in 1:(end_side-1)) {
 				turtle_forward(distance=unit_len * num_segs/2)
