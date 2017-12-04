@@ -316,9 +316,6 @@ test_that("hit all funcs",{#FOLDUP
 			sierpinski_maze(unit_len=5,depth=3,clockwise=clockwise,draw_boundary=TRUE)
 			sierpinski_maze(unit_len=5,depth=3,clockwise=clockwise,style='hexaflake',draw_boundary=TRUE)
 			sierpinski_maze(unit_len=5,depth=3,clockwise=clockwise,style='dragon_left',draw_boundary=TRUE)
-			sierpinski_maze(unit_len=5,depth=3,clockwise=clockwise,style='dragon_right',draw_boundary=TRUE)
-
-			sierpinski_trapezoid_maze(unit_len=10,depth=3,clockwise=clockwise,draw_boundary=TRUE)
 
 			for (angl in c(45,90,135)) {
 				parallelogram_maze(angle=angl,unit_len=10,width=25,height=25,
@@ -327,6 +324,12 @@ test_that("hit all funcs",{#FOLDUP
 															 clockwise=clockwise,draw_boundary=TRUE)
 			}
 		}
+		clockwise <- TRUE
+		sierpinski_trapezoid_maze(unit_len=5,depth=3,clockwise=clockwise,draw_boundary=TRUE,flip_color_parts=1)
+		sierpinski_trapezoid_maze(unit_len=5,depth=3,clockwise=clockwise,draw_boundary=TRUE,flip_color_parts=2)
+		sierpinski_trapezoid_maze(unit_len=5,depth=3,clockwise=clockwise,draw_boundary=TRUE,flip_color_parts=3)
+		sierpinski_trapezoid_maze(unit_len=5,depth=3,clockwise=clockwise,draw_boundary=TRUE,flip_color_parts=4)
+    hexaflake_maze(depth=3,unit_len=10,draw_boundary=TRUE,color2='green')
 	})
 
 	# sentinel
