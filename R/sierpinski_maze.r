@@ -49,6 +49,19 @@
 #' Should be an integer.
 #' @param method controls the method to draw the underlying
 #' equilateral triangles. See \code{\link{eq_triangle_maze}}.
+#' @param style controls the style of Sierpinski triangle. The
+#' following are recognized:
+#' \describe{
+#' \item{four_triangles}{The traditional Sierpinski Triangle of four triangles
+#' with the center in the minor color, \code{color2}.}
+#' \item{hexaflake}{Looks more like a hexaflake in a triangle.}
+#' \item{dragon_left}{Looks like a dragon fractal.}
+#' \item{dragon_right}{Looks like a dragon fractal.}
+#' }
+#'
+#' @seealso \code{\link{eq_triangle_maze}},
+#' \code{\link{sierpinski_carpet_maze}},
+#' \code{\link{sierpinski_trapezoid_maze}},
 #' @examples
 #' library(TurtleGraphics)
 #' turtle_init(1000,1000,mode='clip')
@@ -65,46 +78,132 @@
 sierpinski_maze <- function(depth,unit_len,clockwise=TRUE,
 														start_from=c('midpoint','corner'),
 														method='random',
+														style=c('four_triangles','hexaflake','dragon_left','dragon_right'),
 														color1='black',color2='gray40',
 														draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,
 														boundary_holes=NULL,boundary_hole_color=NULL,boundary_hole_locations=NULL,
 														end_side=1) {
 
+
+	#cat(str(list(dep=depth,
+							 #db=draw_boundary,
+							 #bl=boundary_lines,
+							 #bh=boundary_holes,
+							 #bo=boundary_hole_locations,
+							 #bc=boundary_hole_color)))
+
 	start_from <- match.arg(start_from)
 	num_segs <- 2^depth
+	style <- match.arg(style)
 
 	multiplier <- ifelse(clockwise,1,-1)
 
 	if (start_from=='midpoint') { turtle_backward(distance=unit_len * num_segs/2) }
 
-	if (depth > 1) {
-		for (iter in 1:3) {
-			sierpinski_maze(unit_len=unit_len,depth=depth-1,clockwise=clockwise,method=method,
-											start_from='corner',draw_boundary=FALSE,
-											color1=color1,color2=color2)
-			turtle_forward(unit_len * num_segs)
-			.turn_right(multiplier * 120)
+	if (style=='four_triangles') {
+		if (depth > 1) {
+			for (iter in 1:3) {
+				sierpinski_maze(unit_len=unit_len,depth=depth-1,clockwise=clockwise,method=method,
+												start_from='corner',draw_boundary=FALSE,
+												color1=color1,color2=color2)
+				turtle_forward(unit_len * num_segs)
+				.turn_right(multiplier * 120)
+			}
+
+			turtle_forward(unit_len * num_segs/2)
+			.turn_right(multiplier * 60)
+			turtle_col(color2)
+			eq_triangle_maze(unit_len,depth=depth-1,clockwise=clockwise,start_from='corner',method=method)
+			turtle_col(color1)
+			holey_path(unit_len,lengths=num_segs/2,angles=rep(multiplier*120,3),
+								 draw_line=TRUE,has_hole=rep(TRUE,3))
+			.turn_left(multiplier * 60)
+			turtle_backward(unit_len * num_segs/2)
+		} else {
+			turtle_col(color1)
+			eq_triangle_maze(unit_len,depth=depth,clockwise=clockwise,start_from='corner',method=method,draw_boundary=FALSE)
 		}
 
-		turtle_forward(unit_len * num_segs/2)
-		.turn_right(multiplier * 60)
-		turtle_col(color2)
-		eq_triangle_maze(unit_len,depth=depth-1,clockwise=clockwise,start_from='corner',method=method)
-		turtle_col(color1)
-		holey_path(unit_len,lengths=num_segs/2,angles=rep(multiplier*120,3),
-							 draw_line=TRUE,has_hole=rep(TRUE,3))
-		.turn_left(multiplier * 60)
-		turtle_backward(unit_len * num_segs/2)
+		if (draw_boundary) {
+			.do_boundary(unit_len,lengths=rep(num_segs,3),angles=multiplier*120,
+									 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
+									 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color,
+									 boundary_hole_locations=boundary_hole_locations)
+		}
 	} else {
-		turtle_col(color1)
-		eq_triangle_maze(unit_len,depth=depth,clockwise=clockwise,start_from='corner',method=method,draw_boundary=FALSE)
-	}
+		if (depth > 1) {
+			# you have to pass these to the sub mazes ... 
+			nsides <- 3
+			holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=nsides)
+			boundary_lines <- .interpret_boundary_lines(boundary_lines,nsides=nsides)
+			if (is.logical(boundary_lines) && length(boundary_lines) < 3) {
+				boundary_lines <- rep(boundary_lines,3)
+				boundary_lines <- boundary_lines[1:3]
+			}
+			if (is.null(boundary_hole_color)) { boundary_hole_color <- rep('clear',3) }
+			if (length(boundary_hole_color) < 3) {
+				boundary_hole_color <- rep(boundary_hole_color,3)
+				boundary_hole_color <- boundary_hole_color[1:3]
+			}
+			if (is.null(boundary_hole_locations)) { 
+				boundary_hole_locations <- sample.int(num_segs,size=3,replace=TRUE) 
+			}
+			bline <- draw_boundary & c(boundary_lines[1:2],FALSE,boundary_lines[3])
+			bhole <- c(holes[1],
+								 holes[2] & (boundary_hole_locations[2] <= num_segs/2),
+								 FALSE,
+								 holes[3] & (boundary_hole_locations[3] > num_segs/2))
+			bholoc <- c(boundary_hole_locations[1:2],0,boundary_hole_locations[3] - num_segs/2)
+			bcolor <- c(boundary_hole_color[1:2],'clear',boundary_hole_color[3])
 
-	if (draw_boundary) {
-		.do_boundary(unit_len,lengths=rep(num_segs,3),angles=multiplier*120,
-								 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
-								 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color,
-								 boundary_hole_locations=boundary_hole_locations)
+			flipc <- switch(style,
+											hexaflake=1,
+											dragon_left=2,
+											sierpinski=3,
+											dragon_right=4)
+
+			sierpinski_trapezoid_maze(depth-1,unit_len=unit_len,
+															clockwise=clockwise,start_from='corner',
+															color1=color1,color2=color2,
+															flip_color_parts=flipc,
+															draw_boundary=TRUE,
+															num_boundary_holes=NULL,
+															boundary_lines=bline,
+															boundary_holes=bhole,
+															boundary_hole_locations=bholoc,
+															boundary_hole_color=bcolor,
+															end_side=3)
+			# recurse
+			turtle_forward(unit_len * num_segs/2)
+			turtle_right(180)
+
+			#browser()
+			sierpinski_maze(depth-1,unit_len=unit_len,clockwise=clockwise,
+											start_from='corner',
+											method=method,style=style,
+											color1=color1,color2=color2,
+											draw_boundary=TRUE,
+											num_boundary_holes=NULL,
+											boundary_lines=c(TRUE,boundary_lines[2],boundary_lines[3]),
+											boundary_holes=c(TRUE,holes[2] & (boundary_hole_locations[2] > num_segs/2),holes[3] & (boundary_hole_locations[3] <= num_segs/2)),
+											boundary_hole_locations=c(0,boundary_hole_locations[2] - num_segs/2,min(boundary_hole_locations[3],num_segs/2)),
+											boundary_hole_color=c('clear',boundary_hole_color[2],boundary_hole_color[3]),
+											end_side=1)
+			turtle_right(180)
+			.turn_right(multiplier * 60)
+			turtle_forward(unit_len * num_segs/2)
+			.turn_right(multiplier * 120)
+		} else {
+			if (draw_boundary) {
+				turtle_col(color1)
+				.do_boundary(unit_len,lengths=rep(num_segs,3),angles=multiplier*120,
+										 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
+										 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color,
+										 boundary_hole_locations=boundary_hole_locations)
+			}
+		}
+
+
 	}
 	# move to ending side
 	if ((end_side != 1) && (!is.null(end_side))) {

@@ -534,6 +534,31 @@ turtle_do({
 
 <img src="man/figures/menger-sponge-1.png" title="plot of chunk menger-sponge" alt="plot of chunk menger-sponge" width="700px" height="700px" />
 
+One can make four different kinds of Sierpinski trapezoids, the traditional
+four triangles, a hexaflake, and something like a Dragon fractal:
+
+
+```r
+library(TurtleGraphics)
+library(mazealls)
+turtle_init(1050, 600, mode = "clip")
+turtle_hide()
+turtle_up()
+turtle_do({
+    for (iii in c(1:4)) {
+        turtle_setpos(40 + (iii - 1) * 250, 300)
+        turtle_setangle(0)
+        sierpinski_trapezoid_maze(unit_len = 8, depth = 5, 
+            draw_boundary = TRUE, start_from = "midpoint", 
+            num_boundary_holes = 2, boundary_holes = c(2, 
+                4), color2 = "green", flip_color_parts = iii)  # this controls fractal style
+    }
+})
+```
+
+<img src="man/figures/sierpinski-trapezoids-1.png" title="plot of chunk sierpinski-trapezoids" alt="plot of chunk sierpinski-trapezoids" width="700px" height="700px" />
+
+
 ## Hexaflake 
 
 A hexaflake is a cross between a Koch snowflake and a Sierpinski triangle, at

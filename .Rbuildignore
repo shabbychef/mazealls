@@ -33,5 +33,6 @@ nohup.out
 vignettes
 Rd2.pdf
 mazealls.pdf
+fooz
 .Rd2pdf*
 submodule_directions.sh

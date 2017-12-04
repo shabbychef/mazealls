@@ -6,6 +6,7 @@
 \usage{
 sierpinski_maze(depth, unit_len, clockwise = TRUE,
   start_from = c("midpoint", "corner"), method = "random",
+  style = c("four_triangles", "hexaflake", "dragon_left", "dragon_right"),
   color1 = "black", color2 = "gray40", draw_boundary = FALSE,
   num_boundary_holes = 2, boundary_lines = TRUE, boundary_holes = NULL,
   boundary_hole_color = NULL, boundary_hole_locations = NULL,
@@ -26,6 +27,16 @@ of a maze, or from the corner facing the first side.}
 
 \item{method}{controls the method to draw the underlying
 equilateral triangles. See \code{\link{eq_triangle_maze}}.}
+
+\item{style}{controls the style of Sierpinski triangle. The
+following are recognized:
+\describe{
+\item{four_triangles}{The traditional Sierpinski Triangle of four triangles
+with the center in the minor color, \code{color2}.}
+\item{hexaflake}{Looks more like a hexaflake in a triangle.}
+\item{dragon_left}{Looks like a dragon fractal.}
+\item{dragon_right}{Looks like a dragon fractal.}
+}}
 
 \item{color1}{The dominant color of the maze.}
 
@@ -100,6 +111,11 @@ turtle_do({
 	  boundary_holes=c(1,3),color1='black',color2='gray60')
 })
 
+}
+\seealso{
+\code{\link{eq_triangle_maze}},
+\code{\link{sierpinski_carpet_maze}},
+\code{\link{sierpinski_trapezoid_maze}},
 }
 \author{
 Steven E. Pav \email{shabbychef@gmail.com}

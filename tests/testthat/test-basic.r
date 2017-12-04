@@ -295,6 +295,43 @@ test_that("README code",{#FOLDUP
 	# sentinel
 	expect_true(TRUE)
 })#UNFOLD
+test_that("hit all funcs",{#FOLDUP
+	skip_on_cran()
+	set.char.seed("af46af42-adb8-4e0e-8aee-4aec6bda56d5")
+
+	library(TurtleGraphics)
+	library(mazealls)
+	turtle_init(2500,2500,mode='clip')
+	turtle_up()
+	turtle_hide()
+
+	turtle_do({
+		turtle_setpos(1250,1250)
+		turtle_setangle(0)
+		for (clockwise in c(TRUE,FALSE)) {
+			octagon_maze(unit_len=10,log2(48),clockwise=clockwise,draw_boundary=TRUE,boundary_holes=c(1,5))
+			decagon_maze(5,21,clockwise=clockwise,draw_boundary=TRUE,boundary_holes=c(1,6))
+			dodecagon_maze(depth=log2(14),unit_len=10,clockwise=clockwise,draw_boundary=TRUE,boundary_holes=c(1,7))
+
+			sierpinski_maze(unit_len=5,depth=3,clockwise=clockwise,draw_boundary=TRUE)
+			sierpinski_maze(unit_len=5,depth=3,clockwise=clockwise,style='hexaflake',draw_boundary=TRUE)
+			sierpinski_maze(unit_len=5,depth=3,clockwise=clockwise,style='dragon_left',draw_boundary=TRUE)
+			sierpinski_maze(unit_len=5,depth=3,clockwise=clockwise,style='dragon_right',draw_boundary=TRUE)
+
+			sierpinski_trapezoid_maze(unit_len=10,depth=3,clockwise=clockwise,draw_boundary=TRUE)
+
+			for (angl in c(45,90,135)) {
+				parallelogram_maze(angle=angl,unit_len=10,width=25,height=25,
+													 clockwise=clockwise,draw_boundary=TRUE)
+				sierpinski_carpet_maze(angle=angl,unit_len=10,width=27,height=27,
+															 clockwise=clockwise,draw_boundary=TRUE)
+			}
+		}
+	})
+
+	# sentinel
+	expect_true(TRUE)
+})#UNFOLD
 # 2FIX: check the effects of NA
 #UNFOLD
 
