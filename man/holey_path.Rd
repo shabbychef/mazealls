@@ -5,7 +5,7 @@
 \title{holey_path .}
 \usage{
 holey_path(unit_len, lengths, angles, draw_line = TRUE, has_hole = FALSE,
-  hole_color = NULL, hole_locations = NULL)
+  hole_color = NULL, hole_locations = NULL, hole_arrows = FALSE)
 }
 \arguments{
 \item{unit_len}{the unit length in graph coordinates. This controls
@@ -47,6 +47,9 @@ directions, only the sign of the hole location needs to be
 flipped to have aligned holes.
 \code{NA} values will throw an error for now, though
 this may change in the future.}
+
+\item{hole_arrows}{a boolean or boolean array telling whether
+to draw a perpendicular arrow at a hole.}
 }
 \value{
 nothing; the function is called for side effects only, though in

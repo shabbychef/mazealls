@@ -5,7 +5,8 @@
 \title{koch_maze .}
 \usage{
 koch_maze(depth, unit_len, clockwise = TRUE, num_boundary_holes = 2,
-  boundary_holes = NULL, boundary_hole_color = NULL)
+  boundary_holes = NULL, boundary_hole_color = NULL,
+  boundary_hole_arrows = FALSE)
 }
 \arguments{
 \item{depth}{the depth of recursion. This controls the side length.
@@ -34,6 +35,10 @@ is drawn, no hole can be drawn either.}
 for more details. Can be an array of colors, or colors and the 
 value \code{'clear'}, which stands in for \code{NULL} to
 indicate no filled hole to be drawn.}
+
+\item{boundary_hole_arrows}{a boolean or boolean array indicating whether to draw
+perpendicular double arrows at the boundary holes, as a visual guide. These
+can be useful for locating the entry and exit points of a maze.}
 }
 \value{
 nothing; the function is called for side effects only, though in

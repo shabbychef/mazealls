@@ -10,7 +10,8 @@ parallelogram_maze(unit_len, height, width = height, angle = 90,
   height_boustro = c(1, 1), width_boustro = c(1, 1),
   draw_boundary = FALSE, num_boundary_holes = 2, boundary_lines = TRUE,
   boundary_holes = NULL, boundary_hole_color = NULL,
-  boundary_hole_locations = NULL, end_side = 1)
+  boundary_hole_locations = NULL, boundary_hole_arrows = FALSE,
+  end_side = 1)
 }
 \arguments{
 \item{unit_len}{the unit length in graph coordinates. This controls
@@ -106,6 +107,10 @@ A negative value is interpreted as counting down from the side
 length plus 1. A value of zero corresponds to allowing the 
 code to pick the location within a segment.
 A value of \code{NA} may cause an error.}
+
+\item{boundary_hole_arrows}{a boolean or boolean array indicating whether to draw
+perpendicular double arrows at the boundary holes, as a visual guide. These
+can be useful for locating the entry and exit points of a maze.}
 
 \item{end_side}{the number of the side to end on. A value of
 1 corresponds to the starting side, while higher numbers

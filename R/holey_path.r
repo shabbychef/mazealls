@@ -51,6 +51,8 @@
 #' @param has_hole a boolean array telling whether,
 #' conditional on the path being drawn, it has a one unit
 #' hole.
+#' @param hole_arrows a boolean or boolean array telling whether
+#' to draw a perpendicular arrow at a hole.
 #' @param hole_color the color to plot the \sQuote{hole}. 
 #' A value \code{NULL} or \code{'clear'} corresponds to no 
 #' drawn hole, the latter being useful for mixing drawn colored
@@ -91,11 +93,12 @@
 #' holey_path(unit_len=20, lengths=sort(rep(1:10,2),decreasing=TRUE), angles=c(90), 
 #'   draw_line=TRUE, has_hole=FALSE)
 #' @export
-holey_path <- function(unit_len,lengths,angles,draw_line=TRUE,has_hole=FALSE,hole_color=NULL,hole_locations=NULL) {
+holey_path <- function(unit_len,lengths,angles,draw_line=TRUE,has_hole=FALSE,
+											 hole_color=NULL,hole_locations=NULL,hole_arrows=FALSE) {
 # do something here about recycling hole color too?
 	if (is.null(hole_color)) { hole_color <- c('clear') }
 	if (is.null(hole_locations)) { hole_locations <- c(0) }
-	retv <- mapply(function(len,ang,drawl,hol,holc,which_seg) {
+	retv <- mapply(function(len,ang,drawl,hol,holc,which_seg,hole_arrow) {
 					 if (len > 0) {
 						 if (drawl) {
 							 if (hol) {
@@ -105,9 +108,9 @@ holey_path <- function(unit_len,lengths,angles,draw_line=TRUE,has_hole=FALSE,hol
 									 which_seg <- NULL
 								 }
 								 if (holc == 'clear') {
-									 holey_line(unit_len,len,which_seg=which_seg,go_back=FALSE,hole_color=NULL)
+									 holey_line(unit_len,len,which_seg=which_seg,go_back=FALSE,hole_color=NULL,hole_arrow=hole_arrow)
 								 } else {
-									 holey_line(unit_len,len,which_seg=which_seg,go_back=FALSE,hole_color=holc)
+									 holey_line(unit_len,len,which_seg=which_seg,go_back=FALSE,hole_color=holc,hole_arrow=hole_arrow)
 								 }
 							 } else {
 								 draw_line(distance=unit_len*len)
@@ -117,7 +120,7 @@ holey_path <- function(unit_len,lengths,angles,draw_line=TRUE,has_hole=FALSE,hol
 						 }
 					 }
 					 .turn_right(ang)
-	},lengths,angles,draw_line,has_hole,hole_color,hole_locations)
+	},lengths,angles,draw_line,has_hole,hole_color,hole_locations,hole_arrows)
 	invisible(retv)
 }
 

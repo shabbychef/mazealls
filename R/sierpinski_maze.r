@@ -82,6 +82,7 @@ sierpinski_maze <- function(depth,unit_len,clockwise=TRUE,
 														color1='black',color2='gray40',
 														draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,
 														boundary_holes=NULL,boundary_hole_color=NULL,boundary_hole_locations=NULL,
+														boundary_hole_arrows=FALSE,
 														end_side=1) {
 
 
@@ -128,7 +129,7 @@ sierpinski_maze <- function(depth,unit_len,clockwise=TRUE,
 			.do_boundary(unit_len,lengths=rep(num_segs,3),angles=multiplier*120,
 									 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
 									 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color,
-									 boundary_hole_locations=boundary_hole_locations)
+									 boundary_hole_locations=boundary_hole_locations,boundary_hole_arrows=boundary_hole_arrows)
 		}
 	} else {
 		if (depth > 1) {
@@ -161,6 +162,7 @@ sierpinski_maze <- function(depth,unit_len,clockwise=TRUE,
 											dragon_left=2,
 											sierpinski=3,
 											dragon_right=4)
+#2FIX: pass on the boundary arrow arguments ... 
 
 			sierpinski_trapezoid_maze(depth-1,unit_len=unit_len,
 															clockwise=clockwise,start_from='corner',
@@ -199,7 +201,7 @@ sierpinski_maze <- function(depth,unit_len,clockwise=TRUE,
 				.do_boundary(unit_len,lengths=rep(num_segs,3),angles=multiplier*120,
 										 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
 										 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color,
-										 boundary_hole_locations=boundary_hole_locations)
+										 boundary_hole_locations=boundary_hole_locations,boundary_hole_arrows=boundary_hole_arrows)
 			}
 		}
 

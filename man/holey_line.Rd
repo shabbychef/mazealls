@@ -5,7 +5,7 @@
 \title{holey_line .}
 \usage{
 holey_line(unit_len, num_segs, which_seg = NULL, go_back = FALSE,
-  hole_color = NULL)
+  hole_color = NULL, hole_arrow = FALSE)
 }
 \arguments{
 \item{unit_len}{the unit length in graph coordinates. This controls
@@ -28,6 +28,9 @@ when the line has been drawn.}
 \code{NULL} value corresponds to no drawn hole. 
 See the \code{\link[grDevices]{colors}} function for
 acceptable values.}
+
+\item{hole_arrow}{a boolean or indicating whether
+to draw a perpendicular arrow at a hole.}
 }
 \value{
 Returns the \code{which_seg} variable, the location of the hole, though typically
@@ -43,8 +46,13 @@ creates a maze wall with a single hole in it.
 \examples{
 
 library(TurtleGraphics)
-turtle_init(1000,1000)
+turtle_init(1000,1000,mode='clip')
+turtle_hide()
 y <- holey_line(unit_len=20, num_segs=15)
+
+turtle_right(90)
+y <- holey_line(unit_len=20, num_segs=10,hole_arrow=TRUE)
+
 }
 \author{
 Steven E. Pav \email{shabbychef@gmail.com}

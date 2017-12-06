@@ -173,6 +173,7 @@ hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids'
 												 start_from=c('midpoint','corner'),
 												 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,
 												 boundary_holes=NULL,boundary_hole_color=NULL,boundary_hole_locations=NULL,
+												 boundary_hole_arrows=FALSE,
 												 end_side=1) {
 	
 	method <- match.arg(method)
@@ -237,7 +238,7 @@ hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids'
 		.do_boundary(unit_len,lengths=rep(num_segs,6),angles=multiplier * 60,
 								 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
 								 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color,
-								 boundary_hole_locations=boundary_hole_locations)
+								 boundary_hole_locations=boundary_hole_locations,boundary_hole_arrows=boundary_hole_arrows)
 		turtle_forward(distance=unit_len * num_segs/2)
 	}
 	if ((end_side != 1) && (!is.null(end_side))) {

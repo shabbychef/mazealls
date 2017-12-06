@@ -72,11 +72,11 @@
 #' turtle_do({
 #'   turtle_setpos(500,500)
 #'   turtle_setangle(0)
-#' 	sierpinski_trapezoid_maze(unit_len=15,depth=5,color1='black',color2='green',
-#' 														clockwise=TRUE,draw_boundary=TRUE,boundary_holes=c(1,3))
-#' 	sierpinski_trapezoid_maze(unit_len=15,depth=5,color1='black',color2='green',
-#' 														clockwise=FALSE,draw_boundary=TRUE,
-#' 														boundary_lines=c(2,3,4),boundary_holes=3)
+#'   sierpinski_trapezoid_maze(unit_len=15,depth=5,color1='black',color2='green',
+#'     clockwise=TRUE,draw_boundary=TRUE,boundary_holes=c(1,3))
+#'   sierpinski_trapezoid_maze(unit_len=15,depth=5,color1='black',color2='green',
+#'     clockwise=FALSE,draw_boundary=TRUE,
+#'     boundary_lines=c(2,3,4),boundary_holes=3)
 #' })
 #' 
 #' # stack some trapezoids!
@@ -87,17 +87,17 @@
 #' turtle_do({
 #'   turtle_setpos(25,450)
 #'   turtle_setangle(0)
-#' 	blines <- c(1,2,4)
-#' 	for (dep in seq(from=5,to=0)) {
-#' 		sierpinski_trapezoid_maze(unit_len=13,depth=dep,color1='black',color2='green',
-#' 															flip_color_parts=2,
-#' 															clockwise=TRUE,boundary_lines=blines,draw_boundary=TRUE,boundary_holes=c(1,3),
-#' 															end_side=3)
-#' 		turtle_right(180)
-#' 		blines <- c(1,2,4)
-#' 	}
+#'   blines <- c(1,2,4)
+#'   for (dep in seq(from=5,to=0)) {
+#'     sierpinski_trapezoid_maze(unit_len=13,depth=dep,color1='black',color2='green',
+#'       flip_color_parts=2,
+#'       clockwise=TRUE,boundary_lines=blines,draw_boundary=TRUE,boundary_holes=c(1,3),
+#'       end_side=3)
+#'     turtle_right(180)
+#'     blines <- c(1,2,4)
+#'   }
 #' })
-#'
+#' \dontrun{
 #' require(TurtleGraphics)
 #' turtle_init(750,900,mode='clip')
 #' turtle_hide()
@@ -105,22 +105,24 @@
 #' turtle_do({
 #'   turtle_setpos(25,450)
 #'   turtle_setangle(0)
-#' 	blines <- c(1,2,4)
-#' 	for (dep in seq(from=5,to=0)) {
-#' 		sierpinski_trapezoid_maze(unit_len=13,depth=dep,color1='black',color2='green',
-#' 															flip_color_parts=3,
-#' 															clockwise=TRUE,boundary_lines=blines,draw_boundary=TRUE,boundary_holes=c(1,3),
-#' 															end_side=3)
-#' 		turtle_right(180)
-#' 		blines <- c(1,2,4)
-#' 	}
+#'   blines <- c(1,2,4)
+#'   for (dep in seq(from=5,to=0)) {
+#'     sierpinski_trapezoid_maze(unit_len=13,depth=dep,color1='black',color2='green',
+#'       flip_color_parts=3,
+#'       clockwise=TRUE,boundary_lines=blines,draw_boundary=TRUE,boundary_holes=c(1,3),
+#'       end_side=3)
+#'     turtle_right(180)
+#'     blines <- c(1,2,4)
+#'   }
 #' })
+#' }
 #'
 #' @export
 sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('midpoint','corner'),
 																			color1='black',color2='gray40',flip_color_parts=1,
 																			draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,
 																			boundary_holes=NULL,boundary_hole_color=NULL,boundary_hole_locations=NULL,
+																			boundary_hole_arrows=FALSE,
 																			end_side=1) {
 	start_from <- match.arg(start_from)
 
@@ -133,6 +135,7 @@ sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_fro
 # get to midpoint
 	if (start_from=='corner') { turtle_forward(distance=unit_len * num_segs) }
 
+# 2FIX : pass along boundar arrow to sub mazes.
 	if (depth > 0) {
 
 		# you have to pass these to the sub mazes ... 
@@ -368,7 +371,7 @@ sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_fro
 			.do_boundary(unit_len,lengths=num_segs * c(2,1,1,1),angles=multiplier * 60 * c(2,1,1,2),
 									 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
 									 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color,
-									 boundary_hole_locations=boundary_hole_locations)
+									 boundary_hole_locations=boundary_hole_locations,boundary_hole_arrows=boundary_hole_arrows)
 
 			turtle_forward(distance=unit_len * num_segs)
 		}

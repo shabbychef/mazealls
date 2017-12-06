@@ -64,6 +64,7 @@ hexaflake_maze <- function(depth,unit_len,clockwise=TRUE,
 													 color1='black',color2='gray40',
 													 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,
 													 boundary_holes=NULL,boundary_hole_color=NULL,boundary_hole_locations=NULL,
+													 boundary_hole_arrows=FALSE,
 													 end_side=1) {
 
 	start_from <- match.arg(start_from)
@@ -78,6 +79,7 @@ hexaflake_maze <- function(depth,unit_len,clockwise=TRUE,
 								 boundary_holes=boundary_holes,
 								 boundary_hole_locations=boundary_hole_locations,
 								 boundary_hole_color=boundary_hole_color,
+								 boundary_hole_arrows=boundary_hole_arrows,
 								 end_side=end_side)
 	} else {
 		multiplier <- ifelse(clockwise,1,-1)
@@ -128,6 +130,8 @@ hexaflake_maze <- function(depth,unit_len,clockwise=TRUE,
 		inner_lines <- c(rep(c(TRUE,FALSE,FALSE,rep(TRUE,3)),6),rep(TRUE,6))
 		inner_holes <- rep(FALSE,length(inner_lines))
 		inner_holes[which(inner_lines)[which_holes]] <- TRUE
+
+		# 2FIX: recurse on boundary hole arrows ...
 
 		for (iii in 1:6) {
 			turtle_col(color2)
@@ -200,7 +204,7 @@ hexaflake_maze <- function(depth,unit_len,clockwise=TRUE,
 			#.do_boundary(unit_len,lengths=rep(num_segs,6),angles=multiplier * 60,
 									 #num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
 									 #boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color,
-									 #boundary_hole_locations=boundary_hole_locations)
+		               #boundary_hole_locations=boundary_hole_locations,boundary_hole_arrows=boundary_hole_arrows)
 			#turtle_forward(distance=unit_len * num_segs/2)
 		#}
 		if ((end_side != 1) && (!is.null(end_side))) {

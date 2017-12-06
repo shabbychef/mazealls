@@ -21,6 +21,13 @@
 # Author: Steven E. Pav <shabbychef@gmail.com>
 # Comments: Steven E. Pav
 
+.cut_arrow <- function(unit_len) {
+		turtle_forward(unit_len/2)
+		turtle_right(90)
+		.draw_double_arrow(unit_len=0.45*unit_len,angle=85,doubled=FALSE,double_bit=0.33)
+		turtle_left(90)
+		turtle_backward(unit_len/2)
+}
 #' @title holey_line .
 #'
 #' @description 
@@ -43,6 +50,8 @@
 #' @param which_seg optional numeric indicating which segment should
 #' have the hole. If \code{NULL}, the hole segment is chosen uniformly
 #' at random.
+#' @param hole_arrow a boolean or indicating whether
+#' to draw a perpendicular arrow at a hole.
 #' @param hole_color the color to plot the \sQuote{hole}. A 
 #' \code{NULL} value corresponds to no drawn hole. 
 #' See the \code{\link[grDevices]{colors}} function for
@@ -53,10 +62,15 @@
 #' @examples 
 #'
 #' library(TurtleGraphics)
-#' turtle_init(1000,1000)
+#' turtle_init(1000,1000,mode='clip')
+#' turtle_hide()
 #' y <- holey_line(unit_len=20, num_segs=15)
+#'
+#' turtle_right(90)
+#' y <- holey_line(unit_len=20, num_segs=10,hole_arrow=TRUE)
+#'
 #' @export
-holey_line <- function(unit_len,num_segs,which_seg=NULL,go_back=FALSE,hole_color=NULL) {
+holey_line <- function(unit_len,num_segs,which_seg=NULL,go_back=FALSE,hole_color=NULL,hole_arrow=FALSE) {
 	if (num_segs > 1) {
 		if (is.null(which_seg)) {
 			which_seg <- sample.int(n=num_segs,size=1)
@@ -64,6 +78,7 @@ holey_line <- function(unit_len,num_segs,which_seg=NULL,go_back=FALSE,hole_color
 			which_seg <- min(num_segs,max(1,which_seg))
 		}
 		draw_line(distance=(which_seg-1) * unit_len)
+		if (hole_arrow) { .cut_arrow(unit_len) }
 		if (!is.null(hole_color)) {
 			draw_colored_line(unit_len,hole_color)
 		} else {
@@ -75,6 +90,7 @@ holey_line <- function(unit_len,num_segs,which_seg=NULL,go_back=FALSE,hole_color
 		}
 	} else if (num_segs == 1) {
 		which_seg <- 1
+		if (hole_arrow) { .cut_arrow(unit_len) }
 		if (!is.null(hole_color)) {
 			draw_colored_line(unit_len,hole_color)
 			if (go_back) {

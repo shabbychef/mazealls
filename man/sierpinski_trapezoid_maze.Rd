@@ -9,7 +9,7 @@ sierpinski_trapezoid_maze(depth, unit_len = 4L, clockwise = TRUE,
   color2 = "gray40", flip_color_parts = 1, draw_boundary = FALSE,
   num_boundary_holes = 2, boundary_lines = TRUE, boundary_holes = NULL,
   boundary_hole_color = NULL, boundary_hole_locations = NULL,
-  end_side = 1)
+  boundary_hole_arrows = FALSE, end_side = 1)
 }
 \arguments{
 \item{depth}{the depth of recursion. This controls the
@@ -73,6 +73,10 @@ length plus 1. A value of zero corresponds to allowing the
 code to pick the location within a segment.
 A value of \code{NA} may cause an error.}
 
+\item{boundary_hole_arrows}{a boolean or boolean array indicating whether to draw
+perpendicular double arrows at the boundary holes, as a visual guide. These
+can be useful for locating the entry and exit points of a maze.}
+
 \item{end_side}{the number of the side to end on. A value of
 1 corresponds to the starting side, while higher numbers
 correspond to the drawn side of the figure in the canonical order
@@ -106,11 +110,11 @@ turtle_up()
 turtle_do({
   turtle_setpos(500,500)
   turtle_setangle(0)
-	sierpinski_trapezoid_maze(unit_len=15,depth=5,color1='black',color2='green',
-														clockwise=TRUE,draw_boundary=TRUE,boundary_holes=c(1,3))
-	sierpinski_trapezoid_maze(unit_len=15,depth=5,color1='black',color2='green',
-														clockwise=FALSE,draw_boundary=TRUE,
-														boundary_lines=c(2,3,4),boundary_holes=3)
+  sierpinski_trapezoid_maze(unit_len=15,depth=5,color1='black',color2='green',
+    clockwise=TRUE,draw_boundary=TRUE,boundary_holes=c(1,3))
+  sierpinski_trapezoid_maze(unit_len=15,depth=5,color1='black',color2='green',
+    clockwise=FALSE,draw_boundary=TRUE,
+    boundary_lines=c(2,3,4),boundary_holes=3)
 })
 
 # stack some trapezoids!
@@ -121,17 +125,17 @@ turtle_up()
 turtle_do({
   turtle_setpos(25,450)
   turtle_setangle(0)
-	blines <- c(1,2,4)
-	for (dep in seq(from=5,to=0)) {
-		sierpinski_trapezoid_maze(unit_len=13,depth=dep,color1='black',color2='green',
-															flip_color_parts=2,
-															clockwise=TRUE,boundary_lines=blines,draw_boundary=TRUE,boundary_holes=c(1,3),
-															end_side=3)
-		turtle_right(180)
-		blines <- c(1,2,4)
-	}
+  blines <- c(1,2,4)
+  for (dep in seq(from=5,to=0)) {
+    sierpinski_trapezoid_maze(unit_len=13,depth=dep,color1='black',color2='green',
+      flip_color_parts=2,
+      clockwise=TRUE,boundary_lines=blines,draw_boundary=TRUE,boundary_holes=c(1,3),
+      end_side=3)
+    turtle_right(180)
+    blines <- c(1,2,4)
+  }
 })
-
+\dontrun{
 require(TurtleGraphics)
 turtle_init(750,900,mode='clip')
 turtle_hide()
@@ -139,16 +143,17 @@ turtle_up()
 turtle_do({
   turtle_setpos(25,450)
   turtle_setangle(0)
-	blines <- c(1,2,4)
-	for (dep in seq(from=5,to=0)) {
-		sierpinski_trapezoid_maze(unit_len=13,depth=dep,color1='black',color2='green',
-															flip_color_parts=3,
-															clockwise=TRUE,boundary_lines=blines,draw_boundary=TRUE,boundary_holes=c(1,3),
-															end_side=3)
-		turtle_right(180)
-		blines <- c(1,2,4)
-	}
+  blines <- c(1,2,4)
+  for (dep in seq(from=5,to=0)) {
+    sierpinski_trapezoid_maze(unit_len=13,depth=dep,color1='black',color2='green',
+      flip_color_parts=3,
+      clockwise=TRUE,boundary_lines=blines,draw_boundary=TRUE,boundary_holes=c(1,3),
+      end_side=3)
+    turtle_right(180)
+    blines <- c(1,2,4)
+  }
 })
+}
 
 }
 \seealso{

@@ -107,7 +107,7 @@
 #' })
 #' @export
 koch_maze <- function(depth,unit_len,clockwise=TRUE,
-											num_boundary_holes=2,boundary_holes=NULL,boundary_hole_color=NULL) {
+											num_boundary_holes=2,boundary_holes=NULL,boundary_hole_color=NULL,boundary_hole_arrows=FALSE) {
 	depth <- round(depth)
 	multiplier <- ifelse(clockwise,1,-1)
 	holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=3)
@@ -116,6 +116,7 @@ koch_maze <- function(depth,unit_len,clockwise=TRUE,
 	} else if (length(boundary_hole_color) < 3) {
 		boundary_hole_color <- rep(boundary_hole_color,3)
 	}
+# 2FIX: pass on boundary_hole_arrows ... 
 
 	for (iii in c(1:3)) {
 		.koch_side(unit_len=unit_len,depth=depth,clockwise=clockwise,has_hole=holes[iii],hole_color=boundary_hole_color[iii])

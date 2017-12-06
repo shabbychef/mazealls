@@ -95,6 +95,7 @@ sierpinski_carpet_maze <- function(unit_len,height,width=height,angle=90,clockwi
 																	 balance=0,
 																	 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,
 																	 boundary_holes=NULL,boundary_hole_color=NULL,boundary_hole_locations=NULL,
+																	 boundary_hole_arrows=FALSE,
 																	 end_side=1) {
 
 	start_from <- match.arg(start_from)
@@ -193,7 +194,7 @@ sierpinski_carpet_maze <- function(unit_len,height,width=height,angle=90,clockwi
 		.do_boundary(unit_len,lengths=rep(c(height,width),2),angles=multiplier * c(angle,180-angle),
 								 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
 								 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color,
-								 boundary_hole_locations=boundary_hole_locations)
+								 boundary_hole_locations=boundary_hole_locations,boundary_hole_arrows=boundary_hole_arrows)
 	}
 	# move to ending side
 	if ((end_side != 1) && (!is.null(end_side))) {

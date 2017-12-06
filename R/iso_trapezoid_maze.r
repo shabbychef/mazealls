@@ -170,6 +170,7 @@ iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('mi
 															 method=c('four_trapezoids','one_ear','random'),
 															 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,
 															 boundary_holes=NULL,boundary_hole_color=NULL,boundary_hole_locations=NULL,
+															 boundary_hole_arrows=FALSE,
 															 end_side=1) {
 	method <- match.arg(method)
 	start_from <- match.arg(start_from)
@@ -248,7 +249,7 @@ iso_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('mi
 		.do_boundary(unit_len,lengths=num_segs * c(2,1,1,1),angles=multiplier * 60 * c(2,1,1,2),
 								 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
 								 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color,
-								 boundary_hole_locations=boundary_hole_locations)
+								 boundary_hole_locations=boundary_hole_locations,boundary_hole_arrows=boundary_hole_arrows)
 
 		turtle_forward(distance=unit_len * num_segs)
 	}

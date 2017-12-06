@@ -13,3 +13,6 @@
 #' for more details. Can be an array of colors, or colors and the 
 #' value \code{'clear'}, which stands in for \code{NULL} to
 #' indicate no filled hole to be drawn.
+#' @param boundary_hole_arrows a boolean or boolean array indicating whether to draw
+#' perpendicular double arrows at the boundary holes, as a visual guide. These
+#' can be useful for locating the entry and exit points of a maze.

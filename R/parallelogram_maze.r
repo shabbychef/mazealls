@@ -23,7 +23,7 @@
 
 # sample from a 'discrete' beta distribution
 .rboustro <- function(n,boustro=c(1,1),nsegs=100L) {
-	sample(nsegs,size=n,prob=dbeta(ppoints(nsegs),shape1=boustro[1],shape2=boustro[2]),replace=TRUE)
+	sample(nsegs,size=n,prob=stats::dbeta(stats::ppoints(nsegs),shape1=boustro[1],shape2=boustro[2]),replace=TRUE)
 }
 
 #' @title parallelogram_maze .
@@ -180,6 +180,7 @@ parallelogram_maze <- function(unit_len,height,width=height,angle=90,clockwise=T
 															 balance=0,height_boustro=c(1,1),width_boustro=c(1,1),
 															 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,
 															 boundary_holes=NULL,boundary_hole_color=NULL,boundary_hole_locations=NULL,
+															 boundary_hole_arrows=FALSE,
 															 end_side=1) {
 	
 	method <- match.arg(method)
@@ -283,7 +284,7 @@ parallelogram_maze <- function(unit_len,height,width=height,angle=90,clockwise=T
 		.do_boundary(unit_len,lengths=rep(c(height,width),2),angles=multiplier * c(angle,180-angle),
 								 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
 								 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color,
-								 boundary_hole_locations=boundary_hole_locations)
+								 boundary_hole_locations=boundary_hole_locations,boundary_hole_arrows=boundary_hole_arrows)
 	}
 	# move to ending side
 	if ((end_side != 1) && (!is.null(end_side))) {

@@ -75,6 +75,7 @@ dodecagon_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('midpoi
 												 method=c('hex_ring'),
 												 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,
 												 boundary_holes=NULL,boundary_hole_color=NULL,boundary_hole_locations=NULL,
+												 boundary_hole_arrows=FALSE,
 												 end_side=1) {
 	method <- match.arg(method)
 	start_from <- match.arg(start_from)
@@ -138,7 +139,7 @@ dodecagon_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_from=c('midpoi
 		.do_boundary(unit_len,lengths=rep(num_segs,nsides),angles=multiplier * inang,
 								 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
 								 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color,
-								 boundary_hole_locations=boundary_hole_locations)
+								 boundary_hole_locations=boundary_hole_locations,boundary_hole_arrows=boundary_hole_arrows)
 	}
 	# move to ending side
 	if ((end_side != 1) && (!is.null(end_side))) {
