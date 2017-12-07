@@ -299,7 +299,7 @@ turtle_do({
     turtle_forward(distance = 300)
     turtle_right(90)
     hexagon_maze(depth = 5, unit_len = 12, method = "six_triangles", 
-        draw_boundary = TRUE)
+        draw_boundary = TRUE, boundary_hole_arrows = TRUE)
 })
 ```
 
@@ -318,7 +318,7 @@ turtle_do({
     turtle_forward(distance = 300)
     turtle_right(90)
     hexagon_maze(depth = 5, unit_len = 12, method = "three_parallelograms", 
-        draw_boundary = TRUE)
+        draw_boundary = TRUE, boundary_hole_arrows = TRUE)
 })
 ```
 
@@ -452,7 +452,7 @@ with triangular mazes and create lines with holes as needed:
 ```r
 library(TurtleGraphics)
 library(mazealls)
-# koch
+# koch flake
 turtle_init(1000, 1000)
 turtle_up()
 turtle_hide()
