@@ -73,6 +73,25 @@ library(TurtleGraphics)
 	boundary_lines
 }
 
+# recycle as needed
+.recycle_no_warn <- function(x,needlen) {
+	stopifnot(length(x) > 0)
+	if (length(x) < needlen) {
+		x <- rep(x,ceiling(needlen / length(x)))
+		x <- x[1:needlen]
+	}
+	x
+}
+
+.interpret_boundary_hole_arrows <- function(boundary_hole_arrows,nsides=3) {
+	if (!is.logical(boundary_hole_arrows) && is.numeric(boundary_hole_arrows)) {
+		boundary_hole_arrows <- 1:nsides %in% boundary_hole_arrows
+	} else if (is.logical(boundary_hole_arrows)) {
+		boundary_hole_arrows <- .recycle_no_warn(boundary_hole_arrows,nsides)
+	}
+	boundary_hole_arrows
+}
+
 draw_line <- function(distance) {
 	if (distance > 0) {
 		turtle_down()

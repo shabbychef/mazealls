@@ -137,18 +137,13 @@ sierpinski_maze <- function(depth,unit_len,clockwise=TRUE,
 			nsides <- 3
 			holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=nsides)
 			boundary_lines <- .interpret_boundary_lines(boundary_lines,nsides=nsides)
-			if (is.logical(boundary_lines) && length(boundary_lines) < 3) {
-				boundary_lines <- rep(boundary_lines,3)
-				boundary_lines <- boundary_lines[1:3]
-			}
-			if (is.null(boundary_hole_color)) { boundary_hole_color <- rep('clear',3) }
-			if (length(boundary_hole_color) < 3) {
-				boundary_hole_color <- rep(boundary_hole_color,3)
-				boundary_hole_color <- boundary_hole_color[1:3]
-			}
+			if (is.logical(boundary_lines)) { boundary_lines <- .recycle_no_warn(boundary_lines,nsides) }
+			if (is.null(boundary_hole_color)) { boundary_hole_color <- rep('clear',nsides) }
+			boundary_hole_color <- .recycle_no_warn(boundary_hole_color,nsides)
 			if (is.null(boundary_hole_locations)) { 
 				boundary_hole_locations <- sample.int(num_segs,size=3,replace=TRUE) 
 			}
+
 			bline <- draw_boundary & c(boundary_lines[1:2],FALSE,boundary_lines[3])
 			bhole <- c(holes[1],
 								 holes[2] & (boundary_hole_locations[2] <= num_segs/2),
@@ -156,13 +151,13 @@ sierpinski_maze <- function(depth,unit_len,clockwise=TRUE,
 								 holes[3] & (boundary_hole_locations[3] > num_segs/2))
 			bholoc <- c(boundary_hole_locations[1:2],0,boundary_hole_locations[3] - num_segs/2)
 			bcolor <- c(boundary_hole_color[1:2],'clear',boundary_hole_color[3])
+			bha    <- c(boundary_hole_arrows[1:2],FALSE,boundary_hole_arrows[3])
 
 			flipc <- switch(style,
 											hexaflake=1,
 											dragon_left=2,
 											sierpinski=3,
 											dragon_right=4)
-#2FIX: pass on the boundary arrow arguments ... 
 
 			sierpinski_trapezoid_maze(depth-1,unit_len=unit_len,
 															clockwise=clockwise,start_from='corner',
@@ -174,6 +169,7 @@ sierpinski_maze <- function(depth,unit_len,clockwise=TRUE,
 															boundary_holes=bhole,
 															boundary_hole_locations=bholoc,
 															boundary_hole_color=bcolor,
+															boundary_hole_arrows=bha,
 															end_side=3)
 			# recurse
 			turtle_forward(unit_len * num_segs/2)
@@ -190,6 +186,7 @@ sierpinski_maze <- function(depth,unit_len,clockwise=TRUE,
 											boundary_holes=c(TRUE,holes[2] & (boundary_hole_locations[2] > num_segs/2),holes[3] & (boundary_hole_locations[3] <= num_segs/2)),
 											boundary_hole_locations=c(0,boundary_hole_locations[2] - num_segs/2,min(boundary_hole_locations[3],num_segs/2)),
 											boundary_hole_color=c('clear',boundary_hole_color[2],boundary_hole_color[3]),
+											boundary_hole_arrows=c(FALSE,boundary_hole_arrows[2],boundary_hole_arrows[3]),
 											end_side=1)
 			turtle_right(180)
 			.turn_right(multiplier * 60)

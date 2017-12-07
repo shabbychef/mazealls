@@ -128,6 +128,7 @@ koch_maze <- function(depth,unit_len,clockwise=TRUE,
 
 	holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=3)
 	boundary_lines <- .interpret_boundary_lines(boundary_lines,nsides=3)
+	boundary_hole_arrows <- .interpret_boundary_hole_arrows(boundary_hole_arrows,nsides=3)
 	if (length(boundary_lines) < 3) {
 		boundary_lines <- rep(boundary_lines,3)
 		boundary_lines <- boundary_lines[1:3]
@@ -145,10 +146,7 @@ koch_maze <- function(depth,unit_len,clockwise=TRUE,
 		boundary_hole_locations <- rep(boundary_hole_locations,3)
 		boundary_hole_locations <- boundary_hole_locations[1:3]
 	}
-	if (length(boundary_hole_arrows) < 3) {
-		boundary_hole_arrows <- rep(boundary_hole_arrows,3)
-		boundary_hole_arrows <- boundary_hole_arrows[1:3]
-	}
+
 
 	for (iii in c(1:3)) {
 		.koch_side(unit_len=unit_len,depth=depth,

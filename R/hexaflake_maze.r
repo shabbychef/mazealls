@@ -92,19 +92,17 @@ hexaflake_maze <- function(depth,unit_len,clockwise=TRUE,
 		nsides <- 6
 		holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=nsides)
 		if (!draw_boundary) { 
-			boundary_lines <- rep(FALSE,6) 
+			boundary_lines <- rep(FALSE,nsides)
+			boundary_hole_arrows <- rep(FALSE,nsides)
 		} else {
 			boundary_lines <- .interpret_boundary_lines(boundary_lines,nsides=nsides)
-			if (is.logical(boundary_lines) && length(boundary_lines) < 6) {
-				boundary_lines <- rep(boundary_lines,6)
-				boundary_lines <- boundary_lines[1:6]
-			}
+			if (is.logical(boundary_lines)) { boundary_lines <- .recycle_no_warn(boundary_lines,nsides) }
+			boundary_hole_arrows <- .interpret_boundary_hole_arrows(boundary_hole_arrows,nsides=nsides)
 		}
 		if (is.null(boundary_hole_color)) { 
 			boundary_hole_color <- rep('clear',6) 
-		} else if (length(boundary_hole_color) < 6) {
-				boundary_hole_color <- rep(boundary_hole_color,6)
-				boundary_hole_color <- boundary_hole_color[1:6]
+		} else {
+			boundary_hole_color <- .recycle_no_warn(boundary_hole_color,nsides)
 		}
 		if (is.null(boundary_hole_locations)) { boundary_hole_locations <- sample.int(num_segs,size=6,replace=TRUE) }
 		bhl_in_mid <- (boundary_hole_locations > num_segs/3) & (boundary_hole_locations <= 2*num_segs/3)
@@ -131,8 +129,6 @@ hexaflake_maze <- function(depth,unit_len,clockwise=TRUE,
 		inner_holes <- rep(FALSE,length(inner_lines))
 		inner_holes[which(inner_lines)[which_holes]] <- TRUE
 
-		# 2FIX: recurse on boundary hole arrows ...
-
 		for (iii in 1:6) {
 			turtle_col(color2)
 			eq_triangle_maze(unit_len,depth=log2(num_segs/3),
@@ -143,6 +139,7 @@ hexaflake_maze <- function(depth,unit_len,clockwise=TRUE,
 											 boundary_holes=c(FALSE,FALSE,holes[iii] && bhl_in_mid[iii]),
 											 boundary_hole_locations=c(0,0,max(0,boundary_hole_locations[iii] - num_segs/3)),
 											 boundary_hole_color=c('clear','clear',boundary_hole_color[iii]),
+											 boundary_hole_arrows=boundary_hole_arrows[iii],
 											 end_side=1)
 			turtle_forward(distance=unit_len * num_segs/3) 
 			eq_triangle_maze(unit_len,depth=log2(num_segs/3),
@@ -166,6 +163,9 @@ hexaflake_maze <- function(depth,unit_len,clockwise=TRUE,
 			bhc <- rep('clear',6)
 			bhc[2] <- boundary_hole_color[iii]
 			bhc[3] <- boundary_hole_color[next_iii]
+			bha <- rep(FALSE,6)
+			bha[2] <- boundary_hole_arrows[iii]
+			bha[3] <- boundary_hole_arrows[next_iii]
 
 			turtle_col(color1)
 			hexaflake_maze(depth=depth-1,unit_len=unit_len,
@@ -177,6 +177,7 @@ hexaflake_maze <- function(depth,unit_len,clockwise=TRUE,
 										 boundary_holes=bholes,
 										 boundary_hole_locations=bholoc,
 										 boundary_hole_color=bhc,
+										 boundary_hole_arrows=bha,
 										 end_side=4)
 		}
 
@@ -192,6 +193,7 @@ hexaflake_maze <- function(depth,unit_len,clockwise=TRUE,
 									 num_boundary_holes=NULL,
 									 boundary_lines=inner_lines[myidx],
 									 boundary_holes=inner_holes[myidx],
+									 boundary_hole_arrows=FALSE,
 									 end_side=1)
 		turtle_backward(distance=unit_len * 2 * num_segs/3) 
 

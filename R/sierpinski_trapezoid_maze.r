@@ -142,10 +142,9 @@ sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_fro
 		nsides <- 4
 		holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=nsides)
 		boundary_lines <- .interpret_boundary_lines(boundary_lines,nsides=nsides)
-		if (is.logical(boundary_lines) && length(boundary_lines) < 4) {
-			boundary_lines <- rep(boundary_lines,4)
-			boundary_lines <- boundary_lines[1:4]
-		}
+		boundary_hole_arrows <- .interpret_boundary_hole_arrows(boundary_hole_arrows,nsides=nsides)
+		if (is.logical(boundary_lines)) { boundary_lines <- .recycle_no_warn(boundary_lines,nsides) }
+
 		if (is.null(boundary_hole_color)) { boundary_hole_color <- rep('clear',4) }
 		if (is.null(boundary_hole_locations)) { 
 			boundary_hole_locations <- sapply(num_segs * c(2,1,1,1),
@@ -168,6 +167,9 @@ sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_fro
 			bholes[1] <- holes[3]
 			bhc <- rep('clear',4)
 			bhc[1] <- boundary_hole_color[3]
+			bha <- rep(FALSE,4)
+			bha[1] <- boundary_hole_arrows[3]
+
 			sierpinski_trapezoid_maze(unit_len=unit_len,depth=depth-1,clockwise=clockwise,start_from='corner',
 																color1=ifelse(3 %in% flip_color_parts,color2,color1),color2=color2,flip_color_parts=flip_color_parts,
 																draw_boundary=TRUE,
@@ -176,6 +178,7 @@ sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_fro
 																boundary_holes=bholes,
 																boundary_hole_locations=c(boundary_hole_locations[3],0,0,0),
 																boundary_hole_color=bhc,
+																boundary_hole_arrows=bha,
 																end_side=1)
 
 			turtle_forward(num_segs * unit_len)
@@ -201,6 +204,9 @@ sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_fro
 			bhc <- rep('clear',4)
 			bhc[1] <- boundary_hole_color[4]
 			bhc[2] <- boundary_hole_color[1]
+			bha <- rep(FALSE,4)
+			bha[1] <- boundary_hole_arrows[4]
+			bha[2] <- boundary_hole_arrows[1]
 			sierpinski_trapezoid_maze(unit_len=unit_len,depth=depth-1,clockwise=clockwise,start_from='corner',
 																color1=ifelse(4 %in% flip_color_parts,color2,color1),color2=color2,flip_color_parts=flip_color_parts,
 																draw_boundary=TRUE,
@@ -209,6 +215,7 @@ sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_fro
 																boundary_holes=bholes,
 																boundary_hole_locations=c(boundary_hole_locations[4],boundary_hole_locations[1],0,0),
 																boundary_hole_color=bhc,
+																boundary_hole_arrows=bha,
 																end_side=1)
 
 			turtle_forward(num_segs * unit_len)
@@ -224,6 +231,8 @@ sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_fro
 			bholes[1] <- holes[1] & (bhole1 > 0) & (bhole1 <= num_segs)
 			bhc <- rep('clear',4)
 			bhc[1] <- boundary_hole_color[1]
+			bha <- rep(FALSE,4)
+			bha[1] <- boundary_hole_arrows[1]
 			
 			# recurse.
 			sierpinski_trapezoid_maze(unit_len=unit_len,depth=depth-1,clockwise=clockwise,start_from='midpoint',
@@ -234,6 +243,7 @@ sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_fro
 																boundary_holes=bholes,
 																boundary_hole_locations=c(max(0,bhole1),0,0,0),
 																boundary_hole_color=bhc,
+																boundary_hole_arrows=bha,
 																end_side=1)
 
 			turtle_forward(num_segs * unit_len)
@@ -249,6 +259,9 @@ sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_fro
 			bhc <- rep('clear',4)
 			bhc[1] <- boundary_hole_color[2]
 			bhc[4] <- boundary_hole_color[1]
+			bha <- rep(FALSE,4)
+			bha[1] <- boundary_hole_arrows[2]
+			bha[4] <- boundary_hole_arrows[1]
 
 			sierpinski_trapezoid_maze(unit_len=unit_len,depth=depth-1,clockwise=clockwise,start_from='corner',
 																color1=ifelse(2 %in% flip_color_parts,color2,color1),color2=color2,flip_color_parts=flip_color_parts,
@@ -258,6 +271,7 @@ sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_fro
 																boundary_holes=bholes,
 																boundary_hole_locations=c(boundary_hole_locations[2],0,0,bhole2),
 																boundary_hole_color=bhc,
+																boundary_hole_arrows=bha,
 																end_side=1)
 
 			.turn_left(multiplier * 120)
@@ -267,6 +281,8 @@ sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_fro
 		} else {
 			bhc <- rep('clear',4)
 			bhc[1] <- boundary_hole_color[1]
+			bha <- rep(FALSE,4)
+			bha[1] <- boundary_hole_arrows[1]
 			
 			# recurse.
 			bhole1 <- boundary_hole_locations[1] - (num_segs/2)
@@ -278,6 +294,7 @@ sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_fro
 																boundary_holes=c(holes[1] & (bhole1 > 0) & (bhole1 <= num_segs),rep(FALSE,3)),
 																boundary_hole_locations=c(max(0,bhole1),0,0,0),
 																boundary_hole_color=bhc,
+																boundary_hole_arrows=bha,
 																end_side=1)
 
 			# determine inner holes
@@ -306,6 +323,9 @@ sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_fro
 			bhc <- rep('clear',4)
 			bhc[1] <- boundary_hole_color[2]
 			bhc[4] <- boundary_hole_color[1]
+			bha <- rep(FALSE,4)
+			bha[1] <- boundary_hole_arrows[2]
+			bha[4] <- boundary_hole_arrows[1]
 
 			sierpinski_trapezoid_maze(unit_len=unit_len,depth=depth-1,clockwise=clockwise,start_from='corner',
 																color1=ifelse(2 %in% flip_color_parts,color2,color1),color2=color2,flip_color_parts=flip_color_parts,
@@ -315,6 +335,7 @@ sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_fro
 																boundary_holes=bholes,
 																boundary_hole_locations=c(boundary_hole_locations[2],0,0,bhole2),
 																boundary_hole_color=bhc,
+																boundary_hole_arrows=bha,
 																end_side=1)
 
 			turtle_forward(num_segs * unit_len)
@@ -326,6 +347,8 @@ sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_fro
 			bholes[1] <- holes[3]
 			bhc <- rep('clear',4)
 			bhc[1] <- boundary_hole_color[3]
+			bha <- rep(FALSE,4)
+			bha[1] <- boundary_hole_arrows[3]
 			sierpinski_trapezoid_maze(unit_len=unit_len,depth=depth-1,clockwise=clockwise,start_from='corner',
 																color1=ifelse(3 %in% flip_color_parts,color2,color1),color2=color2,flip_color_parts=flip_color_parts,
 																draw_boundary=TRUE,
@@ -334,6 +357,7 @@ sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_fro
 																boundary_holes=bholes,
 																boundary_hole_locations=c(boundary_hole_locations[3],0,0,0),
 																boundary_hole_color=bhc,
+																boundary_hole_arrows=bha,
 																end_side=1)
 
 			turtle_forward(num_segs * unit_len)
@@ -348,6 +372,9 @@ sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_fro
 			bhc <- rep('clear',4)
 			bhc[1] <- boundary_hole_color[4]
 			bhc[2] <- boundary_hole_color[1]
+			bha <- rep(FALSE,4)
+			bha[1] <- boundary_hole_arrows[4]
+			bha[2] <- boundary_hole_arrows[1]
 			sierpinski_trapezoid_maze(unit_len=unit_len,depth=depth-1,clockwise=clockwise,start_from='corner',
 																color1=ifelse(4 %in% flip_color_parts,color2,color1),color2=color2,flip_color_parts=flip_color_parts,
 																draw_boundary=TRUE,
@@ -356,6 +383,7 @@ sierpinski_trapezoid_maze <- function(depth,unit_len=4L,clockwise=TRUE,start_fro
 																boundary_holes=bholes,
 																boundary_hole_locations=c(boundary_hole_locations[4],boundary_hole_locations[1],0,0),
 																boundary_hole_color=bhc,
+																boundary_hole_arrows=bha,
 																end_side=1)
 
 			turtle_forward(num_segs * unit_len)
