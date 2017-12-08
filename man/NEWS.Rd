@@ -9,6 +9,17 @@ News for package \sQuote{mazealls}
 \newcommand{\CRANpkg}{\href{https://cran.r-project.org/package=#1}{\pkg{#1}}}
 \newcommand{\mazealls}{\CRANpkg{mazealls}}
 }
+\section{\mazealls{} Initial Version 0.2.0 (2017-12-12) }{
+
+\itemize{
+\item adding octagon, decagon and dodecagon mazes.
+\item adding Sierpinski triangle, carpet and trapezoid mazes.
+\item adding hexaflake maze.
+\item adding option to draw arrows at boundary holes.
+\item adding boustrophedon factor to parallelogram mazes.
+}
+}
+
 \section{\mazealls{} Initial Version 0.1.0 (2017-11-12) }{
 
 \itemize{

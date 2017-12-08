@@ -34,7 +34,16 @@
 #' @details
 #'
 #' Draws a maze in an Hexflake. Relies on generation of hexagonal and
-#' triangular mazes for the internals.
+#' triangular mazes for the internals. An internal hexagon and
+#' six surrounding hexagons are recursively drawn as hexaflakes,
+#' connected by 12 equilateral triangles, drawn in the secondary color:
+#'
+#' \if{html}{
+#' \figure{hexaflake-1.png}{options: width="100\%" alt="Figure: Hexaflake maze"}
+#' }
+#' \if{latex}{
+#' \figure{hexaflake-1.png}{options: width=7cm}
+#' }
 #'
 #' @keywords plotting
 #' @template etc
@@ -48,6 +57,7 @@
 #' @template return-none
 #' @param depth the depth of recursion. This controls the side length.
 #' Should be an integer.
+#' @seealso \code{\link{sierpinski_trapezoid_maze}}.
 #' @examples
 #' library(TurtleGraphics)
 #' turtle_init(1000,1000,mode='clip')

@@ -7,7 +7,7 @@
 koch_maze(depth, unit_len, clockwise = TRUE, draw_boundary = TRUE,
   num_boundary_holes = 2, boundary_lines = TRUE, boundary_holes = NULL,
   boundary_hole_color = NULL, boundary_hole_locations = NULL,
-  boundary_hole_arrows = FALSE)
+  boundary_hole_arrows = FALSE, end_side = 1)
 }
 \arguments{
 \item{depth}{the depth of recursion. This controls the side length.
@@ -59,6 +59,11 @@ A value of \code{NA} may cause an error.}
 \item{boundary_hole_arrows}{a boolean or boolean array indicating whether to draw
 perpendicular double arrows at the boundary holes, as a visual guide. These
 can be useful for locating the entry and exit points of a maze.}
+
+\item{end_side}{the number of the side to end on. A value of
+1 corresponds to the starting side, while higher numbers
+correspond to the drawn side of the figure in the canonical order
+(that is, the order induced by the \code{clockwise} parameter).}
 }
 \value{
 nothing; the function is called for side effects only, though in

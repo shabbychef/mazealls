@@ -100,6 +100,16 @@ and one long side of twice that length, starting from the midpoint
 of the long side (or the corner before the first side via the
 \code{start_from} option). Differently colors the parts of the
 maze for a Sierpinski effect.
+
+Here are mazes for different values of \code{flip_color_parts} ranging
+from 1 to 4:
+
+\if{html}{
+\figure{sierpinski-trapezoids-1.png}{options: width="100\%" alt="Figure: four kinds of Sierpinski trapezoids"}
+}
+\if{latex}{
+\figure{sierpinski-trapezoids-1.png}{options: width=7cm}
+}
 }
 \examples{
 
@@ -158,6 +168,7 @@ turtle_do({
 }
 \seealso{
 \code{\link{iso_trapezoid_maze}},
+\code{\link{hexaflake_maze}},
 \code{\link{sierpinski_carpet_maze}},
 \code{\link{sierpinski_maze}}.
 }

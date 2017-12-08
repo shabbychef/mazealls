@@ -62,6 +62,9 @@
 #' at random. Holes can be drawn as colored segments with the
 #' \code{boundary_hole_color}, which is a character array giving the color of each
 #' hole. The value 'clear' stands in for clear holes.
+#' Arrows can optionally be drawn at the boundary holes via the
+#' \code{boundary_hole_arrows} parameter, which is either a logical array or a 
+#' numerical array indicating which sides should have boundary hole arrows.
 #'
 #' \if{html}{
 #' \figure{boundary-stuff-1.png}{options: width="100\%" alt="Figure: Boundary Examples"}
@@ -113,6 +116,15 @@ NULL
 #'
 #' \newcommand{\CRANpkg}{\href{https://cran.r-project.org/package=#1}{\pkg{#1}}}
 #' \newcommand{\mazealls}{\CRANpkg{mazealls}}
+#'
+#' @section \mazealls{} Initial Version 0.2.0 (2017-12-12) :
+#' \itemize{
+#' \item adding octagon, decagon and dodecagon mazes.
+#' \item adding Sierpinski triangle, carpet and trapezoid mazes.
+#' \item adding hexaflake maze.
+#' \item adding option to draw arrows at boundary holes.
+#' \item adding boustrophedon factor to parallelogram mazes.
+#' }
 #'
 #' @section \mazealls{} Initial Version 0.1.0 (2017-11-12) :
 #' \itemize{

@@ -58,6 +58,9 @@ have holes. If \code{NULL}, then we uniformly choose \code{num_boundary_holes} h
 at random. Holes can be drawn as colored segments with the
 \code{boundary_hole_color}, which is a character array giving the color of each
 hole. The value 'clear' stands in for clear holes.
+Arrows can optionally be drawn at the boundary holes via the
+\code{boundary_hole_arrows} parameter, which is either a logical array or a 
+numerical array indicating which sides should have boundary hole arrows.
 
 \if{html}{
 \figure{boundary-stuff-1.png}{options: width="100\%" alt="Figure: Boundary Examples"}

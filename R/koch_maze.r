@@ -95,6 +95,7 @@
 #' @template param-clockwise
 #' @template param-boundary-hole-controls
 #' @template param-boundary-stuff
+#' @template param-end-side
 #' @template return-none
 #' @param depth the depth of recursion. This controls the side length.
 #' Should be an integer.
@@ -119,7 +120,8 @@
 koch_maze <- function(depth,unit_len,clockwise=TRUE,
 											draw_boundary=TRUE,num_boundary_holes=2,boundary_lines=TRUE,
 											boundary_holes=NULL,boundary_hole_color=NULL,boundary_hole_locations=NULL,
-											boundary_hole_arrows=FALSE) {
+											boundary_hole_arrows=FALSE,
+											end_side=1) {
 
 	# 2FIX: add end_side?
 
@@ -157,7 +159,7 @@ koch_maze <- function(depth,unit_len,clockwise=TRUE,
 							 hole_arrow=boundary_hole_arrows[iii])
 		.turn_right(120 * multiplier)
 	}
-	eq_triangle_maze(unit_len=unit_len,depth=log2(3^depth),start_from='corner',clockwise=clockwise,draw_boundary=FALSE)
+	eq_triangle_maze(unit_len=unit_len,depth=log2(3^depth),start_from='corner',clockwise=clockwise,draw_boundary=FALSE,end_side=end_side)
 }
 
 #for vim modeline: (do not edit)

@@ -87,7 +87,16 @@ the flake are mazes drawn in different colors.
 }
 \details{
 Draws a maze in an Hexflake. Relies on generation of hexagonal and
-triangular mazes for the internals.
+triangular mazes for the internals. An internal hexagon and
+six surrounding hexagons are recursively drawn as hexaflakes,
+connected by 12 equilateral triangles, drawn in the secondary color:
+
+\if{html}{
+\figure{hexaflake-1.png}{options: width="100\%" alt="Figure: Hexaflake maze"}
+}
+\if{latex}{
+\figure{hexaflake-1.png}{options: width=7cm}
+}
 }
 \examples{
 library(TurtleGraphics)
@@ -99,6 +108,9 @@ turtle_do({
   hexaflake_maze(depth=3,unit_len=10,draw_boundary=TRUE,color2='green')
 })
 
+}
+\seealso{
+\code{\link{sierpinski_trapezoid_maze}}.
 }
 \author{
 Steven E. Pav \email{shabbychef@gmail.com}

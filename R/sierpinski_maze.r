@@ -33,7 +33,17 @@
 #'
 #' @details
 #'
-#' Draws a maze in an Sierpinski Triangle. 
+#' Draws a maze in an Sierpinski equilateral Triangle. The inner quarter is
+#' drawn in the secondary color, while the outer three quarters are drawn
+#' recursively. This is the traditional Sierpinski Triangle, generated when
+#' \code{style=='four_triangles'}:
+#'
+#' \if{html}{
+#' \figure{sierpinski-1.png}{options: width="100\%" alt="Figure: Sierpinski triangle"}
+#' }
+#' \if{latex}{
+#' \figure{sierpinski-1.png}{options: width=7cm}
+#' }
 #'
 #' @keywords plotting
 #' @template etc
@@ -60,6 +70,7 @@
 #' }
 #'
 #' @seealso \code{\link{eq_triangle_maze}},
+#' \code{\link{hexaflake_maze}},
 #' \code{\link{sierpinski_carpet_maze}},
 #' \code{\link{sierpinski_trapezoid_maze}},
 #' @examples
