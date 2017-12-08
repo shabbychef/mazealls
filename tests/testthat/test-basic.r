@@ -35,6 +35,8 @@ set.char.seed <- function(str) {
 
 context("code runs at all")#FOLDUP
 test_that("README code",{#FOLDUP
+	# travis only?
+	skip_on_cran()
 	set.char.seed("569dd47d-f9e5-40e4-b2ac-e5dbb4771a53")
 
 	library(TurtleGraphics)
@@ -296,6 +298,7 @@ test_that("README code",{#FOLDUP
 	expect_true(TRUE)
 })#UNFOLD
 test_that("hit all funcs",{#FOLDUP
+	# travis only?
 	skip_on_cran()
 	set.char.seed("af46af42-adb8-4e0e-8aee-4aec6bda56d5")
 
