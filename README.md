@@ -467,6 +467,46 @@ turtle_do({
 
 <img src="man/figures/koch-flake-1.png" title="plot of chunk koch-flake" alt="plot of chunk koch-flake" width="700px" height="700px" />
 
+Koch flakes of different sizes tile the plane:
+
+
+```r
+library(TurtleGraphics)
+library(mazealls)
+# koch flake
+turtle_init(2000, 2000, mode = "clip")
+turtle_up()
+turtle_hide()
+turtle_do({
+    turtle_setpos(450, 1000)
+    turtle_setangle(60)
+    ul <- 12
+    dep <- 4
+    koch_maze(depth = dep, unit_len = ul, clockwise = TRUE, 
+        draw_boundary = FALSE)
+    turtle_left(30)
+    turtle_col("gray40")
+    dropdown <- 1
+    for (iii in c(1:6)) {
+        if (iii == 1) {
+            bholes <- c(1, 2)
+        } else if (iii == 4) {
+            bholes <- c(1, 3)
+        } else {
+            bholes <- c(1)
+        }
+        koch_maze(depth = dep - dropdown, unit_len = ul * 
+            (3^(dropdown - 0.5)), clockwise = FALSE, 
+            draw_boundary = TRUE, boundary_holes = bholes, 
+            boundary_hole_arrows = c(2, 3))
+        turtle_forward(3^(dep - 1) * ul * sqrt(3))
+        turtle_right(60)
+    }
+})
+```
+
+<img src="man/figures/koch-meta-flake-1.png" title="plot of chunk koch-meta-flake" alt="plot of chunk koch-meta-flake" width="700px" height="700px" />
+
 ## Sierpinski Triangle
 
 Similarly, one can construct a maze in a Sierpinski triangle.
