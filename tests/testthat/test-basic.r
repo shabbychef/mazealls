@@ -412,7 +412,7 @@ test_that("test arrows ",{#FOLDUP
 		turtle_setpos(125,125)
 		turtle_setangle(0)
 		parallelogram_maze(unit_len=10,width=25,height=25,
-											 clockwise=clockwise,draw_boundary=TRUE,boundary_hole_arrows=TRUE)
+											 clockwise=TRUE,draw_boundary=TRUE,boundary_hole_arrows=TRUE)
 	})
 
 	# sentinel
