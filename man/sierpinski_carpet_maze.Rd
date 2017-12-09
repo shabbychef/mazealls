@@ -109,7 +109,7 @@ turtle_up()
 turtle_do({
  turtle_setpos(35,400)
  turtle_setangle(0)
- sierpinski_carpet_maze(angle=80,unit_len=8,width=90,height=90,
+ sierpinski_carpet_maze(angle=80,unit_len=8,width=30,height=30,
    method='two_parallelograms',draw_boundary=TRUE,balance=-1.0,color2='green')
 })
 

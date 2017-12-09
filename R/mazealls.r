@@ -117,7 +117,7 @@ NULL
 #' \newcommand{\CRANpkg}{\href{https://cran.r-project.org/package=#1}{\pkg{#1}}}
 #' \newcommand{\mazealls}{\CRANpkg{mazealls}}
 #'
-#' @section \mazealls{} Initial Version 0.2.0 (2017-12-12) :
+#' @section \mazealls{} Version 0.2.0 (2017-12-12) :
 #' \itemize{
 #' \item adding octagon, decagon and dodecagon mazes.
 #' \item adding Sierpinski triangle, carpet and trapezoid mazes.

@@ -83,9 +83,9 @@
 #' turtle_do({
 #'   turtle_setpos(500,500)
 #'   turtle_setangle(0)
-#'   sierpinski_trapezoid_maze(unit_len=15,depth=5,color1='black',color2='green',
+#'   sierpinski_trapezoid_maze(unit_len=15,depth=4,color1='black',color2='green',
 #'     clockwise=TRUE,draw_boundary=TRUE,boundary_holes=c(1,3))
-#'   sierpinski_trapezoid_maze(unit_len=15,depth=5,color1='black',color2='green',
+#'   sierpinski_trapezoid_maze(unit_len=15,depth=4,color1='black',color2='green',
 #'     clockwise=FALSE,draw_boundary=TRUE,
 #'     boundary_lines=c(2,3,4),boundary_holes=3)
 #' })
@@ -99,7 +99,7 @@
 #'   turtle_setpos(25,450)
 #'   turtle_setangle(0)
 #'   blines <- c(1,2,4)
-#'   for (dep in seq(from=5,to=0)) {
+#'   for (dep in seq(from=4,to=0)) {
 #'     sierpinski_trapezoid_maze(unit_len=13,depth=dep,color1='black',color2='green',
 #'       flip_color_parts=2,
 #'       clockwise=TRUE,boundary_lines=blines,draw_boundary=TRUE,boundary_holes=c(1,3),
