@@ -397,6 +397,27 @@ test_that("hit etcs ",{#FOLDUP
 	# sentinel
 	expect_true(TRUE)
 })#UNFOLD
+test_that("test arrows ",{#FOLDUP
+	# travis only?
+	skip_on_cran()
+	set.char.seed("d79492e7-6b4d-416e-8b98-b3bb58fdcc1d")
+
+	library(TurtleGraphics)
+	library(mazealls)
+	turtle_init(250,250,mode='clip')
+	turtle_up()
+	turtle_hide()
+
+	turtle_do({
+		turtle_setpos(125,125)
+		turtle_setangle(0)
+		parallelogram_maze(unit_len=10,width=25,height=25,
+											 clockwise=clockwise,draw_boundary=TRUE,boundary_hole_arrows=TRUE)
+	})
+
+	# sentinel
+	expect_true(TRUE)
+})#UNFOLD
 # 2FIX: check the effects of NA
 #UNFOLD
 
