@@ -154,6 +154,7 @@ sierpinski_maze <- function(depth,unit_len,clockwise=TRUE,
 			if (is.null(boundary_hole_locations)) { 
 				boundary_hole_locations <- sample.int(num_segs,size=3,replace=TRUE) 
 			}
+			boundary_hole_arrows <- .interpret_boundary_hole_arrows(boundary_hole_arrows,nsides=nsides)
 
 			bline <- draw_boundary & c(boundary_lines[1:2],FALSE,boundary_lines[3])
 			bhole <- c(holes[1],
