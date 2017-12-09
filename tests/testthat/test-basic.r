@@ -297,7 +297,7 @@ test_that("README code",{#FOLDUP
 	# sentinel
 	expect_true(TRUE)
 })#UNFOLD
-test_that("hit all funcs",{#FOLDUP
+test_that("2ngons",{#FOLDUP
 	# travis only?
 	skip_on_cran()
 	set.char.seed("af46af42-adb8-4e0e-8aee-4aec6bda56d5")
@@ -315,11 +315,76 @@ test_that("hit all funcs",{#FOLDUP
 			octagon_maze(unit_len=10,log2(48),clockwise=clockwise,draw_boundary=TRUE,boundary_holes=c(1,5))
 			decagon_maze(5,21,clockwise=clockwise,draw_boundary=TRUE,boundary_holes=c(1,6))
 			dodecagon_maze(depth=log2(14),unit_len=10,clockwise=clockwise,draw_boundary=TRUE,boundary_holes=c(1,7))
+		}
+	})
 
+	# sentinel
+	expect_true(TRUE)
+})#UNFOLD
+test_that("sierpinskis",{#FOLDUP
+	# travis only?
+	skip_on_cran()
+	set.char.seed("56576014-8cc4-45ba-a839-f1ae6754662d")
+
+	library(TurtleGraphics)
+	library(mazealls)
+	turtle_init(2500,2500,mode='clip')
+	turtle_up()
+	turtle_hide()
+
+	turtle_do({
+		turtle_setpos(1250,1250)
+		turtle_setangle(0)
+		for (clockwise in c(TRUE,FALSE)) {
 			sierpinski_maze(unit_len=5,depth=3,clockwise=clockwise,draw_boundary=TRUE)
 			sierpinski_maze(unit_len=5,depth=3,clockwise=clockwise,style='hexaflake',draw_boundary=TRUE)
 			sierpinski_maze(unit_len=5,depth=3,clockwise=clockwise,style='dragon_left',draw_boundary=TRUE)
+		}
+	})
 
+	# sentinel
+	expect_true(TRUE)
+})#UNFOLD
+test_that("fractallys",{#FOLDUP
+	# travis only?
+	skip_on_cran()
+	set.char.seed("987dac1c-ae54-489a-80fb-c80380d246d9")
+
+	library(TurtleGraphics)
+	library(mazealls)
+	turtle_init(2500,2500,mode='clip')
+	turtle_up()
+	turtle_hide()
+
+	turtle_do({
+		turtle_setpos(1250,1250)
+		turtle_setangle(0)
+		clockwise <- TRUE
+		sierpinski_trapezoid_maze(unit_len=5,depth=3,clockwise=clockwise,draw_boundary=TRUE,flip_color_parts=1)
+		sierpinski_trapezoid_maze(unit_len=5,depth=3,clockwise=clockwise,draw_boundary=TRUE,flip_color_parts=2)
+		sierpinski_trapezoid_maze(unit_len=5,depth=3,clockwise=clockwise,draw_boundary=TRUE,flip_color_parts=3)
+		sierpinski_trapezoid_maze(unit_len=5,depth=3,clockwise=clockwise,draw_boundary=TRUE,flip_color_parts=4)
+    hexaflake_maze(depth=3,unit_len=10,draw_boundary=TRUE,color2='green')
+	})
+
+	# sentinel
+	expect_true(TRUE)
+})#UNFOLD
+test_that("hit etcs ",{#FOLDUP
+	# travis only?
+	skip_on_cran()
+	set.char.seed("f8d2e53f-aae2-4595-bfcd-8f24da9aa7dd")
+
+	library(TurtleGraphics)
+	library(mazealls)
+	turtle_init(2500,2500,mode='clip')
+	turtle_up()
+	turtle_hide()
+
+	turtle_do({
+		turtle_setpos(1250,1250)
+		turtle_setangle(0)
+		for (clockwise in c(TRUE,FALSE)) {
 			for (angl in c(45,90,135)) {
 				parallelogram_maze(angle=angl,unit_len=10,width=25,height=25,
 													 clockwise=clockwise,draw_boundary=TRUE)
@@ -327,12 +392,6 @@ test_that("hit all funcs",{#FOLDUP
 															 clockwise=clockwise,draw_boundary=TRUE)
 			}
 		}
-		clockwise <- TRUE
-		sierpinski_trapezoid_maze(unit_len=5,depth=3,clockwise=clockwise,draw_boundary=TRUE,flip_color_parts=1)
-		sierpinski_trapezoid_maze(unit_len=5,depth=3,clockwise=clockwise,draw_boundary=TRUE,flip_color_parts=2)
-		sierpinski_trapezoid_maze(unit_len=5,depth=3,clockwise=clockwise,draw_boundary=TRUE,flip_color_parts=3)
-		sierpinski_trapezoid_maze(unit_len=5,depth=3,clockwise=clockwise,draw_boundary=TRUE,flip_color_parts=4)
-    hexaflake_maze(depth=3,unit_len=10,draw_boundary=TRUE,color2='green')
 	})
 
 	# sentinel
