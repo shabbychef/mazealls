@@ -183,5 +183,10 @@ draw_colored_line <- function(distance,color) {
 						 hole_arrows=boundary_hole_arrows)
 }
 
+# sample from a 'discrete' beta distribution
+.rboustro <- function(n,boustro=c(1,1),nsegs=100L) {
+	sample(nsegs,size=n,prob=stats::dbeta(stats::ppoints(nsegs),shape1=boustro[1],shape2=boustro[2]),replace=TRUE)
+}
+
 #for vim modeline: (do not edit)
 # vim:fdm=marker:fmr=FOLDUP,UNFOLD:cms=#%s:syn=r:ft=r

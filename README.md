@@ -248,7 +248,8 @@ turtle_do({
     turtle_forward(distance = 300)
     turtle_right(90)
     eq_triangle_maze(depth = log2(66), unit_len = 12, 
-        method = "shave_all", draw_boundary = TRUE)
+        method = "shave_all", draw_boundary = TRUE, 
+        boustro = c(35, 2))
 })
 ```
 

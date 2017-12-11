@@ -6,10 +6,11 @@
 \usage{
 hexagon_maze(depth, unit_len, clockwise = TRUE, method = c("two_trapezoids",
   "six_triangles", "three_parallelograms", "random"),
-  start_from = c("midpoint", "corner"), draw_boundary = FALSE,
-  num_boundary_holes = 2, boundary_lines = TRUE, boundary_holes = NULL,
-  boundary_hole_color = NULL, boundary_hole_locations = NULL,
-  boundary_hole_arrows = FALSE, end_side = 1)
+  start_from = c("midpoint", "corner"), boustro = c(1, 1),
+  draw_boundary = FALSE, num_boundary_holes = 2, boundary_lines = TRUE,
+  boundary_holes = NULL, boundary_hole_color = NULL,
+  boundary_hole_locations = NULL, boundary_hole_arrows = FALSE,
+  end_side = 1)
 }
 \arguments{
 \item{depth}{the depth of recursion. This controls the
@@ -37,6 +38,19 @@ with two holey lines and one solid line between them.}
 
 \item{start_from}{whether to start from the midpoint of the first side
 of a maze, or from the corner facing the first side.}
+
+\item{boustro}{an array of two values, which help determine
+the location of holes in internal lines of length
+\code{height}. The default value, \code{c(1,1)} results in 
+uniform selection. Otherwise the location of holes are chosen
+with probability proportional to a beta density with the
+ordered elements of \code{boustro} set as 
+\code{shape1} and \code{shape2}.
+In sub mazes, this parameter is reversed, which
+can lead to \sQuote{boustrophedonic} mazes. It is suggested
+that the sum of values not exceed 40, as otherwise the location 
+of internal holes may be not widely dispersed from the mean
+value.}
 
 \item{draw_boundary}{a boolean indicating whether a final boundary shall be
 drawn around the maze.}

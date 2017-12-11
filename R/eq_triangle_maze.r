@@ -100,6 +100,7 @@
 #' @template param-clockwise
 #' @template param-start-from
 #' @template param-end-side
+#' @template param-boustro
 #' @template param-boundary-stuff
 #' @template param-boundary-hole-controls
 #' @template return-none
@@ -187,6 +188,7 @@
 eq_triangle_maze <- function(depth,unit_len,clockwise=TRUE,
 														 method=c('stack_trapezoids','triangles','uniform','two_ears','random','hex_and_three','shave_all','shave'),
 														 start_from=c('midpoint','corner'),
+														 boustro=c(1,1),
 														 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,
 														 boundary_holes=NULL,boundary_hole_color=NULL,boundary_hole_locations=NULL,
 														 boundary_hole_arrows=FALSE,
@@ -228,7 +230,7 @@ eq_triangle_maze <- function(depth,unit_len,clockwise=TRUE,
 												my_method)
 		switch(my_method,
 					 stack_trapezoids={
-						 iso_trapezoid_maze(depth=depth-1,unit_len=unit_len,clockwise=clockwise,draw_boundary=FALSE)
+						 iso_trapezoid_maze(depth=depth-1,unit_len=unit_len,clockwise=clockwise,draw_boundary=FALSE,boustro=boustro)
 						 # now move over
 						 magic_ratio <- sqrt(3) / 4
 
@@ -237,7 +239,7 @@ eq_triangle_maze <- function(depth,unit_len,clockwise=TRUE,
 						 turtle_forward(num_segs * unit_len * magic_ratio)
 						 .turn_left(multiplier * 90)
 						 eq_triangle_maze(depth=depth-1,unit_len=unit_len,clockwise=clockwise,method=method,draw_boundary=TRUE,
-															boundary_lines=c(1),boundary_holes=c(1))
+															boustro=rev(boustro),boundary_lines=c(1),boundary_holes=c(1))
 						 .turn_left(multiplier * 90)
 						 turtle_forward(num_segs * unit_len * magic_ratio)
 						 .turn_right(multiplier * 90)
@@ -245,12 +247,14 @@ eq_triangle_maze <- function(depth,unit_len,clockwise=TRUE,
 					 hex_and_three={
 						 hexagon_maze(depth=log2(by_three),unit_len=unit_len,clockwise=clockwise,method='random',
 													start_from='midpoint',draw_boundary=TRUE,num_boundary_holes=0,
+													boustro=rev(boustro),
+													boundary_hole_locations=.rboustro(6,boustro=boustro,nsegs=2^by_three),
 													boundary_lines=c(2,4,6),boundary_holes=c(2,4,6))
 						 for (iii in c(1:3)) {
 							 turtle_forward(distance=num_segs * unit_len/2)
 							 .turn_right(multiplier*120)
 							 eq_triangle_maze(depth=log2(by_three),unit_len=unit_len,clockwise=clockwise,
-																start_from='corner',method='random',draw_boundary=FALSE)
+																boustro=rev(boustro),start_from='corner',method='random',draw_boundary=FALSE)
 							 turtle_forward(distance=num_segs * unit_len/2)
 						 }
 					 },
@@ -259,12 +263,14 @@ eq_triangle_maze <- function(depth,unit_len,clockwise=TRUE,
 						 turtle_backward(unit_len*num_segs/2)
 						 parallelogram_maze(unit_len=unit_len,height=num_segs/2,width=num_segs/2,angle=60,clockwise=clockwise,
 																method='random',start_from='corner',
+																height_boustro=boustro,width_boustro=boustro,
 																draw_boundary=TRUE,boundary_lines=c(2,3),boundary_holes=c(2,3))
 						 # now the other two triangles.
 						 for (iii in c(1,2)) {
 							 turtle_forward(unit_len*num_segs)
 							 .turn_right(multiplier * 120)
-							 eq_triangle_maze(depth=depth-1,unit_len=unit_len,clockwise=clockwise,method=method,start_from='corner',draw_boundary=FALSE)
+							 eq_triangle_maze(depth=depth-1,unit_len=unit_len,clockwise=clockwise,method=method,
+																boustro=rev(boustro),start_from='corner',draw_boundary=FALSE)
 						 }
 						 turtle_forward(unit_len*num_segs)
 						 .turn_right(multiplier * 120)
@@ -284,7 +290,7 @@ eq_triangle_maze <- function(depth,unit_len,clockwise=TRUE,
 							 .turn_right(multiplier*120)
 						 }
 						 eq_triangle_maze(depth=log2(sub_num),unit_len=unit_len,clockwise=clockwise,method=sub_method,start_from='corner',
-															draw_boundary=TRUE,boundary_lines=c(2),boundary_holes=c(2))
+															boustro=rev(boustro),draw_boundary=TRUE,boundary_lines=c(2),boundary_holes=c(2))
 						 for (iii in seq_len(shave_side-1)) {
 							 .turn_left(multiplier*120)
 							 turtle_backward(unit_len*num_segs)
@@ -299,18 +305,21 @@ eq_triangle_maze <- function(depth,unit_len,clockwise=TRUE,
 						 turtle_backward(distance=unit_len * num_segs/2)
 						 for (iii in c(1:3)) {
 							 eq_triangle_maze(depth=depth-1,unit_len=unit_len,clockwise=clockwise,start_from='corner',
-														 method=sub_method,draw_boundary=FALSE)
+																boustro=rev(boustro),method=sub_method,draw_boundary=FALSE)
 							 turtle_forward(distance=unit_len * num_segs)
 							 .turn_right(multiplier * 120)
 						 }
 						 turtle_forward(distance=unit_len * num_segs/2)
 						 .turn_right(multiplier * 60)
 						 eq_triangle_maze(depth=depth-1,unit_len=unit_len,clockwise=clockwise,start_from='corner',
-													 method=sub_method,draw_boundary=TRUE,num_boundary_holes=3)
+															boustro=rev(boustro),method=sub_method,draw_boundary=TRUE,num_boundary_holes=3)
 						 .turn_left(multiplier * 60)
 					 })
 	}
 	if (draw_boundary) {
+		if (is.null(boundary_hole_locations)) {
+			boundary_hole_locations <- .rboustro(3,boustro=boustro,nsegs=num_segs)
+		}
 		turtle_backward(distance=unit_len * num_segs/2)
 		.do_boundary(unit_len,lengths=rep(num_segs,3),angles=multiplier*120,
 								 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,

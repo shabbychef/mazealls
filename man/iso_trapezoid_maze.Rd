@@ -6,8 +6,8 @@
 \usage{
 iso_trapezoid_maze(depth, unit_len = 4L, clockwise = TRUE,
   start_from = c("midpoint", "corner"), method = c("four_trapezoids",
-  "one_ear", "random"), draw_boundary = FALSE, num_boundary_holes = 2,
-  boundary_lines = TRUE, boundary_holes = NULL,
+  "one_ear", "random"), boustro = c(1, 1), draw_boundary = FALSE,
+  num_boundary_holes = 2, boundary_lines = TRUE, boundary_holes = NULL,
   boundary_hole_color = NULL, boundary_hole_locations = NULL,
   boundary_hole_arrows = FALSE, end_side = 1)
 }
@@ -36,6 +36,19 @@ other with a \sQuote{bone} between them.}
 not an integer.}
 \item{random}{A method is chosen uniformly at random.}
 }}
+
+\item{boustro}{an array of two values, which help determine
+the location of holes in internal lines of length
+\code{height}. The default value, \code{c(1,1)} results in 
+uniform selection. Otherwise the location of holes are chosen
+with probability proportional to a beta density with the
+ordered elements of \code{boustro} set as 
+\code{shape1} and \code{shape2}.
+In sub mazes, this parameter is reversed, which
+can lead to \sQuote{boustrophedonic} mazes. It is suggested
+that the sum of values not exceed 40, as otherwise the location 
+of internal holes may be not widely dispersed from the mean
+value.}
 
 \item{draw_boundary}{a boolean indicating whether a final boundary shall be
 drawn around the maze.}

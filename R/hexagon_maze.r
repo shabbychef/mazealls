@@ -73,6 +73,7 @@
 #' @template param-clockwise
 #' @template param-start-from
 #' @template param-end-side
+#' @template param-boustro
 #' @template param-boundary-stuff
 #' @template param-boundary-hole-controls
 #' @template return-none
@@ -171,6 +172,7 @@
 #' @export
 hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids','six_triangles','three_parallelograms','random'),
 												 start_from=c('midpoint','corner'),
+												 boustro=c(1,1),
 												 draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,
 												 boundary_holes=NULL,boundary_hole_color=NULL,boundary_hole_locations=NULL,
 												 boundary_hole_arrows=FALSE,
@@ -201,6 +203,7 @@ hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids'
 						 .turn_left(multiplier * 90)
 						 iso_trapezoid_maze(depth=depth,unit_len=unit_len,clockwise=clockwise,
 																start_from='midpoint',
+																boustro=rev(boustro),
 																draw_boundary=TRUE,boundary_lines=c(1),boundary_holes=c(1))
 						 iso_trapezoid_maze(depth=depth,unit_len=unit_len,clockwise=!clockwise,draw_boundary=FALSE)
 						 
@@ -214,6 +217,7 @@ hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids'
 						 for (iii in c(1:6)) {
 							 eq_triangle_maze(depth=depth,unit_len=unit_len,clockwise=clockwise,method='random',draw_boundary=TRUE,
 																start_from='corner',
+																boustro=rev(boustro),
 																boundary_lines=2,boundary_holes=iii %in% bholes)
 							 turtle_forward(distance=unit_len * num_segs) 
 							 .turn_right(multiplier*60)
@@ -224,6 +228,7 @@ hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids'
 						 bholes <- sample.int(n=3,size=2)
 						 for (iii in 1:3) {
 							 parallelogram_maze(unit_len=unit_len,height=num_segs,width=num_segs,angle=60,clockwise=clockwise,
+																	width_boustro=rev(boustro),height_boustro=rev(boustro),
 																	draw_boundary=TRUE,boundary_lines=3,num_boundary_holes=0,boundary_holes=iii %in% bholes)
 							 turtle_forward(num_segs * unit_len / 2)
 							 .turn_right(multiplier * 60)
@@ -235,6 +240,9 @@ hexagon_maze <- function(depth,unit_len,clockwise=TRUE,method=c('two_trapezoids'
 	}
 	if (draw_boundary) {
 		turtle_backward(distance=unit_len * num_segs/2)
+		if (is.null(boundary_hole_locations)) {
+			boundary_hole_locations <- .rboustro(6,boustro=boustro,nsegs=num_segs)
+		}
 		.do_boundary(unit_len,lengths=rep(num_segs,6),angles=multiplier * 60,
 								 num_boundary_holes=num_boundary_holes,boundary_lines=boundary_lines,
 								 boundary_holes=boundary_holes,boundary_hole_color=boundary_hole_color,
