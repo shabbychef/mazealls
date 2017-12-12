@@ -95,9 +95,6 @@ hexaflake_maze <- function(depth,unit_len,clockwise=TRUE,
 		multiplier <- ifelse(clockwise,1,-1)
 		if (start_from=='corner') { turtle_forward(distance=unit_len * num_segs/2) }
 
-		.in_middle <- function(x) {
-			(3 * x > num_segs) && (3 * x <= 2*num_segs)
-		}
 		# you have to pass these to the sub mazes ... 
 		nsides <- 6
 		holes <- .interpret_boundary_holes(boundary_holes,num_boundary_holes,nsides=nsides)

@@ -312,9 +312,9 @@ test_that("2ngons",{#FOLDUP
 		turtle_setpos(1250,1250)
 		turtle_setangle(0)
 		for (clockwise in c(TRUE,FALSE)) {
-			octagon_maze(unit_len=10,log2(48),clockwise=clockwise,draw_boundary=TRUE,boundary_holes=c(1,5))
-			decagon_maze(5,21,clockwise=clockwise,draw_boundary=TRUE,boundary_holes=c(1,6))
-			dodecagon_maze(depth=log2(14),unit_len=10,clockwise=clockwise,draw_boundary=TRUE,boundary_holes=c(1,7))
+			octagon_maze(unit_len=10,log2(48),clockwise=clockwise,draw_boundary=TRUE,boundary_holes=c(1,5),end_side=2)
+			decagon_maze(5,21,clockwise=clockwise,draw_boundary=TRUE,boundary_holes=c(1,6),end_side=3)
+			dodecagon_maze(depth=log2(14),unit_len=10,clockwise=clockwise,draw_boundary=TRUE,boundary_holes=c(1,7),end_side=4)
 		}
 	})
 
@@ -336,7 +336,7 @@ test_that("sierpinskis",{#FOLDUP
 		turtle_setpos(1250,1250)
 		turtle_setangle(0)
 		for (clockwise in c(TRUE,FALSE)) {
-			sierpinski_maze(unit_len=5,depth=3,clockwise=clockwise,draw_boundary=TRUE)
+			sierpinski_maze(unit_len=5,depth=3,clockwise=clockwise,draw_boundary=TRUE,end_side=2)
 			sierpinski_maze(unit_len=5,depth=3,clockwise=clockwise,style='hexaflake',draw_boundary=TRUE)
 			sierpinski_maze(unit_len=5,depth=3,clockwise=clockwise,style='dragon_left',draw_boundary=TRUE)
 		}
@@ -413,6 +413,32 @@ test_that("test arrows ",{#FOLDUP
 		turtle_setangle(0)
 		parallelogram_maze(unit_len=10,width=25,height=25,
 											 clockwise=TRUE,draw_boundary=TRUE,boundary_hole_arrows=TRUE)
+	})
+
+	# sentinel
+	expect_true(TRUE)
+})#UNFOLD
+test_that("holey line ",{#FOLDUP
+	# travis only?
+	skip_on_cran()
+	set.char.seed("9d2ab993-7a08-46ad-868c-08a2c138223c")
+
+	library(TurtleGraphics)
+	library(mazealls)
+	turtle_init(250,250,mode='clip')
+	turtle_up()
+	turtle_hide()
+
+	turtle_do({
+		turtle_setpos(125,125)
+		turtle_setangle(0)
+		for (nnseg in c(1,5)) {
+			holey_line(unit_len=5,num_segs=nnseg,go_back=TRUE)
+			holey_line(unit_len=5,num_segs=nnseg,which_seg=1)
+			holey_line(unit_len=5,num_segs=nnseg,which_seg=-1)
+			holey_line(unit_len=5,num_segs=nnseg,hole_arrow=TRUE)
+			holey_line(unit_len=5,num_segs=nnseg,hole_color='green')
+		}
 	})
 
 	# sentinel
