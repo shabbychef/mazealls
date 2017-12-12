@@ -101,7 +101,7 @@ turtle_do({
 	turtle_forward(650)
 	turtle_right(90)
 	turtle_right(30)
-	koch_maze(depth=4,unit_len=15)
+	koch_maze(depth=3,unit_len=14)
 })
 }
 \author{
