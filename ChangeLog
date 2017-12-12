@@ -1,4 +1,17 @@
 
+
+2017-12-12 Steven E. Pav <shabbychef@gmail.com>
+* 0.2.0 on CRAN
+* adding octagon, decagon and dodecagon mazes.
+* adding Sierpinski triangle, carpet and trapezoid mazes.
+* adding hexaflake maze.
+* adding option to draw arrows at boundary holes.
+* adding boustrophedon factor to parallelogram, triangle, trapezoid, hexagon mazes.
+
+2017-11-12 Steven E. Pav <shabbychef@gmail.com>
+* 0.1.0 on CRAN
+* triangle, trapezoid, hexagon, Koch flake mazes.
+
 2017-10-03 Steven E. Pav <shabbychef@gmail.com>
 * start work
 

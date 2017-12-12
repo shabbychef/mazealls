@@ -8,10 +8,10 @@
 ############### FLAGS ###############
 
 VMAJOR 						 = 0
-VMINOR 						 = 1
+VMINOR 						 = 2
 VPATCH  					 = 0
-#VDEV 							 =
-VDEV 							 = .0016
+VDEV 							 =
+#VDEV 							 = .0017
 PKG_NAME 					:= mazealls
 
 RPKG_USES_RCPP 		:= 0

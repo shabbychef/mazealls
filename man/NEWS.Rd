@@ -16,7 +16,8 @@ News for package \sQuote{mazealls}
 \item adding Sierpinski triangle, carpet and trapezoid mazes.
 \item adding hexaflake maze.
 \item adding option to draw arrows at boundary holes.
-\item adding boustrophedon factor to parallelogram mazes.
+\item adding boustrophedon factor to parallelogram, triangle, trapezoid,
+hexagon mazes.
 }
 }
 
