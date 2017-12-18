@@ -46,6 +46,7 @@
 #' }
 #'
 #' @keywords plotting
+#' @template sierpinski
 #' @template etc
 #' @template param-unitlen
 #' @template param-clockwise

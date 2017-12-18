@@ -55,6 +55,7 @@
 #' \code{\link{sierpinski_carpet_maze}},
 #' \code{\link{sierpinski_maze}}.
 #' @keywords plotting
+#' @template sierpinski
 #' @template etc
 #' @template param-unitlen
 #' @template param-clockwise

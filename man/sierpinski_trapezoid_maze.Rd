@@ -175,4 +175,5 @@ turtle_do({
 \author{
 Steven E. Pav \email{shabbychef@gmail.com}
 }
+\keyword{Sierpinski}
 \keyword{plotting}

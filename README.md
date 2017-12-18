@@ -530,6 +530,8 @@ turtle_do({
 
 <img src="man/figures/sierpinski-1.png" title="plot of chunk sierpinski" alt="plot of chunk sierpinski" width="700px" height="700px" />
 
+### Sierpinski Carpet
+
 And a Sierpinski Carpet:
 
 
@@ -575,6 +577,8 @@ turtle_do({
 
 <img src="man/figures/menger-sponge-1.png" title="plot of chunk menger-sponge" alt="plot of chunk menger-sponge" width="700px" height="700px" />
 
+### Sierpinski Trapezoids
+
 One can make four different kinds of Sierpinski trapezoids, the traditional
 four triangles, a hexaflake, and something like a Dragon fractal:
 
@@ -598,6 +602,27 @@ turtle_do({
 ```
 
 <img src="man/figures/sierpinski-trapezoids-1.png" title="plot of chunk sierpinski-trapezoids" alt="plot of chunk sierpinski-trapezoids" width="700px" height="700px" />
+
+### Sierpinski Hexagon
+
+
+```r
+library(TurtleGraphics)
+library(mazealls)
+turtle_init(1250, 1100, mode = "clip")
+turtle_up()
+turtle_hide()
+turtle_do({
+    turtle_setpos(50, 550)
+    turtle_setangle(30)
+    sierpinski_hexagon_maze(depth = 6, unit_len = 9, 
+        boundary_lines = TRUE, draw_boundary = TRUE, 
+        boundary_holes = c(1, 3), start_from = "corner", 
+        color1 = "black", color2 = "green", style = "sierpinski")
+})
+```
+
+<img src="man/figures/sierpinski-hexagon-1.png" title="plot of chunk sierpinski-hexagon" alt="plot of chunk sierpinski-hexagon" width="700px" height="700px" />
 
 
 ## Hexaflake 

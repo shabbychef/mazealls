@@ -5,7 +5,7 @@ Authors@R: c(person(c("Steven", "E."), "Pav",
     email="shabbychef@gmail.com",
 		comment = c(ORCID = "0000-0002-4197-6195")))
 Version: 0.2.0.0001
-Date: 2017-12-11
+Date: 2017-12-17
 License: LGPL-3
 Title: Generate Recursive Mazes
 BugReports: https://github.com/shabbychef/mazealls/issues
@@ -38,6 +38,7 @@ Collate:
     'octagon_maze.r'
     'parallelogram_maze.r'
     'sierpinski_carpet_maze.r'
+    'sierpinski_hexagon_maze.r'
     'sierpinski_maze.r'
     'sierpinski_trapezoid_maze.r'
     'utils.r'

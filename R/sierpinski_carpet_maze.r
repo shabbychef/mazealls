@@ -36,6 +36,7 @@
 #' Draws a Sierpinski carpet as two-color maze in a parallelogram.
 #'
 #' @keywords plotting
+#' @template sierpinski
 #' @template etc
 #' @template param-unitlen
 #' @template param-clockwise
