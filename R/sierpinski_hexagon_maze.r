@@ -56,6 +56,9 @@
 #' \item{sierpinski}{The traditional Sierpinski Triangle of four triangles
 #' with the center in the minor color, \code{color2}.}
 #' \item{hexaflake}{Looks more like a hexaflake in a triangle.}
+#' \item{reverse_flake}{Like a hexaflake, but the colors reverse in recursive
+#' calls.}
+#' \item{outer_flake}{Like a hexaflake, but only for the outermost ring.}
 #' \item{dragon_left}{Looks like a dragon fractal.}
 #' \item{dragon_right}{Looks like a dragon fractal.}
 #' \item{dragon_leftright}{Looks like a dragon fractal.}
@@ -84,7 +87,9 @@
 #' @export
 sierpinski_hexagon_maze <- function(depth,unit_len,clockwise=TRUE,
 																		start_from=c('midpoint','corner'),
-																		style=c('sierpinski','four_triangles','hexaflake','dragon_left','dragon_right','dragon_leftright','dragon_rightleft'),
+																		style=c('sierpinski','four_triangles','hexaflake',
+																						'reverse_flake','outer_flake',
+																						'dragon_left','dragon_right','dragon_leftright','dragon_rightleft'),
 																		color1='black',color2='gray40',
 																		draw_boundary=FALSE,num_boundary_holes=2,boundary_lines=TRUE,
 																		boundary_holes=NULL,boundary_hole_color=NULL,boundary_hole_locations=NULL,
@@ -114,6 +119,8 @@ sierpinski_hexagon_maze <- function(depth,unit_len,clockwise=TRUE,
 
 		flipc <- switch(style,
 										hexaflake=1,
+										reverse_flake=1,
+										outer_flake=1,
 										dragon_left=2,
 										dragon_leftright=2,
 										sierpinski=3,
@@ -121,10 +128,6 @@ sierpinski_hexagon_maze <- function(depth,unit_len,clockwise=TRUE,
 										dragon_right=4,
 										dragon_rightleft=4)
 
-		sub_style <- switch(style,
-												dragon_leftright='dragon_rightleft',
-												dragon_rightleft='dragon_leftright',
-												style)
 
 		starts <- kronecker(c(1:6),rep(1,2))
 		ends   <- c(2,7,
@@ -164,12 +167,26 @@ sierpinski_hexagon_maze <- function(depth,unit_len,clockwise=TRUE,
 			turtle_forward(unit_len * num_segs)
 			.turn_right(multiplier * 60)
 		}
+
+		# recurse
+		sub_style <- switch(style,
+												dragon_leftright='dragon_rightleft',
+												dragon_rightleft='dragon_leftright',
+												style)
+		sub_color1 <- switch(style,
+												 reverse_flake=color2,
+												 outer_flake=color2,
+												 color1)
+		sub_color2 <- switch(style,
+												 reverse_flake=color1,
+												 color2)
+
 		.turn_right(multiplier * 60)
 		turtle_forward(unit_len * num_segs/2)
 		.turn_left(multiplier * 60)
 		sierpinski_hexagon_maze(depth=depth-1,unit_len=unit_len,clockwise=clockwise,
 														start_from='corner',style=sub_style,
-														color1=color1,color2=color2,
+														color1=sub_color1,color2=sub_color2,
 														draw_boundary=FALSE)
 		.turn_right(multiplier * 60)
 		turtle_backward(unit_len * num_segs/2)
