@@ -1,0 +1,447 @@
+```{r setup,include=FALSE}
+# set the knitr options ... for everyone!
+# if you unset this, then vignette build bonks. oh, joy.
+#opts_knit$set(progress=TRUE)
+opts_knit$set(eval.after='fig.cap')
+# for a package vignette, you do want to echo.
+# opts_chunk$set(echo=FALSE,warning=FALSE,message=FALSE)
+opts_chunk$set(warning=FALSE,message=FALSE)
+#opts_chunk$set(results="asis")
+opts_chunk$set(cache=TRUE,cache.path="nodist/ignore/cache_")
+
+#opts_chunk$set(fig.path="figure/",dev=c("pdf","cairo_ps"))
+opts_chunk$set(fig.path="nodist/ignore/figures_",dev=c("png"))
+#opts_chunk$set(fig.width=7,fig.height=7,dpi=300,out.width='700px',out.height='700px')
+# try to make the files smaller ... 
+opts_chunk$set(fig.width=7,fig.height=7,dpi=125,out.width='700px',out.height='700px')
+
+# doing this means that png files are made of figures;
+# the savings is small, and it looks like shit:
+#opts_chunk$set(fig.path="figure/",dev=c("png","pdf","cairo_ps"))
+#opts_chunk$set(fig.width=4,fig.height=4)
+# for figures? this is sweave-specific?
+#opts_knit$set(eps=TRUE)
+
+# this would be for figures:
+#opts_chunk$set(out.width='.8\\textwidth')
+# for text wrapping:
+options(width=124,digits=2)
+opts_chunk$set(size="small")
+opts_chunk$set(tidy=TRUE,tidy.opts=list(width.cutoff=50,keep.blank.line=TRUE))
+library(ggplot2)
+library(mazealls)
+library(dplyr)
+library(moments)
+library(microbenchmark)
+# chicken and egg dept:
+# [![CRAN](http://www.r-pkg.org/badges/version/mazealls)](http://cran.rstudio.com/package=mazealls) 
+# [![Downloads](http://cranlogs.r-pkg.org/badges/mazealls?color=brightgreen)](http://www.r-pkg.org/pkg/mazealls)
+# [![Total](http://cranlogs.r-pkg.org/badges/grand-total/mazealls?color=brightgreen)](http://www.r-pkg.org/pkg/mazealls)
+#[![Downloads](http://cranlogs.r-pkg.org/badges/mazealls?color=green)](http://www.r-pkg.org/pkg/mazealls)
+#[![Total](http://cranlogs.r-pkg.org/badges/grand-total/mazealls?color=green)](http://www.r-pkg.org/pkg/mazealls)
+# think lifecycle badges: https://github.com/r-lib/usethis/issues/48
+```
+
+
+# dodecagon maze
+
+```{r simple-dodecagon,cache=TRUE,eval=TRUE,echo=FALSE,fig.keep='last'}
+library(TurtleGraphics)
+library(mazealls)
+# dodecagon
+set.seed(1234)
+turtle_init(2200,2200,mode='clip')
+turtle_hide()
+turtle_up()
+turtle_do({
+  turtle_setpos(80,1100)
+  turtle_setangle(0)
+	 dodecagon_maze(depth=log2(27),unit_len=20,draw_boundary=TRUE,boundary_holes=c(1,7))
+})
+```
+```{r simple-dodecagon-new,cache=TRUE,eval=TRUE,echo=FALSE,fig.keep='last'}
+library(TurtleGraphics)
+library(mazealls)
+# dodecagon
+set.seed(2301)
+turtle_init(2200,2200,mode='clip')
+turtle_hide()
+turtle_up()
+turtle_do({
+  turtle_setpos(80,1100)
+  turtle_setangle(0)
+	 dodecagon_maze(depth=log2(27),unit_len=20,draw_boundary=TRUE,boundary_holes=c(1,7))
+})
+```
+
+# Rhombic Dissections
+
+
+```{r simple-octagon,cache=TRUE,eval=TRUE,echo=FALSE,fig.keep='last'}
+library(TurtleGraphics)
+library(mazealls)
+# octagon
+set.seed(4819)
+turtle_init(2000,2000,mode='clip')
+turtle_hide()
+turtle_up()
+turtle_do({
+  turtle_setpos(75,1000)
+  turtle_setangle(0)
+	octagon_maze(log2(44),16,draw_boundary=TRUE,boundary_holes=c(1,5))
+})
+```
+
+```{r simple-decagon,cache=TRUE,eval=TRUE,echo=FALSE,fig.keep='last'}
+library(TurtleGraphics)
+library(mazealls)
+# decagon
+set.seed(9019)
+turtle_init(2200,2200,mode='clip')
+turtle_hide()
+turtle_up()
+turtle_do({
+  turtle_setpos(60,1100)
+  turtle_setangle(0)
+	decagon_maze(5,21,draw_boundary=TRUE,boundary_holes=c(1,6))
+})
+
+```
+
+## Koch snowflake maze
+
+
+```{r koch-flake,cache=TRUE,eval=TRUE,echo=FALSE,fig.keep='last'}
+library(TurtleGraphics)
+library(mazealls)
+# koch flake
+set.seed(1211)
+turtle_init(1000,1000)
+turtle_up()
+turtle_hide()
+turtle_do({
+	turtle_left(90)
+	turtle_forward(distance=200)
+	turtle_right(90)
+	turtle_backward(distance=300)
+ 	koch_maze(depth=4,unit_len=9)
+})
+```
+
+```{r koch-meta-flake,cache=TRUE,eval=TRUE,echo=FALSE,fig.keep='last'}
+library(TurtleGraphics)
+library(mazealls)
+# koch flake
+set.seed(84910)
+turtle_init(2000,2000,mode='clip')
+turtle_up()
+turtle_hide()
+turtle_do({
+	turtle_setpos(450,1000)
+	turtle_setangle(60)
+	ul <- 12
+	dep <- 4
+ 	koch_maze(depth=dep,unit_len=ul,clockwise=TRUE,draw_boundary=FALSE)
+	turtle_left(30)
+	turtle_col('gray40')
+	dropdown <- 1
+	for (iii in c(1:6)) {
+		if (iii==1) { bholes <- c(1,2) } 
+		else if (iii==4) { bholes <- c(1,3) }
+		else { bholes <- c(1) }
+ 		koch_maze(depth=dep - dropdown,unit_len=ul*(3^(dropdown - 0.5)),clockwise=FALSE,draw_boundary=TRUE,boundary_holes=bholes,
+				boundary_hole_arrows=c(2,3))
+		turtle_forward(3^(dep-1) * ul*sqrt(3))
+		turtle_right(60)
+	}
+})
+```
+
+## Sierpinski Triangle
+
+```{r sierpinski,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+library(TurtleGraphics)
+library(mazealls)
+turtle_init(2500,2500,mode='clip')
+turtle_up()
+turtle_hide()
+turtle_do({
+	turtle_setpos(50,1250)
+	turtle_setangle(0)
+	sierpinski_maze(unit_len=19,depth=7,draw_boundary=TRUE,boundary_lines=TRUE,boundary_holes=c(1,3),color1='black',color2='gray60')
+})
+```
+
+### Sierpinski Carpet
+
+
+```{r sierpinski-carpet,cache=TRUE,eval=TRUE,echo=FALSE,fig.keep='last'}
+library(TurtleGraphics)
+library(mazealls)
+set.seed(12333)
+turtle_init(800,1000)
+turtle_up()
+turtle_hide()
+turtle_do({
+	turtle_setpos(50,450)
+	turtle_setangle(0)
+	sierpinski_carpet_maze(angle=80,unit_len=8,width=90,height=90,
+   draw_boundary=TRUE,boundary_holes=c(1,3),balance=1.5,color2='green')
+})
+```
+
+```{r menger-sponge,cache=TRUE,eval=TRUE,echo=FALSE,fig.keep='last'}
+library(TurtleGraphics)
+library(mazealls)
+set.seed(12333)
+turtle_init(2000,2000,mode='clip')
+turtle_hide()
+turtle_up()
+bholes <- list(c(1,2), c(1), c(2))
+turtle_do({
+ turtle_setpos(1000,1000)
+ turtle_setangle(180)
+ for (iii in c(1:3)) {
+	 mybhol <- bholes[[iii]]
+	 sierpinski_carpet_maze(angle=120,unit_len=11,width=81,height=81,
+		 draw_boundary=TRUE,boundary_lines=c(1,2,3),num_boundary_holes=0,
+		 boundary_holes=mybhol,balance=1.0,color2='green',
+		 start_from='corner')
+	 turtle_left(120)
+ }
+})
+```
+
+### Sierpinski Hexagon
+
+```{r sierpinski-hexagon,cache=TRUE,eval=TRUE,echo=FALSE,fig.keep='last'}
+library(TurtleGraphics)
+library(mazealls)
+set.seed(4224)
+turtle_init(1250,1100,mode='clip')
+turtle_up()
+turtle_hide()
+turtle_do({
+	turtle_setpos(50,550)
+	turtle_setangle(30)
+	sierpinski_hexagon_maze(depth=6,unit_len=9,boundary_lines=TRUE,
+													draw_boundary=TRUE,boundary_holes=c(1,3),
+													start_from='corner',
+													color1='black',color2='green',
+													style='sierpinski')
+})
+```
+
+
+## Hexaflake 
+
+```{r hexaflake,cache=TRUE,eval=TRUE,echo=FALSE,fig.keep='last'}
+library(TurtleGraphics)
+library(mazealls)
+# hexaflake
+set.seed(1144)
+long_side <- 2400
+inner_side <- long_side * sqrt(3)/2
+sidelen <- long_side / 2
+dep <- 3
+ul <- floor(sidelen / (3^dep))
+true_wid <- 2 * ul * 3^dep * sqrt(3)/2
+
+turtle_init(ceiling(1.1 * inner_side),ceiling(1.1*long_side),mode='clip')
+turtle_up()
+turtle_hide()
+turtle_do({
+  turtle_setpos(0.5 * (ceiling(1.1 * inner_side) - true_wid),0.55*long_side)
+  turtle_setangle(0)
+	hexaflake_maze(depth=dep,unit_len=floor(sidelen / (3^dep)),draw_boundary=TRUE,color2='gray80')
+})
+
+```
+
+
+
+
+## A rectangular spiral
+
+```{r rect-spiral,cache=TRUE,eval=TRUE,echo=FALSE,fig.keep='last'}
+
+rect_spiral <- function(unit_len,height,width,thickness=8L,angle=90,clockwise=TRUE,start_hole=FALSE) {
+	if (start_hole) { 
+		bholes <- 1
+		fourl_dist <- height-thickness
+	} else {
+		bholes <- 4
+		fourl_dist <- height
+	}
+
+	last_one <- (width < thickness)
+	if (last_one) {
+		blines <- 1:4
+		bholes <- c(3,bholes)
+	} else {
+		blines <- c(1,2,4)
+	}
+	blocs <- - sample.int(n=thickness,size=4,replace=TRUE)
+
+	parallelogram_maze(unit_len=unit_len,
+										 height=thickness,width=fourl_dist,
+										 angle=180-angle,
+										 start_from='corner',clockwise=clockwise,
+										 draw_boundary=TRUE,boundary_lines=blines,
+										 boundary_holes=bholes,boundary_hole_locations=blocs,
+										 end_side=3)
+	if (clockwise) { turtle_left(angle) } else { turtle_right(angle) }
+
+	if (!last_one) {
+		rect_spiral(unit_len,height=width,width=height-thickness,
+								thickness=thickness,angle=180-angle,clockwise=clockwise,start_hole=FALSE)
+	}
+}
+
+set.seed(1111)
+turtle_init(2500,2500,mode='clip')
+turtle_up()
+turtle_hide()
+turtle_do({
+	turtle_setpos(300,50)
+	turtle_setangle(270)
+	rect_spiral(unit_len=20,110,90,thickness=15,angle=80,start_hole=TRUE)
+})
+```
+
+
+## A double rectangular spiral
+
+```{r rect-double-spiral,cache=TRUE,eval=TRUE,echo=FALSE,fig.keep='last'}
+double_spiral <- function(unit_len,height,width,thickness=8L,angle=90,clockwise=TRUE,start_hole=TRUE,color1='black',color2='black') {
+	len1 <- height - thickness
+	bline1 <- c(1,2,4)
+	bline2 <- c(1,3,4)
+	bhole1 <- c(2)
+	if (start_hole) { 
+		len2 <- len1
+		bline2 <- c(bline2,2)
+		bhole1 <- c(bhole1,4)
+	} else {
+		len2 <- len1 - 2 * thickness
+	}
+	blocs1 <- - sample.int(n=thickness,size=4,replace=TRUE)
+	blocs2 <- - sample.int(n=thickness,size=4,replace=TRUE)
+	last_one <- (min(len1,len2) <= 0) || (width <= 2*thickness)
+	if (last_one) {
+		bhole2 <- c(4)
+	} else {
+		bhole2 <- c(3)
+	}
+	if (start_hole) { 
+		bhole2 <- c(bhole2,2)
+	}
+	second_stripe <- ((len2 > 0) && (width > thickness))
+
+	if (len1 > 0) {
+		turtle_col(color1)
+		parallelogram_maze(unit_len=unit_len,
+											 height=len1,width=thickness,
+											 angle=angle,
+											 start_from='corner',clockwise=clockwise,
+											 draw_boundary=TRUE,boundary_lines=bline1,
+											 boundary_holes=bhole1,boundary_hole_locations=blocs1,
+											 end_side=ifelse(len2 > 0,3,2))
+		if (second_stripe) {
+			wid2 <- min(thickness,width-thickness)
+			turtle_col(color2)
+			parallelogram_maze(unit_len=unit_len,
+												 height=len2,width=wid2,
+												 angle=180-angle,
+												 start_from='corner',clockwise=!clockwise,
+												 draw_boundary=TRUE,boundary_lines=bline2,
+												 boundary_holes=bhole2,boundary_hole_locations=blocs2,
+												 end_side=4)
+			turtle_col(color1)
+
+			turtle_forward(unit_len*(thickness+wid2))
+			if (clockwise) {
+				turtle_right(180-angle)
+			} else {
+				turtle_left(180-angle)
+			}
+			turtle_forward(unit_len*thickness)
+			if (clockwise) {
+				turtle_right(angle)
+			} else {
+				turtle_left(angle)
+			}
+		}
+	}
+	next_height <- width
+	next_width <- ifelse(start_hole,height,height-2*thickness)
+
+	if (last_one) {
+		if (second_stripe) {
+			parallelogram_maze(unit_len=unit_len,height=next_height,width=thickness,
+												 start_from='corner',
+												 angle=180-angle,clockwise=clockwise)
+		} else {
+			parallelogram_maze(unit_len=unit_len,height=next_height,width=thickness,
+												 start_from='corner',
+												 angle=angle,clockwise=!clockwise)
+		}
+	} else {
+		double_spiral(unit_len,height=next_height,width=next_width,thickness=thickness,
+									angle=180-angle,clockwise=clockwise,start_hole=FALSE,
+									color1=color1,color2=color2)
+	}
+}
+
+set.seed(1111)
+turtle_init(2500,2500,mode='clip')
+turtle_up()
+turtle_hide()
+turtle_do({
+	turtle_setpos(300,50)
+	turtle_setangle(0)
+	double_spiral(unit_len=20,height=100,width=100,thickness=10,angle=80,start_hole=TRUE,color2='gray40')
+})
+```
+
+
+## A boustrophedon
+
+
+```{r rect-boustrophedon,cache=TRUE,eval=TRUE,echo=FALSE,fig.keep='last'}
+
+boustro <- function(unit_len,height,width,thickness=8L,angle=90,clockwise=TRUE,start_hole=TRUE,balance=0) {
+	if (start_hole) { 
+		bholes <- c(1,3)
+		blines <- 1:4
+	} else {
+		bholes <- c(1,3)
+		blines <- 2:4
+	}
+
+	last_one <- (width < thickness)
+	blocs <- sample.int(n=thickness,size=4,replace=TRUE)
+
+	parallelogram_maze(unit_len=unit_len,
+										 height=height,width=thickness,
+										 angle=angle,
+										 balance=balance,
+										 start_from='corner',clockwise=clockwise,
+										 draw_boundary=TRUE,boundary_lines=blines,
+										 boundary_holes=bholes,boundary_hole_locations=blocs,
+										 end_side=3)
+	if (!last_one) {
+		boustro(unit_len,height=height,width=width-thickness,thickness=thickness,angle=180-angle,clockwise=!clockwise,start_hole=FALSE,balance=balance)
+	}
+}
+
+turtle_init(2500,2500,mode='clip')
+turtle_up()
+turtle_hide()
+turtle_do({
+	turtle_setpos(100,50)
+	turtle_setangle(0)
+	boustro(unit_len=26,height=82,width=80,thickness=8,angle=85,balance=1.5)
+})
+```
+
