@@ -22,22 +22,6 @@
 
 ## Sierpinski Triangle
 
-
-```r
-library(TurtleGraphics)
-library(mazealls)
-turtle_init(2500, 2500, mode = "clip")
-turtle_up()
-turtle_hide()
-turtle_do({
-    turtle_setpos(50, 1250)
-    turtle_setangle(0)
-    sierpinski_maze(unit_len = 19, depth = 7, draw_boundary = TRUE, 
-        boundary_lines = TRUE, boundary_holes = c(1, 
-            3), color1 = "black", color2 = "gray60")
-})
-```
-
 <img src="nodist/ignore/figures_sierpinski-1.png" title="plot of chunk sierpinski" alt="plot of chunk sierpinski" width="700px" height="700px" />
 
 ### Sierpinski Carpet
@@ -45,15 +29,11 @@ turtle_do({
 
 <img src="nodist/ignore/figures_sierpinski-carpet-1.png" title="plot of chunk sierpinski-carpet" alt="plot of chunk sierpinski-carpet" width="700px" height="700px" />
 
-<img src="nodist/ignore/figures_menger-sponge-1.png" title="plot of chunk menger-sponge" alt="plot of chunk menger-sponge" width="700px" height="700px" />
+
 
 ### Sierpinski Hexagon
 
 <img src="nodist/ignore/figures_sierpinski-hexagon-1.png" title="plot of chunk sierpinski-hexagon" alt="plot of chunk sierpinski-hexagon" width="700px" height="700px" />
-
-```
-## Error in sierpinski_hexagon_maze(depth = 6, unit_len = 9, boundary_lines = TRUE, : could not find function "sierpinski_hexagon_maze"
-```
 
 
 ## Hexaflake 

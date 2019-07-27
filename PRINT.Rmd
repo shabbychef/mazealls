@@ -159,9 +159,10 @@ turtle_do({
 
 ## Sierpinski Triangle
 
-```{r sierpinski,cache=TRUE,eval=TRUE,echo=TRUE,fig.keep='last'}
+```{r sierpinski,cache=TRUE,eval=TRUE,echo=FALSE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
+set.seed(190)
 turtle_init(2500,2500,mode='clip')
 turtle_up()
 turtle_hide()
@@ -190,7 +191,7 @@ turtle_do({
 })
 ```
 
-```{r menger-sponge,cache=TRUE,eval=TRUE,echo=FALSE,fig.keep='last'}
+```{r menger-sponge,cache=TRUE,eval=FALSE,echo=FALSE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
 set.seed(12333)
@@ -217,7 +218,7 @@ turtle_do({
 ```{r sierpinski-hexagon,cache=TRUE,eval=TRUE,echo=FALSE,fig.keep='last'}
 library(TurtleGraphics)
 library(mazealls)
-set.seed(4224)
+set.seed(42)
 turtle_init(1250,1100,mode='clip')
 turtle_up()
 turtle_hide()
