@@ -31,11 +31,6 @@
 
 
 
-### Sierpinski Hexagon
-
-<img src="nodist/ignore/figures_sierpinski-hexagon-1.png" title="plot of chunk sierpinski-hexagon" alt="plot of chunk sierpinski-hexagon" width="700px" height="700px" />
-
-
 ## Hexaflake 
 
 <img src="nodist/ignore/figures_hexaflake-1.png" title="plot of chunk hexaflake" alt="plot of chunk hexaflake" width="700px" height="700px" />
