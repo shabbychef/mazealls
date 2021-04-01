@@ -2,7 +2,7 @@
 
 # mazealls
 
-[![Build Status](https://travis-ci.org/shabbychef/mazealls.png)](https://travis-ci.org/shabbychef/mazealls)
+[![Build Status](https://github.com/shabbychef/mazealls/workflows/R-CMD-check/badge.svg)](https://github.com/shabbychef/mazealls/actions)
 [![codecov.io](http://codecov.io/github/shabbychef/mazealls/coverage.svg?branch=master)](http://codecov.io/github/shabbychef/mazealls?branch=master)
 [![CRAN](http://www.r-pkg.org/badges/version-ago/mazealls)](https://cran.r-project.org/package=mazealls)
 [![Downloads](http://cranlogs.r-pkg.org/badges/mazealls?color=brightgreen)](http://www.r-pkg.org/pkg/mazealls)

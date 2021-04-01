@@ -36,3 +36,4 @@ mazealls.pdf
 fooz
 .Rd2pdf*
 submodule_directions.sh
+^\.github$
