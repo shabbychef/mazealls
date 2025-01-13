@@ -4,8 +4,16 @@
 \alias{holey_path}
 \title{holey_path .}
 \usage{
-holey_path(unit_len, lengths, angles, draw_line = TRUE, has_hole = FALSE,
-  hole_color = NULL, hole_locations = NULL, hole_arrows = FALSE)
+holey_path(
+  unit_len,
+  lengths,
+  angles,
+  draw_line = TRUE,
+  has_hole = FALSE,
+  hole_color = NULL,
+  hole_locations = NULL,
+  hole_arrows = FALSE
+)
 }
 \arguments{
 \item{unit_len}{the unit length in graph coordinates. This controls

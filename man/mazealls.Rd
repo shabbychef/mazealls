@@ -2,8 +2,8 @@
 % Please edit documentation in R/mazealls.r
 \docType{package}
 \name{mazealls}
-\alias{mazealls}
 \alias{mazealls-package}
+\alias{mazealls}
 \title{generate recursive mazes}
 \description{
 Generate recursive mazes.
@@ -89,7 +89,18 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/shabbychef/mazealls}
+  \item Report bugs at \url{https://github.com/shabbychef/mazealls/issues}
+}
+
+}
 \author{
 Steven E. Pav \email{shabbychef@gmail.com}
+
+\strong{Maintainer}: Steven E. Pav \email{shabbychef@gmail.com} (\href{https://orcid.org/0000-0002-4197-6195}{ORCID})
+
 }
 \keyword{package}

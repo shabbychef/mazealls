@@ -4,14 +4,24 @@
 \alias{sierpinski_hexagon_maze}
 \title{sierpinski_hexagon_maze .}
 \usage{
-sierpinski_hexagon_maze(depth, unit_len, clockwise = TRUE,
-  start_from = c("midpoint", "corner"), style = c("sierpinski",
-  "four_triangles", "hexaflake", "reverse_flake", "outer_flake", "dragon_left",
-  "dragon_right", "dragon_leftright", "dragon_rightleft"), color1 = "black",
-  color2 = "gray40", draw_boundary = FALSE, num_boundary_holes = 2,
-  boundary_lines = TRUE, boundary_holes = NULL,
-  boundary_hole_color = NULL, boundary_hole_locations = NULL,
-  boundary_hole_arrows = FALSE, end_side = 1)
+sierpinski_hexagon_maze(
+  depth,
+  unit_len,
+  clockwise = TRUE,
+  start_from = c("midpoint", "corner"),
+  style = c("sierpinski", "four_triangles", "hexaflake", "reverse_flake", "outer_flake",
+    "dragon_left", "dragon_right", "dragon_leftright", "dragon_rightleft"),
+  color1 = "black",
+  color2 = "gray40",
+  draw_boundary = FALSE,
+  num_boundary_holes = 2,
+  boundary_lines = TRUE,
+  boundary_holes = NULL,
+  boundary_hole_color = NULL,
+  boundary_hole_locations = NULL,
+  boundary_hole_arrows = FALSE,
+  end_side = 1
+)
 }
 \arguments{
 \item{depth}{the depth of recursion. This controls the side length.

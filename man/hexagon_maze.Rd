@@ -4,13 +4,22 @@
 \alias{hexagon_maze}
 \title{hexagon_maze .}
 \usage{
-hexagon_maze(depth, unit_len, clockwise = TRUE, method = c("two_trapezoids",
-  "six_triangles", "three_parallelograms", "random"),
-  start_from = c("midpoint", "corner"), boustro = c(1, 1),
-  draw_boundary = FALSE, num_boundary_holes = 2, boundary_lines = TRUE,
-  boundary_holes = NULL, boundary_hole_color = NULL,
-  boundary_hole_locations = NULL, boundary_hole_arrows = FALSE,
-  end_side = 1)
+hexagon_maze(
+  depth,
+  unit_len,
+  clockwise = TRUE,
+  method = c("two_trapezoids", "six_triangles", "three_parallelograms", "random"),
+  start_from = c("midpoint", "corner"),
+  boustro = c(1, 1),
+  draw_boundary = FALSE,
+  num_boundary_holes = 2,
+  boundary_lines = TRUE,
+  boundary_holes = NULL,
+  boundary_hole_color = NULL,
+  boundary_hole_locations = NULL,
+  boundary_hole_arrows = FALSE,
+  end_side = 1
+)
 }
 \arguments{
 \item{depth}{the depth of recursion. This controls the

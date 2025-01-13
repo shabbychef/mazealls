@@ -4,13 +4,23 @@
 \alias{eq_triangle_maze}
 \title{eq_triangle_maze .}
 \usage{
-eq_triangle_maze(depth, unit_len, clockwise = TRUE,
+eq_triangle_maze(
+  depth,
+  unit_len,
+  clockwise = TRUE,
   method = c("stack_trapezoids", "triangles", "uniform", "two_ears", "random",
-  "hex_and_three", "shave_all", "shave"), start_from = c("midpoint",
-  "corner"), boustro = c(1, 1), draw_boundary = FALSE,
-  num_boundary_holes = 2, boundary_lines = TRUE, boundary_holes = NULL,
-  boundary_hole_color = NULL, boundary_hole_locations = NULL,
-  boundary_hole_arrows = FALSE, end_side = 1)
+    "hex_and_three", "shave_all", "shave"),
+  start_from = c("midpoint", "corner"),
+  boustro = c(1, 1),
+  draw_boundary = FALSE,
+  num_boundary_holes = 2,
+  boundary_lines = TRUE,
+  boundary_holes = NULL,
+  boundary_hole_color = NULL,
+  boundary_hole_locations = NULL,
+  boundary_hole_arrows = FALSE,
+  end_side = 1
+)
 }
 \arguments{
 \item{depth}{the depth of recursion. This controls the side length.}

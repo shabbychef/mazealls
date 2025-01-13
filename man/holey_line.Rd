@@ -4,8 +4,14 @@
 \alias{holey_line}
 \title{holey_line .}
 \usage{
-holey_line(unit_len, num_segs, which_seg = NULL, go_back = FALSE,
-  hole_color = NULL, hole_arrow = FALSE)
+holey_line(
+  unit_len,
+  num_segs,
+  which_seg = NULL,
+  go_back = FALSE,
+  hole_color = NULL,
+  hole_arrow = FALSE
+)
 }
 \arguments{
 \item{unit_len}{the unit length in graph coordinates. This controls

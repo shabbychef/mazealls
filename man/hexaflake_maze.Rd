@@ -4,11 +4,22 @@
 \alias{hexaflake_maze}
 \title{hexaflake_maze .}
 \usage{
-hexaflake_maze(depth, unit_len, clockwise = TRUE, start_from = c("midpoint",
-  "corner"), color1 = "black", color2 = "gray40", draw_boundary = FALSE,
-  num_boundary_holes = 2, boundary_lines = TRUE, boundary_holes = NULL,
-  boundary_hole_color = NULL, boundary_hole_locations = NULL,
-  boundary_hole_arrows = FALSE, end_side = 1)
+hexaflake_maze(
+  depth,
+  unit_len,
+  clockwise = TRUE,
+  start_from = c("midpoint", "corner"),
+  color1 = "black",
+  color2 = "gray40",
+  draw_boundary = FALSE,
+  num_boundary_holes = 2,
+  boundary_lines = TRUE,
+  boundary_holes = NULL,
+  boundary_hole_color = NULL,
+  boundary_hole_locations = NULL,
+  boundary_hole_arrows = FALSE,
+  end_side = 1
+)
 }
 \arguments{
 \item{depth}{the depth of recursion. This controls the side length.

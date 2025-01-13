@@ -4,12 +4,21 @@
 \alias{decagon_maze}
 \title{decagon_maze .}
 \usage{
-decagon_maze(depth, unit_len = 4L, clockwise = TRUE,
-  start_from = c("midpoint", "corner"), method = c("five_flower"),
-  draw_boundary = FALSE, num_boundary_holes = 2, boundary_lines = TRUE,
-  boundary_holes = NULL, boundary_hole_color = NULL,
-  boundary_hole_locations = NULL, boundary_hole_arrows = FALSE,
-  end_side = 1)
+decagon_maze(
+  depth,
+  unit_len = 4L,
+  clockwise = TRUE,
+  start_from = c("midpoint", "corner"),
+  method = c("five_flower"),
+  draw_boundary = FALSE,
+  num_boundary_holes = 2,
+  boundary_lines = TRUE,
+  boundary_holes = NULL,
+  boundary_hole_color = NULL,
+  boundary_hole_locations = NULL,
+  boundary_hole_arrows = FALSE,
+  end_side = 1
+)
 }
 \arguments{
 \item{depth}{the depth of recursion. This controls the side length.}

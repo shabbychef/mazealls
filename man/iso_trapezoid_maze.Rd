@@ -4,12 +4,22 @@
 \alias{iso_trapezoid_maze}
 \title{iso_trapezoid_maze .}
 \usage{
-iso_trapezoid_maze(depth, unit_len = 4L, clockwise = TRUE,
-  start_from = c("midpoint", "corner"), method = c("four_trapezoids",
-  "one_ear", "random"), boustro = c(1, 1), draw_boundary = FALSE,
-  num_boundary_holes = 2, boundary_lines = TRUE, boundary_holes = NULL,
-  boundary_hole_color = NULL, boundary_hole_locations = NULL,
-  boundary_hole_arrows = FALSE, end_side = 1)
+iso_trapezoid_maze(
+  depth,
+  unit_len = 4L,
+  clockwise = TRUE,
+  start_from = c("midpoint", "corner"),
+  method = c("four_trapezoids", "one_ear", "random"),
+  boustro = c(1, 1),
+  draw_boundary = FALSE,
+  num_boundary_holes = 2,
+  boundary_lines = TRUE,
+  boundary_holes = NULL,
+  boundary_hole_color = NULL,
+  boundary_hole_locations = NULL,
+  boundary_hole_arrows = FALSE,
+  end_side = 1
+)
 }
 \arguments{
 \item{depth}{the depth of recursion. This controls the

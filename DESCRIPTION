@@ -42,4 +42,4 @@ Collate:
     'sierpinski_maze.r'
     'sierpinski_trapezoid_maze.r'
     'utils.r'
-RoxygenNote: 6.0.1
+RoxygenNote: 7.3.2

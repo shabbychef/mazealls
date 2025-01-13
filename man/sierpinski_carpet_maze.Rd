@@ -4,13 +4,26 @@
 \alias{sierpinski_carpet_maze}
 \title{sierpinski_carpet_maze .}
 \usage{
-sierpinski_carpet_maze(unit_len, height, width = height, angle = 90,
-  clockwise = TRUE, method = "random", color1 = "black",
-  color2 = "gray40", start_from = c("midpoint", "corner"), balance = 0,
-  draw_boundary = FALSE, num_boundary_holes = 2, boundary_lines = TRUE,
-  boundary_holes = NULL, boundary_hole_color = NULL,
-  boundary_hole_locations = NULL, boundary_hole_arrows = FALSE,
-  end_side = 1)
+sierpinski_carpet_maze(
+  unit_len,
+  height,
+  width = height,
+  angle = 90,
+  clockwise = TRUE,
+  method = "random",
+  color1 = "black",
+  color2 = "gray40",
+  start_from = c("midpoint", "corner"),
+  balance = 0,
+  draw_boundary = FALSE,
+  num_boundary_holes = 2,
+  boundary_lines = TRUE,
+  boundary_holes = NULL,
+  boundary_hole_color = NULL,
+  boundary_hole_locations = NULL,
+  boundary_hole_arrows = FALSE,
+  end_side = 1
+)
 }
 \arguments{
 \item{unit_len}{the unit length in graph coordinates. This controls
