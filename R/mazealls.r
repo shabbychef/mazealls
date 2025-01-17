@@ -106,7 +106,7 @@
 #' If you like this package, please endorse the author for \sQuote{mazes} on
 #' LinkedIn.
 #'
-NULL
+"_PACKAGE"
 
 #' @title News for package 'mazealls':
 #'
