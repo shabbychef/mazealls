@@ -39,7 +39,7 @@ if (require(devtools)) {
 }
 ```
 
-# parallelogram maze
+# Parallelogram maze
 
 The simplest maze to generate recursively is a parallelogram. One can generate
 a parallelogram maze by splitting the domain into two parts by an arbitrary
@@ -108,7 +108,35 @@ turtle_do({
 <p class="caption">plot of chunk para-imbalance-fade</p>
 </div>
 
-# triangle maze
+## Hilbert Curve maze
+
+The `parallelogram_maze` can be drawn in a Hilbert Curve:
+
+
+``` r
+library(TurtleGraphics)
+library(mazealls)
+turtle_init(1020, 1020, mode = "clip")
+turtle_hide()
+turtle_up()
+turtle_do({
+    turtle_setpos(15, 15)
+    turtle_setangle(0)
+    parallelogram_maze(angle = 90, unit_len = 10, width = 96,
+        height = 96, method = "hilbert", hilbert_balance = 4,
+        height_boustro = c(30, 2), width_boustro = c(30,
+            2), boundary_holes = c(1, 4), start_from = "corner",
+        boundary_hole_locations = c(1, 1, 1, 1), draw_boundary = TRUE)
+})
+```
+
+<div class="figure">
+<img src="man/figures/para-hilbert-1.png" alt="plot of chunk para-hilbert" width="700px" height="700px" />
+<p class="caption">plot of chunk para-hilbert</p>
+</div>
+
+
+# Triangle maze
 
 An equilateral triangle maze can be constructed in a number of different ways:
 
@@ -282,7 +310,7 @@ turtle_do({
 <p class="caption">plot of chunk eq-tri-shave-all</p>
 </div>
 
-# hexagon maze
+# Hexagon maze
 
 
 An regular hexagonal maze can be constructed in a number of different ways:
@@ -361,7 +389,7 @@ turtle_do({
 <p class="caption">plot of chunk hex-parallelo</p>
 </div>
 
-# dodecagon maze
+# Dodecagon maze
 
 A dodecagon can be dissected into a hexagon and a ring of alternating
 squares and equilateral triangles:
@@ -388,7 +416,7 @@ turtle_do({
 <p class="caption">plot of chunk simple-dodecagon</p>
 </div>
 
-# trapezoid maze
+# Trapezoid maze
 
 
 An isosceles trapezoid maze can be constructed in a number of different ways:

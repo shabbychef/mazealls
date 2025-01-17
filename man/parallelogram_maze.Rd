@@ -12,7 +12,6 @@ parallelogram_maze(
   clockwise = TRUE,
   method = c("two_parallelograms", "four_parallelograms", "uniform", "random", "hilbert"),
   start_from = c("midpoint", "corner"),
-  hilbert_order = 1,
   hilbert_balance = 1,
   balance = 0,
   height_boustro = c(1, 1),
@@ -57,14 +56,11 @@ parallelogram mazes with three holey lines and one solid line between them.}
 parallelogram mazes with three holey lines and one solid line between them.
 Sub-mazes are chosen to be nearly equal in size.}
 \item{hilbert}{The parallelogram maze is built as for parallelogram mazes
-with a U-shaped connection between them, each hilbert mazes with different
-\code{hilbert_order}.}
+with a U-shaped connection between them.}
 }}
 
 \item{start_from}{whether to start from the midpoint of the first side
 of a maze, or from the corner facing the first side.}
-
-\item{hilbert_order}{an integer from 1 to 4 indicating which Hilbert maze.}
 
 \item{balance}{for the \code{two_parallelograms} method, we choose whether
 to split on height or width based on a balance condition. The log odds
@@ -233,19 +229,18 @@ turtle_do({
 		 start_from='corner',draw_boundary=TRUE)
 })
 
-# a hilberty maze
-testit <- function() { 
-turtle_init(500,500,mode='clip')
+# a Hilbert Curve maze
+turtle_init(510,510,mode='clip')
 turtle_hide()
 turtle_up()
 turtle_do({
  turtle_setpos(15,15)
  turtle_setangle(0)
- parallelogram_maze(angle=90,unit_len=10,width=32,height=32,
-    method='hilbert',hilbert_balance=8,
-		 start_from='corner',draw_boundary=TRUE)
+ parallelogram_maze(angle=90,unit_len=10,width=48,height=48,
+    method='hilbert',hilbert_balance=3,
+    height_boustro=c(10,2),width_boustro=c(10,2),
+    boundary_holes=c(1,4),start_from='corner',boundary_hole_locations=c(1,1,1,1),draw_boundary=TRUE)
 })
-}
 
 }
 \author{
