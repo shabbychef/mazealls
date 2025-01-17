@@ -183,9 +183,16 @@ draw_colored_line <- function(distance,color) {
 						 hole_arrows=boundary_hole_arrows)
 }
 
+.center <- function(x,na.rm=TRUE) {
+	x - mean(x,na.rm=na.rm)
+}
+
 # sample from a 'discrete' beta distribution
 .rboustro <- function(n,boustro=c(1,1),nsegs=100L) {
-	sample(nsegs,size=n,prob=stats::dbeta(stats::ppoints(nsegs),shape1=boustro[1],shape2=boustro[2]),replace=TRUE)
+	sample(nsegs,
+				 size=n,
+				 prob=exp(.center(stats::dbeta(stats::ppoints(nsegs),shape1=boustro[1],shape2=boustro[2],log=TRUE))),
+				 replace=TRUE)
 }
 
 #for vim modeline: (do not edit)
