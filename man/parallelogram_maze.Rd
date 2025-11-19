@@ -152,7 +152,7 @@ segments of length \code{unit_len}. The second and fourth side consist of
 \code{angle}. Here is an example maze:
 
 \if{html}{
-\figure{para-maze-1.png}{options: width="100\%" alt="Figure: parallelogram maze"}
+\figure{para-maze-1.png}{options: style="width: 100\%" alt="Figure: parallelogram maze"}
 }
 \if{latex}{
 \figure{para-maze-1.png}{options: width=7cm}
@@ -165,7 +165,7 @@ create seven mazes created side by side with an increasing balance
 parameter:
 
 \if{html}{
-\figure{para-imbalance-fade-1.png}{options: width="100\%" alt="Figure: parallelogram maze"}
+\figure{para-imbalance-fade-1.png}{options: style="width: 100\%" alt="Figure: parallelogram maze"}
 }
 \if{latex}{
 \figure{para-imbalance-fade-1.png}{options: width=7cm}

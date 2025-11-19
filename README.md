@@ -709,14 +709,6 @@ library(mazealls)
 turtle_init(1250, 1100, mode = "clip")
 turtle_up()
 turtle_hide()
-```
-
-<div class="figure">
-<img src="man/figures/sierpinski-hexagon-1.png" alt="plot of chunk sierpinski-hexagon" width="700px" height="700px" />
-<p class="caption">plot of chunk sierpinski-hexagon</p>
-</div>
-
-``` r
 turtle_do({
     turtle_setpos(50, 550)
     turtle_setangle(30)
@@ -727,9 +719,10 @@ turtle_do({
 })
 ```
 
-```
-## Error in sierpinski_hexagon_maze(depth = 6, unit_len = 9, boundary_lines = TRUE, : could not find function "sierpinski_hexagon_maze"
-```
+<div class="figure">
+<img src="man/figures/sierpinski-hexagon-1.png" alt="plot of chunk sierpinski-hexagon" width="700px" height="700px" />
+<p class="caption">plot of chunk sierpinski-hexagon</p>
+</div>
 
 
 ## Hexaflake 

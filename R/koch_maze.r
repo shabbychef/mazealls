@@ -83,7 +83,7 @@
 #' of length \code{unit_len}.
 #'
 #' \if{html}{
-#' \figure{koch-flake-1.png}{options: width="100\%" alt="Figure: Koch snowflake"}
+#' \figure{koch-flake-1.png}{options: style="width: 100\%" alt="Figure: Koch snowflake"}
 #' }
 #' \if{latex}{
 #' \figure{koch-flake-1.png}{options: width=7cm}

@@ -130,7 +130,7 @@ A number of different methods are supported.
 For \code{method='two_trapezoids'}:
 
 \if{html}{
-\figure{hex-trapezoids-1.png}{options: width="100\%" alt="Figure: two trapezoids"}
+\figure{hex-trapezoids-1.png}{options: style="width: 100\%" alt="Figure: two trapezoids"}
 }
 \if{latex}{
 \figure{hex-trapezoids-1.png}{options: width=7cm}
@@ -139,7 +139,7 @@ For \code{method='two_trapezoids'}:
 For \code{method='six_trapezoids'}:
 
 \if{html}{
-\figure{hex-triangles-1.png}{options: width="100\%" alt="Figure: six triangles"}
+\figure{hex-triangles-1.png}{options: style="width: 100\%" alt="Figure: six triangles"}
 }
 \if{latex}{
 \figure{hex-triangles-1.png}{options: width=7cm}
@@ -148,7 +148,7 @@ For \code{method='six_trapezoids'}:
 For \code{method='three_trapezoids'}:
 
 \if{html}{
-\figure{hex-parallelo-1.png}{options: width="100\%" alt="Figure: three parallelograms"}
+\figure{hex-parallelo-1.png}{options: style="width: 100\%" alt="Figure: three parallelograms"}
 }
 \if{latex}{
 \figure{hex-parallelo-1.png}{options: width=7cm}
