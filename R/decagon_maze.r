@@ -35,7 +35,7 @@
 #' into rhombuses.
 #'
 #' \if{html}{
-#' \figure{simple-decagon-1.png}{options: style="width: 100\%" alt="Figure: five flower decagon"}
+#' \figure{simple-decagon-1.png}{options: style="width: 100\%;" alt="Figure: five flower decagon"}
 #' }
 #' \if{latex}{
 #' \figure{simple-decagon-1.png}{options: width=7cm}

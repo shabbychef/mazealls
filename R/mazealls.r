@@ -39,7 +39,7 @@
 #' unit lengths in a stack of trapezoids
 #'
 #' \if{html}{
-#' \figure{unit-len-stack-trap-1.png}{options: style="width: 100\%" alt="Figure: Stacked trapezoids"}
+#' \figure{unit-len-stack-trap-1.png}{options: style="width: 100\%;" alt="Figure: Stacked trapezoids"}
 #' }
 #' \if{latex}{
 #' \figure{unit-len-stack-trap-1.png}{options: width=7cm}
@@ -67,7 +67,7 @@
 #' numerical array indicating which sides should have boundary hole arrows.
 #'
 #' \if{html}{
-#' \figure{boundary-stuff-1.png}{options: style="width: 100\%" alt="Figure: Boundary Examples"}
+#' \figure{boundary-stuff-1.png}{options: style="width: 100\%;" alt="Figure: Boundary Examples"}
 #' }
 #' \if{latex}{
 #' \figure{boundary-stuff-1.png}{options: width=7cm}
@@ -117,7 +117,7 @@
 #' \newcommand{\CRANpkg}{\href{https://cran.r-project.org/package=#1}{\pkg{#1}}}
 #' \newcommand{\mazealls}{\CRANpkg{mazealls}}
 #'
-#' @section \mazealls{} Version 0.2.1 (2025-11-18) :
+#' @section \mazealls{} Version 0.2.1 (2025-11-26) :
 #' \itemize{
 #' \item fixing figure width styling for CRAN.
 #' \item adding Hilbert space filling parallelogram mazes.

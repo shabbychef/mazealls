@@ -103,7 +103,7 @@ six surrounding hexagons are recursively drawn as hexaflakes,
 connected by 12 equilateral triangles, drawn in the secondary color:
 
 \if{html}{
-\figure{hexaflake-1.png}{options: style="width: 100\%" alt="Figure: Hexaflake maze"}
+\figure{hexaflake-1.png}{options: style="width: 100\%;" alt="Figure: Hexaflake maze"}
 }
 \if{latex}{
 \figure{hexaflake-1.png}{options: width=7cm}

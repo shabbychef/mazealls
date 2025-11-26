@@ -41,7 +41,7 @@
 #' \code{angle}. Here is an example maze:
 #'
 #' \if{html}{
-#' \figure{para-maze-1.png}{options: style="width: 100\%" alt="Figure: parallelogram maze"}
+#' \figure{para-maze-1.png}{options: style="width: 100\%;" alt="Figure: parallelogram maze"}
 #' }
 #' \if{latex}{
 #' \figure{para-maze-1.png}{options: width=7cm}
@@ -54,7 +54,7 @@
 #' parameter:
 #'
 #' \if{html}{
-#' \figure{para-imbalance-fade-1.png}{options: style="width: 100\%" alt="Figure: parallelogram maze"}
+#' \figure{para-imbalance-fade-1.png}{options: style="width: 100\%;" alt="Figure: parallelogram maze"}
 #' }
 #' \if{latex}{
 #' \figure{para-imbalance-fade-1.png}{options: width=7cm}
@@ -111,6 +111,9 @@
 #' Note that balance is positive and large, you tend to generate nearly
 #' uniform splits. When balance is negative and large, you tend to have
 #' imbalanced mazes, and the imbalance propagates.
+#' @param hilbert_balance this is essentially the balance parameter 
+#' but for the \code{hilbert} method, controlling horizontal and vertical
+#' splits.
 #'
 #' @examples
 #'

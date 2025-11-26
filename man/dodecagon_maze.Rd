@@ -99,7 +99,7 @@ Draws a maze in a regular dodecagon. Currently dissects the maze
 into a hexagon and a ring of squares and equilateral triangles.
 
 \if{html}{
-\figure{simple-dodecagon-1.png}{options: style="width: 100\%" alt="Figure: hex ring dodecagon"}
+\figure{simple-dodecagon-1.png}{options: style="width: 100\%;" alt="Figure: hex ring dodecagon"}
 }
 \if{latex}{
 \figure{simple-dodecagon-1.png}{options: width=7cm}

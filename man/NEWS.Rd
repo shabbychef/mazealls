@@ -9,7 +9,7 @@ News for package \sQuote{mazealls}
 \newcommand{\CRANpkg}{\href{https://cran.r-project.org/package=#1}{\pkg{#1}}}
 \newcommand{\mazealls}{\CRANpkg{mazealls}}
 }
-\section{\mazealls{} Version 0.2.1 (2025-11-18) }{
+\section{\mazealls{} Version 0.2.1 (2025-11-26) }{
 
 \itemize{
 \item fixing figure width styling for CRAN.

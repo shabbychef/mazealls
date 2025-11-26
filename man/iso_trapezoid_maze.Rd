@@ -131,7 +131,7 @@ A number of different methods are supported.
 For \code{method='four_trapezoids'}:
 
 \if{html}{
-\figure{trap-four-1.png}{options: style="width: 100\%" alt="Figure: four trapezoids"}
+\figure{trap-four-1.png}{options: style="width: 100\%;" alt="Figure: four trapezoids"}
 }
 \if{latex}{
 \figure{trap-four-1.png}{options: width=7cm}
@@ -140,7 +140,7 @@ For \code{method='four_trapezoids'}:
 For \code{method='one_ear'}:
 
 \if{html}{
-\figure{trap-ear-1.png}{options: style="width: 100\%" alt="Figure: one ear"}
+\figure{trap-ear-1.png}{options: style="width: 100\%;" alt="Figure: one ear"}
 }
 \if{latex}{
 \figure{trap-ear-1.png}{options: width=7cm}

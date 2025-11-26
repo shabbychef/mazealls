@@ -97,7 +97,7 @@ of \eqn{2^{depth}} pieces of length \code{unit_len}.
 Draws a maze in a regular octagon via dissection into rhombuses.
 
 \if{html}{
-\figure{simple-octagon-1.png}{options: style="width: 100\%" alt="Figure: Amman Beenker octagon"}
+\figure{simple-octagon-1.png}{options: style="width: 100\%;" alt="Figure: Amman Beenker octagon"}
 }
 \if{latex}{
 \figure{simple-octagon-1.png}{options: width=7cm}

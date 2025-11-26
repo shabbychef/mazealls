@@ -127,10 +127,10 @@ turtle_do({
 	turtle_setpos(50,400)
 	turtle_setangle(30)
 	sierpinski_hexagon_maze(depth=4,unit_len=20,boundary_lines=TRUE,
-													draw_boundary=TRUE,boundary_holes=c(1,3),
-													start_from='corner',
-													color1='black',color2='green',
-													style='sierpinski')
+		draw_boundary=TRUE,boundary_holes=c(1,3),
+		start_from='corner',
+		color1='black',color2='green',
+		style='sierpinski')
 })
 
 }

@@ -37,3 +37,5 @@ fooz
 .Rd2pdf*
 submodule_directions.sh
 ^\.github$
+PRINT.Rmd
+PRINT.md

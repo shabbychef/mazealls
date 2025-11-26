@@ -62,6 +62,10 @@ with a U-shaped connection between them.}
 \item{start_from}{whether to start from the midpoint of the first side
 of a maze, or from the corner facing the first side.}
 
+\item{hilbert_balance}{this is essentially the balance parameter 
+but for the \code{hilbert} method, controlling horizontal and vertical
+splits.}
+
 \item{balance}{for the \code{two_parallelograms} method, we choose whether
 to split on height or width based on a balance condition. The log odds
 of choosing height over width is the factor \code{balance} times the 
@@ -152,7 +156,7 @@ segments of length \code{unit_len}. The second and fourth side consist of
 \code{angle}. Here is an example maze:
 
 \if{html}{
-\figure{para-maze-1.png}{options: style="width: 100\%" alt="Figure: parallelogram maze"}
+\figure{para-maze-1.png}{options: style="width: 100\%;" alt="Figure: parallelogram maze"}
 }
 \if{latex}{
 \figure{para-maze-1.png}{options: width=7cm}
@@ -165,7 +169,7 @@ create seven mazes created side by side with an increasing balance
 parameter:
 
 \if{html}{
-\figure{para-imbalance-fade-1.png}{options: style="width: 100\%" alt="Figure: parallelogram maze"}
+\figure{para-imbalance-fade-1.png}{options: style="width: 100\%;" alt="Figure: parallelogram maze"}
 }
 \if{latex}{
 \figure{para-imbalance-fade-1.png}{options: width=7cm}
